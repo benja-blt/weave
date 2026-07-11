@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/motion/axes.json",
+  "title": "Motion Axes",
+  "description": "Los 6 ejes ortogonales de L3 (ARCHITECTURE.md §L3). Un perfil = una combinación nombrada de un valor por eje. Este archivo NO decide nada: enumera los valores válidos y qué motor de motion/lib/engines los realiza. resolve.js degrada estos valores por device-tier + prefers-reduced-motion.",
+  "version": "1.0.0",
+  "axes": {
+    "entrance": {
+      "engine": "engines/entrance.js",
+      "values": {
+        "none": "Sin animación de entrada. Contenido visible de una.",
+        "fade": "Aparición por opacidad (sin desplazamiento). Barato.",
+        "reveal": "Fade + translateY con stagger por data-motion-order. IntersectionObserver, sin GSAP.",
+        "dramatic": "Reveal con mayor desplazamiento/mask. Reservado a perfiles altos (aún no implementado)."
+      }
+    },
+    "scroll": {
+      "engine": "engines/scroll.js",
+      "lazy": true,
+      "values": {
+        "none": "Sin efectos ligados al scroll.",
+        "parallax": "Desplazamiento suave del media al scrollear. Requiere GSAP+ScrollTrigger (lazy).",
+        "pin": "Fija una sección mientras avanza el contenido. Costo INP alto.",
+        "scrollytelling": "Secuencia narrada por scroll. Solo desktop tier alto."
+      }
+    },
+    "three": {
+      "engine": "engines/three (L4/Wave 3)",
+      "lazy": true,
+      "values": {
+        "none": "Sin WebGL.",
+        "ambient": "Escena de fondo liviana.",
+        "product": "Objeto 3D único rotable.",
+        "scene": "Escena completa. Solo tier alto."
+      }
+    },
+    "cursor": {
+      "engine": "engines/cursor.js",
+      "values": {
+        "default": "Cursor nativo.",
+        "custom": "Cursor dibujado por JS. Gated a tier alto.",
+        "magnetic": "Cursor + atracción a targets."
+      }
+    },
+    "transitions": {
+      "engine": "engines/scroll.js (Lenis)",
+      "values": {
+        "instant": "Scroll y navegación nativos.",
+        "smooth": "Smooth-scroll (Lenis). Se activa junto al eje scroll.",
+        "cinematic": "Smooth + transiciones de página elaboradas."
+      }
+    },
+    "hover": {
+      "engine": "engines/hover.js",
+      "values": {
+        "subtle": "Solo lo que ya trae el CSS del componente (color/underline).",
+        "rich": "Micro-interacción extra (magnetic en botones/items) vía pointer."
+      }
+    }
+  }
+}

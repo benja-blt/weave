@@ -1,0 +1,43 @@
+/* components/shared/button.css
+ * Botón base del sistema. SOLO tokens semánticos.
+ * Compartido por navbar / hero / cta para no duplicar ni acoplar componentes.
+ * Variantes:
+ *   --primary        sobre fondo de página
+ *   --ghost          sobre fondo de página, contorno
+ *   --on-accent      sobre fondo accent (ej. CTA banner): invierte
+ *   --ghost-invert   sobre fondo accent, contorno
+ */
+.plg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-inline) var(--space-gutter);
+  border-radius: var(--radius-button);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-heading);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color var(--motion-duration) var(--motion-ease),
+    color var(--motion-duration) var(--motion-ease),
+    border-color var(--motion-duration) var(--motion-ease);
+}
+.plg-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.plg-btn--primary { background: var(--color-accent); color: var(--color-accent-fg); }
+.plg-btn--primary:hover { background: var(--color-highlight); }
+
+.plg-btn--ghost { background: transparent; color: var(--color-fg); border-color: var(--color-border); }
+.plg-btn--ghost:hover { background: var(--color-surface-alt); }
+
+.plg-btn--on-accent { background: var(--color-surface); color: var(--color-accent); }
+.plg-btn--on-accent:hover { background: var(--color-accent-soft); }
+
+.plg-btn--ghost-invert { background: transparent; color: var(--color-accent-fg); border-color: var(--color-accent-fg); }
+.plg-btn--ghost-invert:hover { background: var(--color-highlight); border-color: var(--color-highlight); }

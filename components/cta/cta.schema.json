@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/components/cta/cta.schema.json",
+  "title": "CTA content",
+  "description": "Valida el `content` de una sección type=cta. contentRequired: headline, action.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["headline", "action"],
+  "properties": {
+    "eyebrow": { "type": "string" },
+    "headline": { "type": "string", "minLength": 1 },
+    "subhead": { "type": "string" },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "href"],
+      "properties": {
+        "label": { "type": "string" },
+        "href": { "type": "string" }
+      }
+    },
+    "secondary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "href"],
+      "properties": {
+        "label": { "type": "string" },
+        "href": { "type": "string" }
+      }
+    },
+    "media": {
+      "type": "object",
+      "description": "Panel visual OPCIONAL para variants con soporte (split / fullbleed). Mismo shape que hero.media, por consistencia. Opcional a propósito: banner y boxed no lo usan y siguen validando igual. El fallback (image/poster) es obligatorio si se pide un enhancement de video (ver page-schema).",
+      "additionalProperties": false,
+      "properties": {
+        "image": { "type": "string" },
+        "alt": { "type": "string" },
+        "video": { "type": "string" },
+        "poster": { "type": "string" },
+        "width": { "type": "number" },
+        "height": { "type": "number" }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+---
+// components/hero/variants/fullbleed-video.astro
+// Variant `fullbleed-video`: hero con video de fondo cinemático a pantalla completa.
+// Estructura idéntica a fullbleed-image (fondo edge-to-edge + scrim + texto claro): reusa las
+// MISMAS clases .plg-hero--fullbleed, así el contraste NO depende del asset (fondo sólido
+// --color-fg + scrim color-mix sobre token).
+//   - FALLBACK-FIRST: la imagen/poster se renderiza SIEMPRE y es el LCP (fetchpriority="high",
+//     sin lazy). Sin JS o en tier low = imagen estática premium con scrim. Nunca roto.
+//   - El video NO se monta acá: la variant solo expone el contrato data-enhance="video-bg"
+//     (+ src + fallback). assets/loaders/video.js lo monta ENCIMA del poster en runtime,
+//     gateado por device-tier. El crossfade vive en assets/assets.css.
+//   - media.image = poster/fallback ; media.video = src del enhancement. hero.schema.json ya
+//     declara ambos: no se inventan campos.
+import '../../../assets/assets.css';
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { eyebrow, headline, subhead, actions = [], media } = content;
+const img = media?.image;
+const enhanceKind = media?.video ? 'video-bg' : undefined;
+---
+<section
+  id={id}
+  class="plg-hero plg-hero--fullbleed"
+  data-hero-has-media={img ? 'true' : 'false'}
+  data-enhance={enhanceKind}
+  data-enhance-src={enhanceKind ? media.video : undefined}
+  data-enhance-fallback={enhanceKind ? (img ? 'poster' : 'static') : undefined}
+  data-motion={motionName}
+  data-motion-el="hero"
+>
+  {img && (
+    <img
+      class="plg-hero__bg"
+      src={img}
+      alt={media.alt ?? ''}
+      width={media.width}
+      height={media.height}
+      fetchpriority="high"
+      decoding="async"
+      data-motion-el="media"
+    />
+  )}
+  <div class="plg-hero__inner plg-hero__inner--fullbleed">
+    {eyebrow && (
+      <p class="plg-hero__eyebrow" data-motion-el="eyebrow" data-motion-order="0">{eyebrow}</p>
+    )}
+    <h1 class="plg-hero__headline" data-motion-el="headline" data-motion-order="1">{headline}</h1>
+    {subhead && (
+      <p class="plg-hero__subhead" data-motion-el="subhead" data-motion-order="2">{subhead}</p>
+    )}
+    {actions.length > 0 && (
+      <div class="plg-hero__actions" data-motion-el="actions" data-motion-order="3">
+        {actions.map((a: any) => (
+          <a class={`plg-btn plg-btn--${a.variant ?? 'primary'}`} href={a.href}>{a.label}</a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

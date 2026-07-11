@@ -1,0 +1,73 @@
+---
+// components/navbar/variants/transparent.astro
+// Variant `transparent`: barra sin fondo ni borde, pensada para montarse sobre un hero.
+// Estructura y a11y idénticas al default (disclosure nativo <details> → anda SIN JS).
+// El "se vuelve solid al scrollear" es enhancement de L3: acá NO hay scroll-JS. L3 puede
+// enganchar por [data-navbar-behavior="scroll-solidify"] y togglear .is-solid; el estado
+// base (transparente) es válido y no oculta contenido. El pairing de contraste contra el
+// hero es responsabilidad de la composición (qué hero se elige debajo).
+// En mobile, al abrir el menú, el dropdown ya trae fondo sólido (base CSS) → legible.
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { logo, links = [], actions = [] } = content;
+const menuId = `${id}-menu`;
+---
+<header
+  id={id}
+  class="plg-navbar plg-navbar--transparent"
+  data-motion={motionName}
+  data-motion-el="navbar"
+  data-navbar-behavior="scroll-solidify"
+>
+  <nav class="plg-navbar__inner" aria-label="Principal">
+    <a class="plg-navbar__logo" href={logo.href ?? '#'} data-motion-el="logo">
+      {logo.src
+        ? <img src={logo.src} alt={logo.alt ?? logo.text ?? 'Logo'} height="28" width="auto" />
+        : <span>{logo.text}</span>}
+    </a>
+
+    <details class="plg-navbar__disclosure">
+      <summary class="plg-navbar__burger" aria-label="Menú" aria-controls={menuId}>
+        <span></span><span></span><span></span>
+      </summary>
+    </details>
+
+    <ul class="plg-navbar__links" id={menuId}>
+      {links.map((l: any) => (
+        <li>
+          <a href={l.href} aria-current={l.current ? 'page' : undefined}>{l.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    {actions.length > 0 && (
+      <div class="plg-navbar__actions">
+        {actions.map((a: any) => (
+          <a class={`plg-btn plg-btn--${a.variant ?? 'primary'}`} href={a.href}>{a.label}</a>
+        ))}
+      </div>
+    )}
+  </nav>
+</header>
+
+<script>
+  // Enhancement progresivo (a11y). El abrir/cerrar base funciona SIN este script (native <details>).
+  (() => {
+    const close = (d, focusSummary) => {
+      d.open = false;
+      if (focusSummary) d.querySelector('summary')?.focus();
+    };
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      document.querySelectorAll('details.plg-navbar__disclosure[open]').forEach((d) => close(d, true));
+    });
+    document.querySelectorAll('details.plg-navbar__disclosure').forEach((d) => {
+      const menuId = d.querySelector('summary')?.getAttribute('aria-controls');
+      const menu = menuId ? document.getElementById(menuId) : null;
+      menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => close(d, false)));
+      document.addEventListener('click', (e) => {
+        if (d.open && !d.contains(e.target) && !(menu && menu.contains(e.target))) close(d, false);
+      });
+    });
+  })();
+</script>

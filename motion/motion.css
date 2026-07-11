@@ -1,0 +1,85 @@
+/* motion/motion.css — CSS propio de L3. SOLO tokens semánticos.
+ *
+ * Reglas del contrato (components/README.md):
+ *   - El componente NUNCA oculta contenido. El estado inicial oculto (para reveals) lo
+ *     pone L3, y SOLO cuando el JS booteó: gate por `:root.motion-ready` (la clase la
+ *     agrega el snippet inline del <head>, ver lib/head-inline.js) Y por
+ *     `@media (prefers-reduced-motion: no-preference)`.
+ *   - Sin JS / con reduced-motion → no existe `.motion-ready` → nada de esto aplica →
+ *     el contenido se ve y se usa igual. Cero FOUC porque el snippet es inline (no defer).
+ *
+ * Este archivo se sirve global junto al boot. No pertenece a ningún componente.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ── Entrance: reveal (perfil premium) ──────────────────────────────────
+     Se arma SOLO en secciones con data-motion="premium". La raíz de la sección
+     lleva data-motion + data-motion-el a la vez; el combinador descendiente evita
+     ocultar la propia raíz (navbar/hero/…): solo se ocultan sus hijos [data-motion-el].
+     El índice de stagger lo setea entrance.js como --motion-i (default 0). */
+  :root.motion-ready [data-motion="premium"] [data-motion-el] {
+    opacity: 0;
+    transform: translateY(var(--space-gap));
+    transition:
+      opacity var(--motion-duration-base) var(--motion-ease-emphasized),
+      transform var(--motion-duration-base) var(--motion-ease-emphasized);
+    transition-delay: calc(var(--motion-i, 0) * var(--motion-duration-fast) / 2);
+    will-change: opacity, transform;
+  }
+  :root.motion-ready [data-motion="premium"] [data-motion-el].is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Controles del carousel inyectados por L3 (behaviors/carousel.js) ───────
+   El componente gallery/carousel NO renderiza controles (no deja botones muertos);
+   los inyecta L3 como progressive enhancement, y su estilo vive acá (token-only). */
+.plg-gallery__nav {
+  display: flex;
+  gap: var(--space-inline);
+}
+.plg-gallery__navbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-inline);
+  background: var(--color-surface);
+  color: var(--color-fg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition:
+    background-color var(--motion-duration) var(--motion-ease),
+    color var(--motion-duration) var(--motion-ease);
+}
+.plg-gallery__navbtn:hover { background: var(--color-surface-alt); }
+.plg-gallery__navbtn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.plg-gallery__navbtn[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.plg-gallery__dots {
+  display: flex;
+  gap: var(--space-inline);
+  justify-content: center;
+}
+.plg-gallery__dot {
+  inline-size: var(--space-inline);
+  block-size: var(--space-inline);
+  padding: 0;
+  background: var(--color-border);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--motion-duration) var(--motion-ease);
+}
+.plg-gallery__dot[aria-current="true"] { background: var(--color-accent); }
+.plg-gallery__dot:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}

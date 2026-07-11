@@ -1,0 +1,39 @@
+---
+// components/footer/variants/brand.astro
+// Variant `brand`: la marca manda. Wordmark grande + tagline como bloque protagonista;
+// los links pasan a una nav inline secundaria, más social y línea legal. HTML semántico,
+// sin enhancement. Aplana los items de `links` para la fila inline (nada queda oculto).
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { logo, tagline, links = [], social = [], copyright } = content;
+const flatLinks = links.flatMap((col: any) => col.items ?? []);
+---
+<footer id={id} class="plg-footer plg-footer--brand" data-motion={motionName} data-motion-el="footer">
+  <div class="plg-footer__inner">
+    <div class="plg-footer__brandblock">
+      {logo && <a class="plg-footer__wordmark" href={logo.href ?? '#'} data-motion-el="logo">{logo.text}</a>}
+      {tagline && <p class="plg-footer__tagline">{tagline}</p>}
+    </div>
+
+    {flatLinks.length > 0 && (
+      <nav class="plg-footer__inline" aria-label="Enlaces del pie">
+        <ul>
+          {flatLinks.map((l: any) => (
+            <li><a href={l.href}>{l.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    )}
+
+    <div class="plg-footer__bottom">
+      {copyright && <p class="plg-footer__copy">{copyright}</p>}
+      {social.length > 0 && (
+        <ul class="plg-footer__social" role="list">
+          {social.map((s: any) => (
+            <li><a href={s.href}>{s.label}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,73 @@
+---
+// components/footer/index.astro
+// Contrato L2: props de instancia + content (validado por footer.schema.json).
+// Variant default `columns`: marca + columnas de links + barra legal. Sin enhancement (enhancement: none).
+import './footer.css';
+import Columns from './variants/columns.astro';
+import Minimal from './variants/minimal.astro';
+import BigCta from './variants/big-cta.astro';
+import Brand from './variants/brand.astro';
+
+export interface FooterLink { label: string; href: string; }
+export interface FooterColumn { title?: string; items: FooterLink[]; }
+export interface FooterContent {
+  logo?: { text?: string; href?: string };
+  tagline?: string;
+  links: FooterColumn[];
+  social?: FooterLink[];
+  copyright?: string;
+}
+export interface Props {
+  id?: string;
+  variant?: string;
+  content?: FooterContent;
+  theme?: string;
+  motion?: any;
+  enhancement?: any;
+}
+
+// Contenido genérico de ejemplo (NO un cliente real).
+const demo: FooterContent = {
+  logo: { text: 'Studio', href: '#' },
+  tagline: 'Diseño y desarrollo de experiencias web premium.',
+  links: [
+    { title: 'Estudio', items: [
+      { label: 'Nosotros', href: '#about' },
+      { label: 'Proceso', href: '#process' },
+      { label: 'Contacto', href: '#contact' },
+    ] },
+    { title: 'Servicios', items: [
+      { label: 'Diseño', href: '#design' },
+      { label: 'Desarrollo', href: '#dev' },
+      { label: 'Motion', href: '#motion' },
+    ] },
+    { title: 'Recursos', items: [
+      { label: 'Blog', href: '#blog' },
+      { label: 'Trabajo', href: '#work' },
+    ] },
+  ],
+  social: [
+    { label: 'Instagram', href: '#' },
+    { label: 'LinkedIn', href: '#' },
+    { label: 'Behance', href: '#' },
+  ],
+  copyright: '© 2026 Studio. Todos los derechos reservados.',
+};
+
+const {
+  id = 'footer-1',
+  variant = 'columns',
+  content = demo,
+  motion,
+  enhancement,
+} = Astro.props;
+
+const variants: Record<string, any> = {
+  columns: Columns,
+  minimal: Minimal,
+  'big-cta': BigCta,
+  brand: Brand,
+};
+const Variant = variants[variant] ?? Columns;
+---
+<Variant {id} {content} {motion} {enhancement} />

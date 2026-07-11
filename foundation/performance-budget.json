@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/foundation/performance-budget.json",
+  "title": "Performance Budget",
+  "description": "Constraints de performance del sistema. NO son sugerencias: el perf-gate del build las verifica y, si un preset las rompe, degrada motion/assets automáticamente (o falla el build). Este es el archivo que hace real el pitch 'Awwwards Y rápido'.",
+  "version": "1.0.0",
+  "coreWebVitals": {
+    "lcp": { "target": 2.5, "max": 3.0, "unit": "s", "note": "Largest Contentful Paint. El asset del hero es el sospechoso #1." },
+    "inp": { "target": 200, "max": 250, "unit": "ms", "note": "Interaction to Next Paint. Scroll-jacking y libs de motion pesadas lo rompen." },
+    "cls": { "target": 0.1, "max": 0.15, "unit": "score", "note": "Reservar espacio para media y fuentes para evitar saltos." }
+  },
+  "weightBudgets": {
+    "jsInitialKb": { "target": 150, "max": 200, "note": "JS inicial gzip. Astro islands ayuda a mantenerlo bajo: 3D/motion se hidratan aparte." },
+    "cssKb": { "target": 60, "max": 90 },
+    "fontsKb": { "target": 120, "max": 180, "note": "Subset + preload de UN peso above-the-fold; el resto stream." },
+    "heroMediaKb": { "target": 400, "max": 700, "note": "Imagen/poster del hero. El video full pesa aparte y carga diferido." },
+    "videoKb": {
+      "note": "Video diferido (bg/inline). Carga lazy fuera del LCP y NO cuenta contra totalPageKb en primera vista. Cap POR TIER: el runtime elige la rendition del tier; el perf-gate (L4) verifica que exista una rendition bajo el max de ese tier o desactiva el enhancement.",
+      "high": { "target": 1200, "max": 2000 },
+      "mid": { "target": 600, "max": 1000 },
+      "low": { "target": 0, "max": 0, "note": "low nunca recibe video: siempre fallback poster." }
+    },
+    "totalPageKb": { "target": 1800, "max": 2500, "note": "Peso total en la primera vista (sin contar assets diferidos below-the-fold)." },
+    "modelKb": { "target": 1500, "max": 2500, "note": "glTF+Draco por modelo 3D. Si excede, no se activa el enhancement." }
+  },
+  "deviceTiers": {
+    "high": {
+      "detect": "GPU dedicada / muchos cores / conexión buena",
+      "allows": ["three:scene", "three:product", "three:ambient", "video-bg", "scrollytelling", "cursor:custom"],
+      "note": "Experiencia completa."
+    },
+    "mid": {
+      "detect": "Notebook/mobile moderno, conexión media",
+      "allows": ["three:product", "three:ambient", "video", "parallax", "cursor:custom"],
+      "denies": ["three:scene", "video-bg autoplay pesado"],
+      "note": "Degrada escenas 3D completas a objeto único o a imagen."
+    },
+    "low": {
+      "detect": "Mobile viejo / 4G floja / save-data / prefers-reduced-motion",
+      "allows": ["entrance:fade", "hover:subtle"],
+      "denies": ["three:*", "video-bg", "scrollytelling", "parallax", "cursor:custom"],
+      "note": "SIEMPRE fallback estático. Preserva lenguaje visual y CTA, sin peso extra."
+    }
+  },
+  "enhancementRules": {
+    "principle": "Un enhancement (3D/video/tour) se activa SOLO si: (1) su peso entra en el weightBudget, (2) el device-tier lo permite, y (3) tiene fallback declarado. Si falla cualquiera de las tres, se usa el fallback. Mobile default = fallback.",
+    "mobileDefault": "fallback",
+    "requireFallback": true
+  },
+  "gate": {
+    "runsOn": "build",
+    "onFail": "degrade-then-fail",
+    "degradeOrder": ["three -> image", "video-bg -> poster", "scrollytelling -> reveal", "custom-cursor -> default"],
+    "note": "El build intenta degradar en ese orden hasta entrar en budget; si aun así no entra, falla y avisa qué sección lo rompió."
+  }
+}

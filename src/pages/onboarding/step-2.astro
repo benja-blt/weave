@@ -1,0 +1,240 @@
+---
+// src/pages/onboarding/step-2.astro — Paso 2: fotos + Instagram + palabra de mood.
+// Usa el shell Onboarding.astro. Las fotos se guardan como base64 en 'weave:onboarding:photos'
+// (clave separada para no inflar el JSON principal 'weave:onboarding', que guarda ig + palabra).
+// "Analizar con IA" exige mínimo 1 foto. Instagram opcional pero se valida el formato si viene.
+import Onboarding from '../../layouts/Onboarding.astro';
+---
+<Onboarding
+  step={2}
+  title="Weave — Paso 2: fotos de tu negocio"
+  heading="Mostranos<br>tu negocio."
+  sub="Las fotos ayudan a la IA a entender el estilo y personalidad de tu lugar."
+>
+  <form id="step2" class="s2" novalidate>
+    <!-- ── 1. Upload de fotos ───────────────────────────────────────────── -->
+    <div class="o-field" data-motion-el data-motion-order="3">
+      <span class="o-label">Fotos de tu negocio <span class="req">*</span></span>
+      <span class="o-hint">Fachada, interior, productos… lo que mejor lo represente. Hasta 10 fotos · JPG, PNG, WEBP · 10MB c/u.</span>
+
+      <label class="drop" id="drop">
+        <input type="file" id="files" accept="image/jpeg,image/png,image/webp" multiple hidden />
+        <span class="drop__inner">
+          <svg class="drop__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 16V4" /><path d="M8 8l4-4 4 4" />
+            <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" />
+          </svg>
+          <span class="drop__title">Arrastrá tus fotos acá</span>
+          <span class="drop__sub">o <b>hacé click para elegir</b></span>
+        </span>
+      </label>
+
+      <p class="s2__err" id="err" role="alert" hidden></p>
+      <div class="thumbs" id="thumbs" aria-live="polite"></div>
+    </div>
+
+    <!-- ── 2. Instagram ─────────────────────────────────────────────────── -->
+    <div class="o-field" data-motion-el data-motion-order="4">
+      <label class="o-label" for="ig">Instagram <span class="opt">(opcional)</span></label>
+      <div class="o-inputwrap">
+        <svg class="o-inputicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+        <input class="o-input o-input--icon" id="ig" name="instagram" type="url" inputmode="url"
+               autocomplete="off" placeholder="https://instagram.com/tu_negocio" />
+      </div>
+      <span class="s2__field-err" id="ig-err" hidden>Revisá el link — no parece una URL válida.</span>
+    </div>
+
+    <!-- ── 3. Palabra de mood ───────────────────────────────────────────── -->
+    <div class="o-field" data-motion-el data-motion-order="5">
+      <label class="o-label" for="mood">¿Qué palabra describe tu negocio? <span class="opt">(opcional)</span></label>
+      <span class="o-hint">Le da una pista al motor para afinar el mood.</span>
+      <input class="o-input" id="mood" name="mood" type="text" maxlength="40"
+             placeholder="ej: cálido, moderno, elegante, rústico" />
+    </div>
+
+    <div class="o-actions" data-motion-el data-motion-order="6">
+      <a class="o-back" href="/onboarding/step-1">← Atrás</a>
+      <button class="btn btn--accent btn--lg" type="submit" id="continue" aria-disabled="true">
+        Analizar con IA <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </form>
+
+  <style is:global>
+    /* Estilos de step-2 en is:global: las miniaturas se crean por JS y el CSS scopeado de
+       Astro (data-astro-*) no las alcanza. Prefijo .s2 para no filtrar a otras páginas. */
+
+    .s2 .o-label .opt { font-family: var(--font-family-body); font-weight: var(--weight-regular); font-size: var(--size-sm); color: var(--muted); }
+
+    /* Zona de drop */
+    .s2 .drop {
+      display: block; margin-top: var(--space-2); aspect-ratio: 3 / 1; cursor: pointer;
+      border: 1.5px dashed rgba(124, 58, 237, 0.5); border-radius: var(--radius-card);
+      background: rgba(124, 58, 237, 0.05);
+      transition: transform 200ms var(--motion-ease-emphasized), border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+    }
+    .s2 .drop:hover, .s2 .drop:focus-within {
+      transform: scale(1.01); border-color: var(--accent);
+      background: rgba(124, 58, 237, 0.09);
+    }
+    .s2 .drop.is-drag {
+      transform: scale(1.01); border-style: solid; border-color: var(--accent);
+      background: rgba(124, 58, 237, 0.14);
+      box-shadow: 0 0 0 4px var(--accent-soft), 0 20px 60px var(--glow);
+    }
+    .s2 .drop__inner {
+      height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: var(--space-2); text-align: center; padding: var(--space-6); pointer-events: none;
+    }
+    .s2 .drop__icon { width: 34px; height: 34px; color: var(--accent); }
+    .s2 .drop__title { font-family: var(--font-family-display); font-size: var(--size-lg); font-weight: var(--weight-semibold); color: var(--ink); }
+    .s2 .drop__sub { font-size: var(--size-sm); color: var(--muted); }
+    .s2 .drop__sub b { color: var(--ink); font-weight: var(--weight-medium); }
+
+    .s2 .s2__err { margin: var(--space-3) 0 0; font-size: var(--size-sm); color: #FB7185; }
+
+    /* Miniaturas */
+    .s2 .thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); margin-top: var(--space-4); }
+    @media (max-width: 620px) { .s2 .thumbs { grid-template-columns: repeat(3, 1fr); } }
+    .s2 .thumb {
+      position: relative; aspect-ratio: 1 / 1; border-radius: var(--radius-card); overflow: hidden;
+      border: 1px solid var(--line); background: var(--surface);
+      animation: s2pop 260ms var(--motion-ease-emphasized) both;
+    }
+    .s2 .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .s2 .thumb__rm {
+      position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; display: grid; place-items: center;
+      border: none; border-radius: var(--radius-full); cursor: pointer; color: #fff;
+      background: rgba(10, 8, 20, 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      transition: background 180ms ease, transform 180ms var(--motion-ease-emphasized);
+    }
+    .s2 .thumb__rm:hover { background: #E11D48; transform: scale(1.1); }
+    .s2 .thumb__rm svg { width: 13px; height: 13px; }
+    @keyframes s2pop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+    /* Input con ícono (Instagram) */
+    .s2 .o-inputwrap { position: relative; }
+    .s2 .o-inputicon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; transition: color 200ms ease; }
+    .s2 .o-inputwrap:focus-within .o-inputicon { color: var(--accent); }
+    .s2 .o-input--icon { padding-left: 2.9rem; }
+    .s2 .s2__field-err { display: block; margin-top: var(--space-2); font-size: var(--size-sm); color: #FB7185; }
+  </style>
+
+  <script>
+    const KEY = 'weave:onboarding';
+    const PKEY = 'weave:onboarding:photos';
+    const MAX = 10;
+    const MAX_BYTES = 10 * 1024 * 1024;
+    const OK_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
+    const form = document.getElementById('step2');
+    const drop = document.getElementById('drop');
+    const input = document.getElementById('files');
+    const thumbsEl = document.getElementById('thumbs');
+    const errEl = document.getElementById('err');
+    const btn = document.getElementById('continue');
+    const igErr = document.getElementById('ig-err');
+
+    /** @type {{src:string,name:string}[]} */
+    let photos = [];
+
+    // ── Rehidratar ────────────────────────────────────────────────────────
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if (saved.instagram) form.instagram.value = saved.instagram;
+    if (saved.mood) form.mood.value = saved.mood;
+    try { photos = JSON.parse(localStorage.getItem(PKEY) || '[]'); } catch { photos = []; }
+    render();
+
+    // ── Utilidades ────────────────────────────────────────────────────────
+    const readFile = (file) => new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+
+    const showErr = (msg) => { errEl.textContent = msg; errEl.hidden = !msg; };
+
+    async function addFiles(fileList) {
+      showErr('');
+      const files = [...fileList];
+      const problems = [];
+      for (const f of files) {
+        if (photos.length >= MAX) { problems.push(`Máximo ${MAX} fotos.`); break; }
+        if (!OK_TYPES.includes(f.type)) { problems.push(`"${f.name}": formato no soportado.`); continue; }
+        if (f.size > MAX_BYTES) { problems.push(`"${f.name}": supera 10 MB.`); continue; }
+        try {
+          const src = await readFile(f);
+          photos.push({ src, name: f.name });
+        } catch { problems.push(`"${f.name}": no se pudo leer.`); }
+      }
+      if (problems.length) showErr(problems.join(' '));
+      persist();
+      render();
+    }
+
+    function persist() {
+      try {
+        localStorage.setItem(PKEY, JSON.stringify(photos));
+      } catch {
+        showErr('Las fotos son muy pesadas para guardar en el navegador. Probá con imágenes más livianas.');
+      }
+    }
+
+    function render() {
+      thumbsEl.innerHTML = '';
+      photos.forEach((p, i) => {
+        const cell = document.createElement('div');
+        cell.className = 'thumb';
+        const img = document.createElement('img');
+        img.src = p.src; img.alt = p.name || `Foto ${i + 1}`;
+        const rm = document.createElement('button');
+        rm.type = 'button'; rm.className = 'thumb__rm'; rm.setAttribute('aria-label', `Eliminar ${p.name || 'foto'}`);
+        rm.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+        rm.addEventListener('click', (e) => { e.preventDefault(); photos.splice(i, 1); persist(); render(); });
+        cell.append(img, rm);
+        thumbsEl.appendChild(cell);
+      });
+      btn.setAttribute('aria-disabled', String(photos.length === 0));
+    }
+
+    // ── Drag & drop ───────────────────────────────────────────────────────
+    input.addEventListener('change', () => { addFiles(input.files); input.value = ''; });
+
+    ['dragenter', 'dragover'].forEach((ev) =>
+      drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('is-drag'); }));
+    ['dragleave', 'dragend', 'drop'].forEach((ev) =>
+      drop.addEventListener(ev, (e) => { e.preventDefault(); if (ev !== 'drop' && drop.contains(e.relatedTarget)) return; drop.classList.remove('is-drag'); }));
+    drop.addEventListener('drop', (e) => { if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files); });
+
+    // ── Validación Instagram ──────────────────────────────────────────────
+    // Acepta el dominio con o sin www y cualquier path/query (?igsh=, ?hl=, combinados, etc).
+    const IG_RE = /^https?:\/\/(www\.)?instagram\.com\/.*/i;
+    const igValid = () => {
+      const v = form.instagram.value.trim();
+      if (v === '') return true;
+      return IG_RE.test(v);
+    };
+    form.instagram.addEventListener('blur', () => { igErr.hidden = igValid(); });
+    form.instagram.addEventListener('input', () => { if (!igErr.hidden && igValid()) igErr.hidden = true; });
+
+    // ── Submit ────────────────────────────────────────────────────────────
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (photos.length === 0) { showErr('Subí al menos una foto para continuar.'); return; }
+      if (!igValid()) { igErr.hidden = false; form.instagram.focus(); return; }
+      const data = {
+        ...saved,
+        instagram: form.instagram.value.trim(),
+        mood: form.mood.value.trim(),
+        photoCount: photos.length,
+      };
+      localStorage.setItem(KEY, JSON.stringify(data));
+      window.location.href = '/onboarding/step-3';
+    });
+  </script>
+</Onboarding>

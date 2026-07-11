@@ -1,0 +1,62 @@
+---
+// src/layouts/Base.astro — L6.
+// El layout base que CABLEA todo el sistema en una sola página servida:
+//   L1 tokens  → tokens-base.css (primitivos + semánticos) + theme-warm.css (tema)
+//   L3 motion  → motion.css (reveals gated por .motion-ready) + snippet anti-FOUC inline + boot()
+//   L4 assets  → assets.css (presentación de video/3D; inerte hasta que un loader monte algo)
+//
+// Orden que importa:
+//   1) tokens PRIMERO (definen las --vars que todo el CSS de componentes/motion/assets consume)
+//   2) el snippet anti-FOUC va INLINE y SÍNCRONO en el <head> (no deferred): arma los from-states
+//      de reveal antes del primer paint. Ver motion/lib/head-inline.js.
+//   3) boot() va DEFERRED al final del body (módulo bundleado por Vite): detecta tier y cablea
+//      los motores/behaviors. El sitio ya funciona sin él (base JS-off-safe).
+import '@tokens/build/tokens-base.css';
+import '@tokens/build/theme-warm.css';
+import '@motion/motion.css';
+import '@assets/assets.css';
+import { MOTION_READY_INLINE } from '@motion/lib/head-inline.js';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  theme?: string;
+}
+const {
+  title = 'Premium Landing',
+  description = '',
+  theme = 'warm',
+} = Astro.props;
+---
+<!-- data-theme selecciona el tema (theme-warm.css matchea :root Y [data-theme="warm"]). -->
+<html lang="es" data-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+
+    <!-- Fuentes del tema (Fraunces display · Inter body · JetBrains Mono). El CSS ya
+         declara fallbacks (serif/sans/mono), así que si la red falla el texto se ve igual. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+
+    <!-- Anti-FOUC (L3): INLINE + síncrono, antes del paint. Agrega .motion-ready al <html>
+         solo si el usuario NO pidió reduced-motion ni save-data. NO deferir esto. -->
+    <script is:inline set:html={MOTION_READY_INLINE}></script>
+  </head>
+  <body>
+    <slot />
+
+    <!-- boot() DEFERRED: módulo procesado por Astro/Vite (bundle + code-split de los loaders
+         lazy). boot.js no se auto-invoca; lo llamamos acá (patrón documentado en head-inline.js). -->
+    <script>
+      import { boot } from '@motion/lib/boot.js';
+      boot();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+---
+// components/gallery/variants/fullbleed-scroll.astro
+// Variant `fullbleed-scroll`: galería inmersiva donde cada item ocupa la pantalla y el scroll
+// hace snap vertical (scroll-snap NATIVO, sin JS). Con JS off = galería de imágenes fullscreen
+// navegable por scroll. El layout vive en gallery.css (.plg-gallery--fullbleed-scroll).
+//   - FALLBACK-FIRST: cada item renderiza SIEMPRE su imagen (loading="lazy" — están
+//     below-the-fold —, width/height anti-CLS, object-fit cover).
+//   - Video por item = enhancement opt-in: si el item trae `video`, se expone el contrato
+//     data-enhance="video" (inline). assets/loaders/video.js lo monta sobre la imagen cuando la
+//     slide es visible. Sin video, la slide es puramente la imagen.
+//   - Es la variant MÁS pesada de gallery (items fullscreen + posible video por slide):
+//     candidata a perfil premium/immersive. En minimal/low se queda en imágenes estáticas
+//     (el tier gate de L4 no monta video).
+import '../../../assets/assets.css';
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { items = [] } = content;
+---
+<section id={id} class="plg-gallery plg-gallery--fullbleed-scroll" data-motion={motionName} data-motion-el="gallery">
+  <ul class="plg-gallery__scroller" role="list">
+    {items.map((it: any, i: number) => (
+      <li class="plg-gallery__slide-full" data-motion-el="item" data-motion-order={i}>
+        <figure
+          class="plg-gallery__slide-media"
+          data-enhance={it.video ? 'video' : undefined}
+          data-enhance-src={it.video ?? undefined}
+          data-enhance-fallback={it.video ? 'poster' : undefined}
+        >
+          <img
+            src={it.src}
+            alt={it.alt}
+            width={it.width}
+            height={it.height}
+            loading="lazy"
+            decoding="async"
+          />
+          {it.caption && <figcaption class="plg-gallery__slide-caption">{it.caption}</figcaption>}
+        </figure>
+      </li>
+    ))}
+  </ul>
+</section>

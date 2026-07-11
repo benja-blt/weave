@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/motion/profiles/premium.json",
+  "id": "premium",
+  "description": "El caballito de batalla: se siente premium sin romper el budget. Reveals con stagger + parallax suave del media. Carga GSAP+ScrollTrigger(+Lenis) SOLO si hay una sección con eje scroll activo (lazy).",
+  "axes": {
+    "entrance": "reveal",
+    "scroll": "parallax",
+    "three": "none",
+    "cursor": "default",
+    "transitions": "smooth",
+    "hover": "rich"
+  },
+  "when": "Sitios de marca/hospitality/servicios donde el device tier es medio o alto y el contenido above-the-fold no depende de un asset pesado.",
+  "whenNot": "Mobile viejo, save-data o prefers-reduced-motion (degrada a minimal automáticamente). Tampoco en páginas con INP crítico si el parallax lo pone en riesgo.",
+  "degrade": {
+    "low": "minimal",
+    "reducedMotion": "minimal",
+    "mid": "premium sin smooth-scroll pesado (parallax se mantiene si entra en budget)"
+  },
+  "cost": {
+    "jsKb": "core (< 10 KB) + GSAP/ScrollTrigger/Lenis (~35 KB gzip) SOLO si scroll activo",
+    "inpRisk": "low-medium (parallax throttleado a rAF; sin scroll-jacking de pin)",
+    "degradesTo": "minimal"
+  }
+}

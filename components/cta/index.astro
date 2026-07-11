@@ -1,0 +1,54 @@
+---
+// components/cta/index.astro
+// Contrato L2: props de instancia + content (validado por cta.schema.json).
+// Variant default `banner`: bloque accent con headline + acción. Enhancement (video-bg) inerte acá.
+import '../shared/button.css';
+import './cta.css';
+import Banner from './variants/banner.astro';
+import Split from './variants/split.astro';
+import Boxed from './variants/boxed.astro';
+import Fullbleed from './variants/fullbleed.astro';
+
+export interface CtaAction { label: string; href: string; }
+export interface CtaContent {
+  eyebrow?: string;
+  headline: string;
+  subhead?: string;
+  action: CtaAction;      // requerido (contentRequired: headline, action)
+  secondary?: CtaAction;  // acción secundaria opcional
+}
+export interface Props {
+  id?: string;
+  variant?: string;
+  content?: CtaContent;
+  theme?: string;
+  motion?: any;
+  enhancement?: any;
+}
+
+// Contenido genérico de ejemplo (NO un cliente real).
+const demo: CtaContent = {
+  eyebrow: '¿Empezamos?',
+  headline: 'Tu próxima web, lista para impresionar',
+  subhead: 'Contanos la idea y la convertimos en una experiencia rápida y premium.',
+  action: { label: 'Pedir presupuesto', href: '#contact' },
+  secondary: { label: 'Ver proceso', href: '#process' },
+};
+
+const {
+  id = 'cta-1',
+  variant = 'banner',
+  content = demo,
+  motion,
+  enhancement,
+} = Astro.props;
+
+const variants: Record<string, any> = {
+  banner: Banner,
+  split: Split,
+  boxed: Boxed,
+  fullbleed: Fullbleed,
+};
+const Variant = variants[variant] ?? Banner;
+---
+<Variant {id} {content} {motion} {enhancement} />

@@ -1,0 +1,183 @@
+---
+// src/layouts/Onboarding.astro — shell compartido de los 4 pasos del onboarding.
+// Envuelve Base.astro (tokens + motion + fonts) y aporta lo que TODOS los pasos comparten:
+//   · paleta violeta .wv (misma escala fría que index.astro, hardcodeada — el sistema de tokens es warm)
+//   · navbar glass fija (logo Weave + contador "Paso N de 4")
+//   · progress bar animada arriba (ancho = step/total)
+//   · primitivos de formulario premium (.o-field, .o-input, .o-textarea, .choice…)
+// Los estilos van is:global porque Astro scopea el CSS por componente y NO alcanza al <slot />;
+// cada página de paso sólo escribe su markup + tweaks propios.
+import Base from './Base.astro';
+
+export interface Props {
+  step: number;          // 1..4
+  total?: number;
+  title?: string;
+  eyebrow?: string;      // "Paso 1 de 4"
+  heading?: string;      // título grande de la pantalla
+  sub?: string;          // subtítulo opcional
+}
+const {
+  step,
+  total = 4,
+  title = 'Weave — Onboarding',
+  eyebrow,
+  heading,
+  sub,
+} = Astro.props;
+
+const pct = Math.round((step / total) * 100);
+const label = eyebrow ?? `Paso ${step} de ${total}`;
+---
+<Base title={title}>
+  <div class="wv wv-onb">
+    <!-- ── NAVBAR ─────────────────────────────────────────────────────────── -->
+    <header class="nav">
+      <a class="nav__logo" href="/"><span class="dia">◈</span> Weave</a>
+      <span class="nav__step">Paso <b>{step}</b> / {total}</span>
+      <a class="nav__exit" href="/">Salir</a>
+    </header>
+
+    <!-- ── PROGRESS BAR ───────────────────────────────────────────────────── -->
+    <div class="progress" role="progressbar" aria-valuenow={pct} aria-valuemin="0" aria-valuemax="100" aria-label={`Progreso: ${label}`}>
+      <span class="progress__bar" style={`--pct:${pct}%`}></span>
+    </div>
+
+    <main class="onb" data-motion="premium" data-motion-el="onb">
+      {(label || heading || sub) && (
+        <header class="onb__head">
+          {label && <p class="eyebrow" data-motion-el data-motion-order="0">{label}</p>}
+          {heading && <h1 class="onb__title" data-motion-el data-motion-order="1" set:html={heading} />}
+          {sub && <p class="onb__sub" data-motion-el data-motion-order="2">{sub}</p>}
+        </header>
+      )}
+
+      <slot />
+    </main>
+  </div>
+
+  <style is:global>
+    body { background: #000000; }
+    :root { color-scheme: dark; }
+    ::selection { background: rgba(79, 142, 247, 0.55); color: #fff; }
+
+    /* ── Paleta de la landing (negro/azul cielo) — igual que index.astro ──── */
+    .wv {
+      --bg: #000000;
+      --surface: #0A0A2E;
+      --ink: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.5);
+      --line: rgba(79, 142, 247, 0.12);
+      --accent: #4F8EF7;
+      --accent-2: #060147;
+      --accent-soft: rgba(79, 142, 247, 0.1);
+      --glow: rgba(79, 142, 247, 0.35);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-family-body);
+      overflow-x: hidden;
+    }
+    .dia { color: var(--accent); }
+
+    /* ── Botones (misma escala que index.astro) ───────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      font-family: var(--font-family-body); font-weight: var(--weight-semibold);
+      font-size: var(--size-base); line-height: 1;
+      padding: 0.9rem 1.6rem; border-radius: var(--radius-full);
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      transition: transform 180ms var(--motion-ease-emphasized), box-shadow 180ms var(--motion-ease-emphasized), filter 180ms ease, background 180ms ease, opacity 180ms ease;
+    }
+    .btn--sm { padding: 0.55rem 1.1rem; font-size: var(--size-sm); }
+    .btn--lg { padding: 1rem 2rem; font-size: var(--size-lg); }
+    .btn--accent { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
+    .btn--accent:hover { filter: brightness(1.12); transform: translateY(-2px); box-shadow: 0 12px 44px var(--glow); }
+    .btn--ghost { color: var(--ink); border-color: rgba(255, 255, 255, 0.25); background: transparent; }
+    .btn--ghost:hover { border-color: var(--ink); background: rgba(255, 255, 255, 0.06); }
+    .btn[disabled], .btn[aria-disabled="true"] { opacity: 0.4; pointer-events: none; }
+    .btn span { transition: transform 180ms var(--motion-ease-emphasized); }
+    .btn:hover span { transform: translateX(3px); }
+
+    /* ── Navbar glass ─────────────────────────────────────────────────────── */
+    .wv-onb .nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 100; height: 64px;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 0 var(--space-8);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--line);
+    }
+    .wv-onb .nav__logo { justify-self: start; font-family: var(--font-family-display); font-weight: var(--weight-bold); font-size: var(--size-lg); color: var(--ink); text-decoration: none; }
+    .wv-onb .nav__step { justify-self: center; font-family: var(--font-family-mono); font-size: var(--size-xs); text-transform: uppercase; letter-spacing: var(--tracking-widest); color: var(--muted); }
+    .wv-onb .nav__step b { color: var(--ink); font-weight: var(--weight-medium); }
+    .wv-onb .nav__exit { justify-self: end; font-size: var(--size-sm); color: var(--muted); text-decoration: none; transition: color 200ms ease; }
+    .wv-onb .nav__exit:hover { color: var(--ink); }
+
+    /* ── Progress bar ─────────────────────────────────────────────────────── */
+    .wv-onb .progress { position: fixed; inset: 64px 0 auto 0; z-index: 99; height: 2px; background: var(--line); }
+    .wv-onb .progress__bar {
+      display: block; height: 100%; width: var(--pct, 0%);
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      box-shadow: 0 0 16px var(--glow);
+      transition: width 620ms var(--motion-ease-emphasized);
+    }
+
+    /* ── Contenedor del paso ──────────────────────────────────────────────── */
+    .wv-onb .onb { max-width: 780px; margin: 0 auto; padding: calc(64px + var(--space-20)) var(--space-6) var(--space-24); }
+    .wv-onb .onb__head { max-width: 30ch; margin: 0 0 var(--space-12); }
+    .wv-onb .eyebrow { margin: 0 0 var(--space-4); font-family: var(--font-family-mono); font-size: var(--size-xs); text-transform: uppercase; letter-spacing: var(--tracking-widest); color: var(--accent); }
+    .wv-onb .onb__title { margin: 0; font-family: var(--font-family-display); font-weight: var(--weight-bold); line-height: 1.02; letter-spacing: var(--tracking-tight); font-size: clamp(2.4rem, 5.5vw, 3.6rem); color: var(--ink); }
+    .wv-onb .onb__title em { font-style: italic; }
+    .wv-onb .onb__sub { margin: var(--space-5) 0 0; max-width: 46ch; font-size: var(--size-base); line-height: var(--leading-relaxed); color: var(--muted); }
+
+    /* ── Primitivos de formulario ─────────────────────────────────────────── */
+    .o-field { margin-bottom: var(--space-8); }
+    .o-label { display: block; margin: 0 0 var(--space-3); font-family: var(--font-family-display); font-size: var(--size-lg); font-weight: var(--weight-semibold); color: var(--ink); }
+    .o-label .req { color: var(--accent); }
+    .o-hint { display: block; margin: calc(-1 * var(--space-2)) 0 var(--space-3); font-size: var(--size-sm); color: var(--muted); }
+    .o-input, .o-textarea {
+      width: 100%; font-family: var(--font-family-body); font-size: var(--size-base); color: var(--ink);
+      background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line);
+      border-radius: var(--radius-input); padding: 0.95rem 1.1rem;
+      transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+    }
+    .o-textarea { resize: vertical; min-height: 96px; line-height: var(--leading-relaxed); }
+    .o-input::placeholder, .o-textarea::placeholder { color: rgba(255, 255, 255, 0.28); }
+    .o-input:focus, .o-textarea:focus {
+      outline: none; border-color: var(--accent);
+      background: rgba(79, 142, 247, 0.06);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    /* ── Selector visual (chips con ícono) ────────────────────────────────── */
+    .choice { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    @media (max-width: 620px) { .choice { grid-template-columns: repeat(2, 1fr); } }
+    .choice__opt {
+      position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+      padding: var(--space-6) var(--space-3); cursor: pointer; text-align: center;
+      background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line);
+      border-radius: var(--radius-card); color: var(--muted);
+      transition: transform 200ms var(--motion-ease-emphasized), border-color 200ms ease, background 200ms ease, color 200ms ease, box-shadow 200ms ease;
+    }
+    .choice__opt:hover { transform: translateY(-3px); color: var(--ink); border-color: rgba(255, 255, 255, 0.2); }
+    .choice__opt .emoji { font-size: 1.9rem; line-height: 1; filter: grayscale(0.25); transition: filter 200ms ease, transform 200ms ease; }
+    .choice__opt .name { font-size: var(--size-sm); font-weight: var(--weight-medium); }
+    .choice__opt input { position: absolute; opacity: 0; pointer-events: none; }
+    .choice__opt:has(input:checked) {
+      color: var(--ink); border-color: var(--accent);
+      background: rgba(79, 142, 247, 0.1);
+      box-shadow: 0 0 0 1px var(--accent), 0 14px 40px rgba(79, 142, 247, 0.22);
+    }
+    .choice__opt:has(input:checked) .emoji { filter: grayscale(0); transform: scale(1.08); }
+    .choice__opt:has(input:focus-visible) { box-shadow: 0 0 0 4px var(--accent-soft); }
+
+    /* ── Fila de acciones (footer del paso) ───────────────────────────────── */
+    .o-actions { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-12); flex-wrap: wrap; }
+    .o-back { font-size: var(--size-sm); color: var(--muted); text-decoration: none; transition: color 200ms ease; }
+    .o-back:hover { color: var(--ink); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wv-onb .progress__bar { transition: none; }
+    }
+  </style>
+</Base>

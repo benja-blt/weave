@@ -1,0 +1,6523 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-07-10T01:12:28.310Z",
+  "total_patterns": 152,
+  "_meta": {
+    "performance": "measured:false en todas — se eligió construir el corpus primero y medir Lighthouse/peso/FCP en un batch aparte.",
+    "colors": "APROXIMADOS de la identidad de marca, no muestreados pixel a pixel del sitio en vivo.",
+    "typography": "display/body inferidos; verificar contra el CSS real antes de clonar.",
+    "source": "atribuido por probabilidad (galería donde el sitio suele aparecer), NO por extracción verificada uno a uno. Pendiente el crawl vivo.",
+    "award": "null salvo cuando sea verificable; no se inventan títulos de Site of the Year/Month.",
+    "liveness": "sitios reales y conocidos; correr un check de liveness antes del pipeline de reverse-engineering."
+  },
+  "patterns": [
+    {
+      "id": "stumptown-coffee-roasters",
+      "name": "Stumptown Coffee Roasters",
+      "url": "https://www.stumptowncoffee.com/",
+      "niche": "cafe",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Sans-serif bold, nav clara, store locator prominente y foto de producto potente. Carga rápida sin motion pesado; modelo de usabilidad para roaster premium.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "product-showcase",
+        "form"
+      ],
+      "colors": {
+        "primary": "#1a1a1a",
+        "secondary": "#f4f0e8",
+        "accent": "#c17a3a"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#1a1a1a",
+        "accent": "#c17a3a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, product-showcase, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "arabica-coffee",
+      "name": "% Arabica",
+      "url": "https://arabicacoffeeus.com/",
+      "niche": "cafe",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Minimalismo extremo, blanco dominante y fotografía protagonista. La marca se apoya en el símbolo \"%\" y el eslogan \"See the world through coffee\".",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#111111",
+        "accent": "#8c8c8c"
+      },
+      "typography": {
+        "display": "Helvetica Neue",
+        "body": "Helvetica Neue"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#8c8c8c"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "skittle-lane",
+      "name": "Skittle Lane",
+      "url": "https://skittlelane.com/",
+      "niche": "cafe",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Video-first con un único CTA al shop. Oscuro, elegante, jerarquía brutal a favor de la conversión.",
+      "elements": [
+        "fullbleed-video",
+        "typography-focus",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#0f0f0f",
+        "secondary": "#f5f5f5",
+        "accent": "#b08d57"
+      },
+      "typography": {
+        "display": "Montserrat",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "httpster",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#0f0f0f",
+        "accent": "#b08d57"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; fullbleed-video, typography-focus, grid se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "truth-coffee",
+      "name": "Truth Coffee Roasting",
+      "url": "https://www.truth.capetown/",
+      "niche": "cafe",
+      "weight": "adaptable",
+      "mood": "rústico",
+      "description": "Estética steampunk-industrial; la imagen del interior manda, reforzada con reviews. Personalidad fuerte sin perder claridad.",
+      "elements": [
+        "parallax",
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#1c1a17",
+        "secondary": "#a8763e",
+        "accent": "#d9c3a0"
+      },
+      "typography": {
+        "display": "Oswald",
+        "body": "Roboto"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "BentoGrid",
+        "AnimatedList",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1c1a17",
+        "accent": "#d9c3a0"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; parallax, grid, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "kaffe-401",
+      "name": "KAFFE",
+      "url": "https://www.kaffe401.com/",
+      "niche": "cafe",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Hero video de marca que vende ambiente antes que producto. Layout aireado y tipografía limpia.",
+      "elements": [
+        "fullbleed-video",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#eeeeee",
+        "accent": "#c9a26b"
+      },
+      "typography": {
+        "display": "Poppins",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#c9a26b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; fullbleed-video, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "rachels-coffee-house",
+      "name": "Rachel’s Coffee House",
+      "url": "https://rachelscoffeehouse.ca/",
+      "niche": "cafe",
+      "weight": "adaptable",
+      "mood": "artesanal",
+      "description": "Paleta beige/marrón cálida y storytelling de la dueña. Referencia directa del mood de La Martu.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "carousel"
+      ],
+      "colors": {
+        "primary": "#6f513a",
+        "secondary": "#f3ebe0",
+        "accent": "#c65d3b"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#6f513a",
+        "accent": "#c65d3b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, carousel se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "manic-coffee",
+      "name": "Manic Coffee",
+      "url": "https://maniccoffee.com/",
+      "niche": "cafe",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Personalidad gráfica alta con parallax y color saturado, sin romper la usabilidad del menú.",
+      "elements": [
+        "parallax",
+        "hover-interaction",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#e8452a",
+        "secondary": "#111111",
+        "accent": "#ffd23f"
+      },
+      "typography": {
+        "display": "Anton",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "httpster",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "TiltCard",
+        "MagneticButton",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#e8452a",
+        "accent": "#ffd23f"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; parallax, hover-interaction, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "interlude-nyc",
+      "name": "Interlude",
+      "url": "https://www.interludenyc.com/",
+      "niche": "cafe",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Minimalismo editorial que se siente premium; mucho aire y tipografía serif de acento.",
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#fafafa",
+        "secondary": "#1a1a1a",
+        "accent": "#8a7f72"
+      },
+      "typography": {
+        "display": "Times New Roman",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#fafafa",
+        "accent": "#8a7f72"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "rodneys-oyster-house",
+      "name": "Rodney’s Oyster House",
+      "url": "https://rohvan.com/",
+      "niche": "restaurant",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Foto protagonista, menú y reserva clarísimos. El molde exacto de lo que se le vende a un local gastronómico.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form",
+        "carousel"
+      ],
+      "colors": {
+        "primary": "#0d1b2a",
+        "secondary": "#e0d8c3",
+        "accent": "#7a1f2b"
+      },
+      "typography": {
+        "display": "Playfair Display",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#0d1b2a",
+        "accent": "#7a1f2b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form, carousel se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "mana-yerba-mate",
+      "name": "Mana Yerba Mate",
+      "url": "https://en.manayerbamate.com/",
+      "niche": "restaurant",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Argentino premiado: cada sabor con su paleta y mundo gráfico propio. Bebida = re cercano a gastronomía.",
+      "elements": [
+        "parallax",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#2f4b26",
+        "secondary": "#f2e9d0",
+        "accent": "#d98b3a"
+      },
+      "typography": {
+        "display": "Clash Display",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#2f4b26",
+        "accent": "#d98b3a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; parallax, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "koox",
+      "name": "Koox",
+      "url": "https://koox.co.uk/",
+      "niche": "restaurant",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Tipografía audaz y colores vibrantes; el menú se explora fácil pese a lo expresivo.",
+      "elements": [
+        "typography-focus",
+        "grid",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#ff5a36",
+        "secondary": "#111111",
+        "accent": "#ffd23f"
+      },
+      "typography": {
+        "display": "Druk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#ff5a36",
+        "accent": "#ffd23f"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, grid, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "simply-chocolate",
+      "name": "Simply Chocolate",
+      "url": "https://simplychocolate.dk/",
+      "niche": "restaurant",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "El producto responde al scroll/hover; masterclass de producto + storytelling animado.",
+      "elements": [
+        "parallax",
+        "product-showcase",
+        "animations-gsap",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#1a1a1a",
+        "secondary": "#f5c518",
+        "accent": "#d94f4f"
+      },
+      "typography": {
+        "display": "Circular",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "BentoGrid",
+        "TiltCard",
+        "FadeIn",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1a1a1a",
+        "accent": "#d94f4f"
+      },
+      "weight_detail": "Heavy: combina parallax + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood premium del nicho restaurant."
+    },
+    {
+      "id": "eleven-madison-park",
+      "name": "Eleven Madison Park",
+      "url": "https://www.elevenmadisonpark.com/",
+      "niche": "restaurant",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Fine dining minimalista; video sutil, mucho whitespace y reserva como acción central.",
+      "elements": [
+        "fullbleed-video",
+        "typography-focus",
+        "grid",
+        "form"
+      ],
+      "colors": {
+        "primary": "#0b1f3a",
+        "secondary": "#f4f1ea",
+        "accent": "#b08d57"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#0b1f3a",
+        "accent": "#b08d57"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; fullbleed-video, typography-focus, grid, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "noma",
+      "name": "Noma",
+      "url": "https://noma.dk/",
+      "niche": "restaurant",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Austero y editorial, coherente con la marca del \"mejor restaurante del mundo\". Menos es más.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#1a1a1a",
+        "accent": "#6b6b76"
+      },
+      "typography": {
+        "display": "Neue Haas Grotesk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#6b6b76"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "the-fat-duck",
+      "name": "The Fat Duck",
+      "url": "https://thefatduck.co.uk/",
+      "niche": "restaurant",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Storytelling inmersivo del menú degustación con motion cinematográfico y transiciones fuertes.",
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "animations-gsap",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#101820",
+        "secondary": "#c8a15a",
+        "accent": "#e8e2d4"
+      },
+      "typography": {
+        "display": "GT Sectra",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat",
+        "BlurText",
+        "FadeIn",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#101820",
+        "accent": "#e8e2d4"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + parallax + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood premium del nicho restaurant."
+    },
+    {
+      "id": "atomix-nyc",
+      "name": "Atomix",
+      "url": "https://www.atomixnyc.com/",
+      "niche": "restaurant",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Minimalismo coreano-editorial; grid preciso, foto de plato y reserva clara.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f0ede6",
+        "accent": "#9a6a3a"
+      },
+      "typography": {
+        "display": "Suisse Int’l",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#9a6a3a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "shake-shack",
+      "name": "Shake Shack",
+      "url": "https://www.shakeshack.com/",
+      "niche": "burger",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Tipografía bold, verde de marca consistente y foto de producto apetecible. Estándar de fast-casual premium.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "product-showcase",
+        "carousel"
+      ],
+      "colors": {
+        "primary": "#00857c",
+        "secondary": "#ffffff",
+        "accent": "#4b2e1e"
+      },
+      "typography": {
+        "display": "Neutraface",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#00857c",
+        "accent": "#4b2e1e"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, product-showcase, carousel se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "five-guys",
+      "name": "Five Guys",
+      "url": "https://www.fiveguys.com/",
+      "niche": "burger",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Rojo/blanco icónico y jerarquía simple y directa al pedido.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#ed1b24",
+        "secondary": "#ffffff",
+        "accent": "#b01217"
+      },
+      "typography": {
+        "display": "Helvetica",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ed1b24",
+        "accent": "#b01217"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "in-n-out",
+      "name": "In-N-Out Burger",
+      "url": "https://www.in-n-out.com/",
+      "niche": "burger",
+      "weight": "adaptable",
+      "mood": "rústico",
+      "description": "Americana retro nostálgica; paleta roja/amarilla y locator protagonista.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "carousel"
+      ],
+      "colors": {
+        "primary": "#e21836",
+        "secondary": "#f6c700",
+        "accent": "#ffffff"
+      },
+      "typography": {
+        "display": "Bemio",
+        "body": "Arial"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#e21836",
+        "accent": "#ffffff"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, carousel se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "bareburger",
+      "name": "Bareburger",
+      "url": "https://www.bareburger.com/",
+      "niche": "burger",
+      "weight": "adaptable",
+      "mood": "artesanal",
+      "description": "Craft/orgánico, cálido, con foco en ingredientes y sustentabilidad.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#2e7d32",
+        "secondary": "#f4efe3",
+        "accent": "#a35a2a"
+      },
+      "typography": {
+        "display": "Recoleta",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#2e7d32",
+        "accent": "#a35a2a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "honest-burgers",
+      "name": "Honest Burgers",
+      "url": "https://www.honestburgers.co.uk/",
+      "niche": "burger",
+      "weight": "adaptable",
+      "mood": "artesanal",
+      "description": "British craft; tipografía honesta y foto de producto sin adornos.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#1a1a1a",
+        "secondary": "#f2e8dc",
+        "accent": "#c0392b"
+      },
+      "typography": {
+        "display": "Sharp Grotesk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1a1a1a",
+        "accent": "#c0392b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "burger-and-lobster",
+      "name": "Burger & Lobster",
+      "url": "https://www.burgerandlobster.com/",
+      "niche": "burger",
+      "weight": "adaptable",
+      "mood": "premium",
+      "description": "Casual de alta gama: oscuro, elegante, hero de impacto.",
+      "elements": [
+        "fullbleed-video",
+        "typography-focus",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#c8102e",
+        "accent": "#e8e2d4"
+      },
+      "typography": {
+        "display": "GT Super",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#e8e2d4"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; fullbleed-video, typography-focus, grid se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "meat-liquor",
+      "name": "MEATliquor",
+      "url": "https://www.meatliquor.com/",
+      "niche": "burger",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Edgy dive-bar: oscuro con neón y personalidad gráfica fuerte.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#e10600",
+        "accent": "#f2f2f2"
+      },
+      "typography": {
+        "display": "Knockout",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "httpster",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#f2f2f2"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "black-tap",
+      "name": "Black Tap Craft Burgers & Shakes",
+      "url": "https://www.blacktapnyc.com/",
+      "niche": "burger",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Color bold y sus \"crazy shakes\" como gancho visual central.",
+      "elements": [
+        "grid",
+        "carousel",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#e6007e",
+        "accent": "#ffd100"
+      },
+      "typography": {
+        "display": "Trade Gothic",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "ScrollFloat",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#ffd100"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, carousel, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "artika-salon",
+      "name": "Artika Salon",
+      "url": "https://www.artikasalon.com/",
+      "niche": "beauty",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Minimalista, fotos del interior en el home y \"book now\" claro.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#f7f3ef",
+        "secondary": "#1a1a1a",
+        "accent": "#b79b82"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#f7f3ef",
+        "accent": "#b79b82"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "honey-rose-aesthetics",
+      "name": "Honey Rose Aesthetics",
+      "url": "https://www.hraskin.com/",
+      "niche": "beauty",
+      "weight": "adaptable",
+      "mood": "premium",
+      "description": "Video full-page del servicio + páginas por servicio pensadas para SEO.",
+      "elements": [
+        "fullbleed-video",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#e9d9c9",
+        "secondary": "#3a2e25",
+        "accent": "#c9a26b"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#e9d9c9",
+        "accent": "#c9a26b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; fullbleed-video, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "fringe-ny",
+      "name": "Fringe",
+      "url": "https://www.fringeny.com/",
+      "niche": "beauty",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Home intuitivo con \"featured in\" para generar confianza.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "carousel"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f2f2f2",
+        "accent": "#d4a373"
+      },
+      "typography": {
+        "display": "Montserrat",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#d4a373"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, carousel se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "yello-salon",
+      "name": "Yello",
+      "url": "https://yello.salon/",
+      "niche": "beauty",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Vibra energética con paleta neón consistente.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#ffe600",
+        "secondary": "#111111",
+        "accent": "#ff4d6d"
+      },
+      "typography": {
+        "display": "Clash Display",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "httpster",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ffe600",
+        "accent": "#ff4d6d"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "ama-salon",
+      "name": "Ama Salon",
+      "url": "https://amathesalon.com/",
+      "niche": "beauty",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Muy visual, poco texto; marca coherente online/offline.",
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#efeae3",
+        "secondary": "#2b2b2b",
+        "accent": "#a98b6f"
+      },
+      "typography": {
+        "display": "Reckless",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#efeae3",
+        "accent": "#a98b6f"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "rare-beauty",
+      "name": "Rare Beauty",
+      "url": "https://www.rarebeauty.com/",
+      "niche": "beauty",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Skincare/cosmética con foto de producto suave y CTA de compra directa.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#f3d9d1",
+        "secondary": "#2a2a2a",
+        "accent": "#c96a5b"
+      },
+      "typography": {
+        "display": "GT Sectra",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#f3d9d1",
+        "accent": "#c96a5b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "fenty-beauty",
+      "name": "Fenty Beauty",
+      "url": "https://fentybeauty.com/",
+      "niche": "beauty",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Bold e inclusiva; grilla de shades y storytelling de producto.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "carousel",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f2f2f2",
+        "accent": "#c19a6b"
+      },
+      "typography": {
+        "display": "Druk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "ScrollFloat",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#c19a6b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, carousel, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "drunk-elephant",
+      "name": "Drunk Elephant",
+      "url": "https://www.drunkelephant.com/",
+      "niche": "beauty",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Color saturado y packaging protagonista; skincare divertida y clara.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#00a3ad",
+        "secondary": "#f14a3b",
+        "accent": "#ffd23f"
+      },
+      "typography": {
+        "display": "Futura",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#00a3ad",
+        "accent": "#ffd23f"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "arbor-dental",
+      "name": "Arbor Dental",
+      "url": "https://www.arbordentalnyc.com/",
+      "niche": "dental",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Se siente un design studio: oscuro, tipografía refinada, nada de clichés dentales.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#14181b",
+        "secondary": "#e8e2d4",
+        "accent": "#8a9a5b"
+      },
+      "typography": {
+        "display": "Reckless",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#14181b",
+        "accent": "#8a9a5b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "boulder-smiles",
+      "name": "Boulder Smiles",
+      "url": "https://www.bouldersmiles.com/",
+      "niche": "dental",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Luz natural, lifestyle y paleta calma que transmite confianza.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#f4f1ea",
+        "secondary": "#2b2b2b",
+        "accent": "#8bb0a0"
+      },
+      "typography": {
+        "display": "GT Walsheim",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#f4f1ea",
+        "accent": "#8bb0a0"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "luca-aesthetic",
+      "name": "Luca Aesthetic",
+      "url": "https://www.lucaaesthetic.com/",
+      "niche": "dental",
+      "weight": "adaptable",
+      "mood": "premium",
+      "description": "Rosa fuerte + hero video de alto impacto; estética médica premium.",
+      "elements": [
+        "fullbleed-video",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#e7bfc4",
+        "secondary": "#2a2a2a",
+        "accent": "#b76e79"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#e7bfc4",
+        "accent": "#b76e79"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; fullbleed-video, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "dr-molly-rosen",
+      "name": "Dr. Molly Rosen",
+      "url": "https://www.mydentistmolly.com/",
+      "niche": "dental",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Serif con acentos vibrantes: \"elevated warmth\". Cálido pero prolijo.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#f3ede3",
+        "secondary": "#33291f",
+        "accent": "#c96a4a"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#f3ede3",
+        "accent": "#c96a4a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "edwards-family-dental",
+      "name": "Edwards Family Dental",
+      "url": "https://www.edwardsfamilydental.com/",
+      "niche": "dental",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Colores bold, formas artísticas y logo distintivo; se sale del molde clínico.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0057b7",
+        "secondary": "#ffd500",
+        "accent": "#f2f2f2"
+      },
+      "typography": {
+        "display": "Poppins",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0057b7",
+        "accent": "#f2f2f2"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "sweet-magnolia-dentistry",
+      "name": "Sweet Magnolia Dentistry",
+      "url": "https://www.sweetmagnoliadentistry.com/",
+      "niche": "dental",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Paleta muteada y scroll \"cinematográfico\" en la bio; muy editorial.",
+      "elements": [
+        "parallax",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#efe7dd",
+        "secondary": "#3a352f",
+        "accent": "#9c7a5b"
+      },
+      "typography": {
+        "display": "Ivy Presto",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "land-book",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#efe7dd",
+        "accent": "#9c7a5b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; parallax, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "casco-bay-smiles",
+      "name": "Casco Bay Smiles",
+      "url": "https://www.cascobaysmiles.com/",
+      "niche": "dental",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Feel costero con colores náuticos, familiar y cercano.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#1b3a4b",
+        "secondary": "#f2efe9",
+        "accent": "#3a86a8"
+      },
+      "typography": {
+        "display": "Sofia Pro",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1b3a4b",
+        "accent": "#3a86a8"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "tend-dental",
+      "name": "Tend",
+      "url": "https://www.hellotend.com/",
+      "niche": "dental",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Marca dental startup: cálida, clara, con reserva online como núcleo del producto.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#0f5c4d",
+        "secondary": "#f4f1ea",
+        "accent": "#e0b64a"
+      },
+      "typography": {
+        "display": "GT Sectra",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#0f5c4d",
+        "accent": "#e0b64a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "active-theory",
+      "name": "Active Theory",
+      "url": "https://activetheory.net/",
+      "niche": "agency",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Studio top de experiencias inmersivas WebGL. Techo mundial de motion.",
+      "elements": [
+        "3d-model",
+        "animations-gsap",
+        "parallax",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#ffffff",
+        "accent": "#5b8def"
+      },
+      "typography": {
+        "display": "Founders Grotesk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#5b8def"
+      },
+      "weight_detail": "Heavy: combina 3d-model + animations-gsap + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho agency."
+    },
+    {
+      "id": "locomotive",
+      "name": "Locomotive",
+      "url": "https://locomotive.ca/en",
+      "niche": "agency",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Autores de locomotive-scroll; smooth-scroll y tipografía cinética como firma.",
+      "elements": [
+        "parallax",
+        "parallax-text",
+        "animations-gsap",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f0eee9",
+        "accent": "#ff4b12"
+      },
+      "typography": {
+        "display": "Söhne",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "FadeIn",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#ff4b12"
+      },
+      "weight_detail": "Heavy: combina parallax + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho agency."
+    },
+    {
+      "id": "instrument",
+      "name": "Instrument",
+      "url": "https://www.instrument.com/",
+      "niche": "agency",
+      "weight": "adaptable",
+      "mood": "corporate",
+      "description": "Agencia digital con branding limpio, grid sólido y casos de estudio claros.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#0f0f0f",
+        "secondary": "#f5f5f5",
+        "accent": "#2f6fed"
+      },
+      "typography": {
+        "display": "Neue Montreal",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0f0f0f",
+        "accent": "#2f6fed"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "metalab",
+      "name": "MetaLab",
+      "url": "https://www.metalab.com/",
+      "niche": "agency",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Product design agency; portfolio con hover states pulidos, muy usable.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#0d0d0d",
+        "secondary": "#ffffff",
+        "accent": "#ff5a5f"
+      },
+      "typography": {
+        "display": "Aeonik",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0d0d0d",
+        "accent": "#ff5a5f"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "clay",
+      "name": "Clay",
+      "url": "https://clay.global/",
+      "niche": "agency",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Agencia SF con motion rico y transiciones; premiada, sofisticada.",
+      "elements": [
+        "animations-gsap",
+        "parallax",
+        "3d-model",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f2f2f2",
+        "accent": "#6c5ce7"
+      },
+      "typography": {
+        "display": "PP Neue Montreal",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "Orb",
+        "Particles",
+        "Aurora",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#6c5ce7"
+      },
+      "weight_detail": "Heavy: combina animations-gsap + parallax + 3d-model — bundle y tiempo de carga mayores, justificado por el mood premium del nicho agency."
+    },
+    {
+      "id": "basement-studio",
+      "name": "basement.studio",
+      "url": "https://basement.studio/",
+      "niche": "agency",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Dev/design studio con dirección bold y motion técnico impecable.",
+      "elements": [
+        "animations-gsap",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#e6ff00",
+        "accent": "#ffffff"
+      },
+      "typography": {
+        "display": "Basement Grotesque",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#ffffff"
+      },
+      "weight_detail": "Heavy: combina animations-gsap — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho agency."
+    },
+    {
+      "id": "cuberto",
+      "name": "Cuberto",
+      "url": "https://cuberto.com/",
+      "niche": "agency",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Famoso por cursores/interacciones fluidas; referencia de micro-motion.",
+      "elements": [
+        "hover-interaction",
+        "animations-gsap",
+        "parallax",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#ffffff",
+        "accent": "#635bff"
+      },
+      "typography": {
+        "display": "Aeonik",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "TiltCard",
+        "MagneticButton",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#635bff"
+      },
+      "weight_detail": "Heavy: combina animations-gsap + parallax — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho agency."
+    },
+    {
+      "id": "pentagram",
+      "name": "Pentagram",
+      "url": "https://www.pentagram.com/",
+      "niche": "agency",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Firma de diseño icónica; grid editorial y tipografía como todo el mensaje.",
+      "elements": [
+        "grid",
+        "masonry",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#e30613",
+        "secondary": "#ffffff",
+        "accent": "#111111"
+      },
+      "typography": {
+        "display": "Neue Haas Grotesk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "MasonryGrid",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#e30613",
+        "accent": "#111111"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, masonry, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "lusion",
+      "name": "Lusion",
+      "url": "https://lusion.co/",
+      "niche": "studio",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Referencia mundial de WebGL/3D con motion cinematográfico.",
+      "elements": [
+        "3d-model",
+        "animations-gsap",
+        "parallax",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#050505",
+        "secondary": "#ffffff",
+        "accent": "#7c5cff"
+      },
+      "typography": {
+        "display": "PP Neue Montreal",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#050505",
+        "accent": "#7c5cff"
+      },
+      "weight_detail": "Heavy: combina 3d-model + animations-gsap + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho studio."
+    },
+    {
+      "id": "resn",
+      "name": "Resn",
+      "url": "https://resn.co.nz/",
+      "niche": "studio",
+      "weight": "heavy",
+      "mood": "playful",
+      "description": "Studio experimental que convierte cualquier tema en experiencia 3D lúdica.",
+      "elements": [
+        "3d-model",
+        "animations-gsap",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0e0e12",
+        "secondary": "#ff2e63",
+        "accent": "#08d9d6"
+      },
+      "typography": {
+        "display": "Founders Grotesk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0e0e12",
+        "accent": "#08d9d6"
+      },
+      "weight_detail": "Heavy: combina 3d-model + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood playful del nicho studio."
+    },
+    {
+      "id": "immersive-garden",
+      "name": "Immersive Garden",
+      "url": "https://immersive-g.com/",
+      "niche": "studio",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Experiencias premium con dirección de arte fuerte y WebGL cuidado.",
+      "elements": [
+        "3d-model",
+        "parallax",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f2f2f2",
+        "accent": "#c8a15a"
+      },
+      "typography": {
+        "display": "Neue Machina",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "ScrollFloat",
+        "BlurText",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#c8a15a"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood premium del nicho studio."
+    },
+    {
+      "id": "unseen-studio",
+      "name": "Unseen Studio",
+      "url": "https://unseen.co/",
+      "niche": "studio",
+      "weight": "heavy",
+      "mood": "minimalista",
+      "description": "Tipografía cinética premiada; minimalismo con motion de texto exquisito.",
+      "elements": [
+        "parallax-text",
+        "typography-focus",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f5f5f5",
+        "accent": "#7a7a7a"
+      },
+      "typography": {
+        "display": "PP Editorial New",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "ScrollFloat",
+        "GradientText",
+        "SplitText",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#7a7a7a"
+      },
+      "weight_detail": "Heavy: combina animations-gsap — bundle y tiempo de carga mayores, justificado por el mood minimalista del nicho studio."
+    },
+    {
+      "id": "aristide-benoist",
+      "name": "Aristide Benoist",
+      "url": "https://aristidebenoist.com/",
+      "niche": "studio",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Portfolio-studio de creative developer con interacciones y WebGL de nivel.",
+      "elements": [
+        "3d-model",
+        "hover-interaction",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#0d0d0d",
+        "secondary": "#ffffff",
+        "accent": "#ff5c00"
+      },
+      "typography": {
+        "display": "Söhne",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "TiltCard",
+        "MagneticButton",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#0d0d0d",
+        "accent": "#ff5c00"
+      },
+      "weight_detail": "Heavy: combina 3d-model + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood premium del nicho studio."
+    },
+    {
+      "id": "dogstudio",
+      "name": "Dogstudio",
+      "url": "https://dogstudio.co/",
+      "niche": "studio",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Studio (Leo Burnett) con narrativa por scroll y 3D aplicado con criterio.",
+      "elements": [
+        "3d-model",
+        "parallax",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#ffffff",
+        "accent": "#ff3b30"
+      },
+      "typography": {
+        "display": "GT Walsheim",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "ScrollFloat",
+        "BlurText",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#ff3b30"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho studio."
+    },
+    {
+      "id": "synchronized-studio",
+      "name": "Synchronized Studio",
+      "url": "https://synchronized.studio/",
+      "niche": "studio",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Minimalismo monocromo + motion medido; whitespace y tipografía bold.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0f0f0f",
+        "secondary": "#f4f4f4",
+        "accent": "#b0b0b0"
+      },
+      "typography": {
+        "display": "Neue Haas Grotesk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0f0f0f",
+        "accent": "#b0b0b0"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "monogrid",
+      "name": "Monogrid",
+      "url": "https://monogrid.com/",
+      "niche": "studio",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Diseño de grilla con capa de motion/3D; funcional y visualmente fuerte.",
+      "elements": [
+        "grid",
+        "animations-gsap",
+        "3d-model"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#ffffff",
+        "accent": "#00e0a4"
+      },
+      "typography": {
+        "display": "Aeonik",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "Orb",
+        "Particles",
+        "Aurora"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#00e0a4"
+      },
+      "weight_detail": "Heavy: combina animations-gsap + 3d-model — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho studio."
+    },
+    {
+      "id": "bruno-simon",
+      "name": "Bruno Simon",
+      "url": "https://bruno-simon.com/",
+      "niche": "portfolio",
+      "weight": "heavy",
+      "mood": "playful",
+      "description": "El portfolio-leyenda: manejás un auto 3D para navegar. Three.js puro.",
+      "elements": [
+        "3d-model",
+        "hover-interaction",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#1b1b2f",
+        "secondary": "#f9c80e",
+        "accent": "#e94560"
+      },
+      "typography": {
+        "display": "Poppins",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "TiltCard",
+        "MagneticButton",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#1b1b2f",
+        "accent": "#e94560"
+      },
+      "weight_detail": "Heavy: combina 3d-model + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood playful del nicho portfolio."
+    },
+    {
+      "id": "robby-leonardi",
+      "name": "Robby Leonardi",
+      "url": "https://rleonardi.com/interactive-resume/",
+      "niche": "portfolio",
+      "weight": "heavy",
+      "mood": "playful",
+      "description": "CV interactivo estilo videojuego side-scroller; clásico del rubro.",
+      "elements": [
+        "parallax",
+        "animations-gsap",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#2a9d8f",
+        "secondary": "#e9c46a",
+        "accent": "#e76f51"
+      },
+      "typography": {
+        "display": "Lato",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "FadeIn",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#2a9d8f",
+        "accent": "#e76f51"
+      },
+      "weight_detail": "Heavy: combina parallax + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood playful del nicho portfolio."
+    },
+    {
+      "id": "jacek-jeznach",
+      "name": "Jacek Jeznach",
+      "url": "https://jacekjeznach.com/",
+      "niche": "portfolio",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Portfolio multi-premiado, dark con motion GSAP denso y prolijo.",
+      "elements": [
+        "animations-gsap",
+        "parallax",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0d0d0d",
+        "secondary": "#f5f5f5",
+        "accent": "#ff2d55"
+      },
+      "typography": {
+        "display": "Montserrat",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0d0d0d",
+        "accent": "#ff2d55"
+      },
+      "weight_detail": "Heavy: combina animations-gsap + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho portfolio."
+    },
+    {
+      "id": "brittany-chiang",
+      "name": "Brittany Chiang",
+      "url": "https://brittanychiang.com/",
+      "niche": "portfolio",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Portfolio de dev limpio, dark, referencia clonable de estructura y jerarquía.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0a192f",
+        "secondary": "#ccd6f6",
+        "accent": "#64ffda"
+      },
+      "typography": {
+        "display": "Calibre",
+        "body": "SF Mono"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "dribbble",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0a192f",
+        "accent": "#64ffda"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "lynn-fisher",
+      "name": "Lynn Fisher — lynnandtonic",
+      "url": "https://lynnandtonic.com/",
+      "niche": "portfolio",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Portfolio famoso por su responsive que se rediseña por breakpoint. Ingenio > peso.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#1d1f26",
+        "secondary": "#f5c518",
+        "accent": "#ff5470"
+      },
+      "typography": {
+        "display": "Custom",
+        "body": "system-ui"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1d1f26",
+        "accent": "#ff5470"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "van-schneider",
+      "name": "Tobias van Schneider",
+      "url": "https://vanschneider.com/",
+      "niche": "portfolio",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Editorial minimal con blog fuerte; marca personal muy bien construida.",
+      "elements": [
+        "grid",
+        "masonry",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#ffffff",
+        "accent": "#ff3366"
+      },
+      "typography": {
+        "display": "Tiempos",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "MasonryGrid",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#ff3366"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, masonry, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "adham-dannaway",
+      "name": "Adham Dannaway",
+      "url": "https://www.adhamdannaway.com/",
+      "niche": "portfolio",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Designer+developer; hero con el famoso split half-illustration/half-photo.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#2d2d3a",
+        "secondary": "#f2f2f2",
+        "accent": "#ff6b6b"
+      },
+      "typography": {
+        "display": "Nunito",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "dribbble",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#2d2d3a",
+        "accent": "#ff6b6b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "sean-halpin",
+      "name": "Sean Halpin",
+      "url": "https://seanhalpin.io/",
+      "niche": "portfolio",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Portfolio con carácter y humor; simple, rápido y muy legible.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#ffd23f",
+        "accent": "#ff5a5f"
+      },
+      "typography": {
+        "display": "Recoleta",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#ff5a5f"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "allbirds",
+      "name": "Allbirds",
+      "url": "https://www.allbirds.com/",
+      "niche": "ecommerce",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "D2C sustentable, clean; PDP claras y narrativa de material. Estándar de e-commerce moderno.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f4efe9",
+        "accent": "#4a7c59"
+      },
+      "typography": {
+        "display": "GT America",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#4a7c59"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "gymshark",
+      "name": "Gymshark",
+      "url": "https://www.gymshark.com/",
+      "niche": "ecommerce",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Fitness D2C bold; grid de producto denso, carruseles y CTA agresivos pero claros.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "carousel",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#ffffff",
+        "accent": "#c0f11b"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "ScrollFloat",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#c0f11b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, carousel, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "aesop",
+      "name": "Aesop",
+      "url": "https://www.aesop.com/",
+      "niche": "ecommerce",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Lujo editorial minimalista; whitespace, tipografía y foto de producto sobria.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#1c1a17",
+        "secondary": "#efeae0",
+        "accent": "#8a7f6b"
+      },
+      "typography": {
+        "display": "Suisse Int’l",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#1c1a17",
+        "accent": "#8a7f6b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "glossier",
+      "name": "Glossier",
+      "url": "https://www.glossier.com/",
+      "niche": "ecommerce",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Minimalismo rosa icónico; PDP limpias y comunidad como motor de marca.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#111111",
+        "accent": "#ffb3c1"
+      },
+      "typography": {
+        "display": "National 2",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#ffb3c1"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "away-travel",
+      "name": "Away",
+      "url": "https://www.awaytravel.com/",
+      "niche": "ecommerce",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Viajes/valijas; fotografía lifestyle y grid de producto con storytelling.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "carousel"
+      ],
+      "colors": {
+        "primary": "#1f3a5f",
+        "secondary": "#f4f1ea",
+        "accent": "#e0a458"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#1f3a5f",
+        "accent": "#e0a458"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, carousel se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "oatly",
+      "name": "Oatly",
+      "url": "https://www.oatly.com/",
+      "niche": "ecommerce",
+      "weight": "heavy",
+      "mood": "playful",
+      "description": "Voz de marca gamberra; editorial hecho a mano, tipografía y copy como diferencial.",
+      "elements": [
+        "typography-focus",
+        "parallax",
+        "hover-interaction",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#f7f3e8",
+        "secondary": "#1a1a1a",
+        "accent": "#e94f37"
+      },
+      "typography": {
+        "display": "Custom Serif",
+        "body": "Helvetica"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "ScrollFloat",
+        "TiltCard",
+        "MagneticButton",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#f7f3e8",
+        "accent": "#e94f37"
+      },
+      "weight_detail": "Heavy: combina parallax + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood playful del nicho ecommerce."
+    },
+    {
+      "id": "ssense",
+      "name": "SSENSE",
+      "url": "https://www.ssense.com/",
+      "niche": "ecommerce",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Alta moda; grilla densa y editorial, navegación mínima y rápida.",
+      "elements": [
+        "grid",
+        "masonry",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#111111",
+        "accent": "#7a7a7a"
+      },
+      "typography": {
+        "display": "Neue Haas Grotesk",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "siteinspire",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "MasonryGrid",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#7a7a7a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, masonry, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "bang-olufsen",
+      "name": "Bang & Olufsen",
+      "url": "https://www.bang-olufsen.com/",
+      "niche": "ecommerce",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Audio de lujo; showcase de producto con 3D y motion, alta gama impecable.",
+      "elements": [
+        "product-showcase",
+        "3d-model",
+        "parallax",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f0ede8",
+        "accent": "#b8926a"
+      },
+      "typography": {
+        "display": "B&O Sans",
+        "body": "Inter"
+      },
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "source": "awwwards",
+      "award": null,
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "TiltCard",
+        "Orb",
+        "Particles",
+        "Aurora",
+        "ScrollFloat",
+        "BlurText",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#b8926a"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood premium del nicho ecommerce."
+    },
+    {
+      "id": "vaulk",
+      "name": "Vaulk",
+      "url": "https://vaulk.com/",
+      "niche": "realestate",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Plataforma inmobiliaria con showcase de propiedades en 3D y transiciones cinematográficas entre listados.",
+      "elements": [
+        "3d-model",
+        "parallax",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#0d0d0d",
+        "secondary": "#f5f3ef",
+        "accent": "#b08d57"
+      },
+      "typography": {
+        "display": "Söhne",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Day + Developer Award (May 31, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "ScrollFloat",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0d0d0d",
+        "accent": "#b08d57"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho realestate."
+    },
+    {
+      "id": "hubtown",
+      "name": "Hubtown",
+      "url": "https://hubtown.co.in/",
+      "niche": "realestate",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Constructora india con recorrido 3D de torres residenciales y masterplan interactivo.",
+      "elements": [
+        "3d-model",
+        "parallax",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#101820",
+        "secondary": "#efe9e1",
+        "accent": "#c9a227"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Day + Developer Award (Jun 10, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "ScrollFloat",
+        "BlurText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#101820",
+        "accent": "#c9a227"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho realestate."
+    },
+    {
+      "id": "mersi-architecture",
+      "name": "MERSI",
+      "url": "https://mersi-architecture.com/",
+      "niche": "realestate",
+      "weight": "heavy",
+      "mood": "elegante",
+      "description": "Estudio de arquitectura con fotografía a pantalla completa y scroll cinemático entre proyectos residenciales de lujo.",
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#141414",
+        "secondary": "#f2efe9",
+        "accent": "#8a7a63"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Day, Developer Award, Portfolio Honors (Apr 10, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#141414",
+        "accent": "#8a7a63"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + parallax — bundle y tiempo de carga mayores, justificado por el mood elegante del nicho realestate."
+    },
+    {
+      "id": "air-center",
+      "name": "AIR",
+      "url": "https://aircenter.space/",
+      "niche": "realestate",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Desarrollo con identidad futurista, tipografía cinética y transición 3D entre secciones.",
+      "elements": [
+        "3d-model",
+        "animations-gsap",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#050505",
+        "secondary": "#eaeaea",
+        "accent": "#4f8ef7"
+      },
+      "typography": {
+        "display": "Neue Montreal",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Day + Developer Award (May 27, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#050505",
+        "accent": "#4f8ef7"
+      },
+      "weight_detail": "Heavy: combina 3d-model + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho realestate."
+    },
+    {
+      "id": "cobloc",
+      "name": "Cobloc",
+      "url": "https://cobloc.archi/",
+      "niche": "realestate",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Estudio de arquitectura residencial con grid fotográfico limpio y tipografía editorial.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#111111",
+        "accent": "#b5a48c"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#b5a48c"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "eleos",
+      "name": "Eleos",
+      "url": "https://eleos.la/",
+      "niche": "realestate",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Desarrollo residencial boutique con fotografía cálida y navegación de una sola página.",
+      "elements": [
+        "grid",
+        "parallax-text",
+        "form"
+      ],
+      "colors": {
+        "primary": "#14110d",
+        "secondary": "#f6ede1",
+        "accent": "#b8895a"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#14110d",
+        "accent": "#b8895a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, parallax-text, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "25-residences",
+      "name": "25 Residences",
+      "url": "https://25residences.com/",
+      "niche": "realestate",
+      "weight": "heavy",
+      "mood": "minimalista",
+      "description": "Torre residencial con tour 3D del edificio y planos interactivos por piso.",
+      "elements": [
+        "3d-model",
+        "grid",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f4f4f4",
+        "accent": "#9c9c9c"
+      },
+      "typography": {
+        "display": "Suisse Int'l",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#9c9c9c"
+      },
+      "weight_detail": "Heavy: combina 3d-model — bundle y tiempo de carga mayores, justificado por el mood minimalista del nicho realestate."
+    },
+    {
+      "id": "era-estate",
+      "name": "ERA Residential Complex",
+      "url": "https://era.estate/",
+      "niche": "realestate",
+      "weight": "adaptable",
+      "mood": "corporate",
+      "description": "Complejo residencial con storytelling de marketing inmobiliario y CTAs de reserva claros.",
+      "elements": [
+        "grid",
+        "form",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#eeeeee",
+        "accent": "#c1121f"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#c1121f"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, form, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "john-reed-fitness",
+      "name": "JOHN REED Fitness",
+      "url": "https://johnreed.fitness/",
+      "niche": "fitness",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Cadena de gimnasios de lujo con estética \"urban art meets fitness\"; video fullbleed y navegación editorial.",
+      "elements": [
+        "fullbleed-video",
+        "typography-focus",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#000000",
+        "secondary": "#f0ead6",
+        "accent": "#c9a227"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#000000",
+        "accent": "#c9a227"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video — bundle y tiempo de carga mayores, justificado por el mood premium del nicho fitness."
+    },
+    {
+      "id": "phive-fitness",
+      "name": "Phive Health & Fitness Clubs",
+      "url": "https://phive.pt/en/",
+      "niche": "fitness",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Clubes de fitness premium en Portugal con hero en video y transiciones GSAP.",
+      "elements": [
+        "fullbleed-video",
+        "animations-gsap",
+        "parallax"
+      ],
+      "colors": {
+        "primary": "#0c0c0c",
+        "secondary": "#ffffff",
+        "accent": "#ff4d29"
+      },
+      "typography": {
+        "display": "Neue Montreal",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Day + Developer Award (Mar 13, 2016)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#0c0c0c",
+        "accent": "#ff4d29"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + animations-gsap + parallax — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho fitness."
+    },
+    {
+      "id": "skulpt-fitness",
+      "name": "Skulpt Fitness",
+      "url": "https://skulptfitness.nl/",
+      "niche": "fitness",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Personal training boutique con tipografía bold y CTAs de reserva de clase.",
+      "elements": [
+        "typography-focus",
+        "grid",
+        "form"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f5f5f5",
+        "accent": "#39ff14"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Sep 30, 2022)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#39ff14"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, grid, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "buckler-fit",
+      "name": "Buckler Fit",
+      "url": "https://bucklerfit.com.br/",
+      "niche": "fitness",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Estudio de entrenamiento funcional brasileño con ilustración custom y microinteracciones.",
+      "elements": [
+        "hover-interaction",
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#16130f",
+        "secondary": "#fff4e0",
+        "accent": "#ff6b35"
+      },
+      "typography": {
+        "display": "Poppins",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Sep 26, 2023)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "TiltCard",
+        "MagneticButton",
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#16130f",
+        "accent": "#ff6b35"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; hover-interaction, grid, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "essor-fitness",
+      "name": "Essor Fitness",
+      "url": "https://coachsportifecublens.com/",
+      "niche": "fitness",
+      "weight": "adaptable",
+      "mood": "rústico",
+      "description": "Coach deportivo suizo con fotografía cálida en madera/piedra y formulario de contacto directo.",
+      "elements": [
+        "grid",
+        "form",
+        "parallax-text"
+      ],
+      "colors": {
+        "primary": "#2c2419",
+        "secondary": "#f4ede1",
+        "accent": "#8c6b45"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Jan 03, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#2c2419",
+        "accent": "#8c6b45"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, form, parallax-text se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "between-the-ears",
+      "name": "Between The Ears Fitness",
+      "url": "https://btwntheears.com/",
+      "niche": "fitness",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Entrenamiento mental + físico con storytelling minimal y tipografía editorial.",
+      "elements": [
+        "typography-focus",
+        "parallax-text"
+      ],
+      "colors": {
+        "primary": "#0f0f0f",
+        "secondary": "#ffffff",
+        "accent": "#7a7a7a"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Sep 20, 2023)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#0f0f0f",
+        "accent": "#7a7a7a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, parallax-text se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "reshape-fitness",
+      "name": "ReShape",
+      "url": "https://reshape.pl/",
+      "niche": "fitness",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Estudio boutique polaco con parallax marcado y transformaciones antes/después.",
+      "elements": [
+        "parallax",
+        "grid",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#eeeeee",
+        "accent": "#ff3d5a"
+      },
+      "typography": {
+        "display": "Neue Montreal",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Jan 25, 2019)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#ff3d5a"
+      },
+      "weight_detail": "Heavy: combina parallax — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho fitness."
+    },
+    {
+      "id": "kinective-fitness",
+      "name": "Kinective Fitness Club",
+      "url": "https://kinective.com/",
+      "niche": "fitness",
+      "weight": "adaptable",
+      "mood": "corporate",
+      "description": "Cadena de clubes con locator de sucursales y planes de membresía claros.",
+      "elements": [
+        "grid",
+        "form",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#111827",
+        "secondary": "#f3f4f6",
+        "accent": "#2563eb"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (May 04, 2020)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#111827",
+        "accent": "#2563eb"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, form, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "post-familiar-wine",
+      "name": "Post Familiar Wine",
+      "url": "https://postfamiliar.com/",
+      "niche": "bar",
+      "weight": "heavy",
+      "mood": "elegante",
+      "description": "Bodega boutique con fotografía de viñedo a pantalla completa y scroll cinemático.",
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#1c1408",
+        "secondary": "#f4ecd8",
+        "accent": "#7a1f2b"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Day + Developer Award (Jan 18, 2024)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1c1408",
+        "accent": "#7a1f2b"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + parallax — bundle y tiempo de carga mayores, justificado por el mood elegante del nicho bar."
+    },
+    {
+      "id": "pasqua-wines",
+      "name": "Pasqua Wines",
+      "url": "https://pasqua.it/",
+      "niche": "bar",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Bodega italiana histórica con storytelling de etiquetas y transiciones 3D de botellas.",
+      "elements": [
+        "3d-model",
+        "parallax",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#1a0e0e",
+        "secondary": "#f3e9dd",
+        "accent": "#9c1c2e"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Month + Developer Award (Jun 2023)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "ScrollFloat",
+        "BlurText",
+        "BentoGrid",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#1a0e0e",
+        "accent": "#9c1c2e"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho bar."
+    },
+    {
+      "id": "bijou-wines",
+      "name": "Bijou Wines",
+      "url": "https://bijouwine.com/",
+      "niche": "bar",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Vinos naturales con packaging colorido y grid minimalista de producto.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#101010",
+        "accent": "#e8577b"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Jan 28, 2025)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#e8577b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "alzavino-wine-tavern",
+      "name": "Alzavino Wine Tavern",
+      "url": "https://alzavinowinetavern.com/",
+      "niche": "bar",
+      "weight": "adaptable",
+      "mood": "rústico",
+      "description": "Taberna de vinos con fotografía cálida de ambiente y carta destacada.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#2a1810",
+        "secondary": "#f2e4cf",
+        "accent": "#a8632e"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Jan 14, 2022)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#2a1810",
+        "accent": "#a8632e"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "scepter-sword-wine",
+      "name": "Scepter & Sword Wine Co.",
+      "url": "https://scepterandsword.com/",
+      "niche": "bar",
+      "weight": "heavy",
+      "mood": "artesanal",
+      "description": "Vinos artesanales con ilustración heráldica custom y animaciones GSAP.",
+      "elements": [
+        "animations-gsap",
+        "typography-focus",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#0d1a12",
+        "secondary": "#f0ead6",
+        "accent": "#c9a227"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Day (Aug 24, 2021)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#0d1a12",
+        "accent": "#c9a227"
+      },
+      "weight_detail": "Heavy: combina animations-gsap — bundle y tiempo de carga mayores, justificado por el mood artesanal del nicho bar."
+    },
+    {
+      "id": "gaslighter-wine-co",
+      "name": "Gaslighter Wine Co",
+      "url": "https://gaslighterwineco.com/",
+      "niche": "bar",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Vinos de autor con identidad gráfica bold y tienda integrada.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "form"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f5f2ec",
+        "accent": "#ff5a36"
+      },
+      "typography": {
+        "display": "Neue Montreal",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Dec 28, 2021)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#ff5a36"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "zorah-wines",
+      "name": "Zorah Wines",
+      "url": "https://zorahwines.com/",
+      "niche": "bar",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Bodega libanesa de altura con fotografía de terruño y storytelling de origen.",
+      "elements": [
+        "parallax-text",
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#1a1408",
+        "secondary": "#f4ede0",
+        "accent": "#8c5a2b"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (May 23, 2022)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "ScrollFloat",
+        "BentoGrid",
+        "AnimatedList",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1a1408",
+        "accent": "#8c5a2b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; parallax-text, grid, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "avaline",
+      "name": "Avaline",
+      "url": "https://drinkavaline.com/",
+      "niche": "bar",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Marca de vino limpio (clean wine) con paleta pastel y tono lifestyle directo al consumidor.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#f7f3ec",
+        "secondary": "#1a1a1a",
+        "accent": "#d98c6b"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Feb 03, 2023)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#f7f3ec",
+        "accent": "#d98c6b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "son-daven",
+      "name": "Son Daven",
+      "url": "https://sondaven.com/en",
+      "niche": "hotel",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Resort de lujo con video fullbleed, mapa interactivo de villas y reservas embebidas.",
+      "elements": [
+        "fullbleed-video",
+        "3d-model",
+        "form"
+      ],
+      "colors": {
+        "primary": "#14110c",
+        "secondary": "#f5eee0",
+        "accent": "#b8935a"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Month, Developer Award, Business & Services Honors (Jun 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "Orb"
+      ],
+      "color_hints": {
+        "primary": "#14110c",
+        "accent": "#b8935a"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + 3d-model — bundle y tiempo de carga mayores, justificado por el mood premium del nicho hotel."
+    },
+    {
+      "id": "palazzo-sogni",
+      "name": "Palazzo Sogni",
+      "url": "https://palazzosogni.com/",
+      "niche": "hotel",
+      "weight": "heavy",
+      "mood": "elegante",
+      "description": "Palazzo boutique italiano con fotografía de interiores a pantalla completa y scroll narrativo.",
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#1a1712",
+        "secondary": "#f3ead9",
+        "accent": "#a8874f"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1a1712",
+        "accent": "#a8874f"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + parallax — bundle y tiempo de carga mayores, justificado por el mood elegante del nicho hotel."
+    },
+    {
+      "id": "nils-am-see",
+      "name": "NILS am See",
+      "url": "https://nilsamsee.at/en",
+      "niche": "hotel",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Hotel de lago austríaco con fotografía natural y reserva directa simple.",
+      "elements": [
+        "grid",
+        "form",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0f1a17",
+        "secondary": "#eef2ee",
+        "accent": "#6b8f7a"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0f1a17",
+        "accent": "#6b8f7a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, form, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "lasala-plaza-hotel",
+      "name": "Lasala Plaza Hotel",
+      "url": "https://lasalaplazahotel.com/",
+      "niche": "hotel",
+      "weight": "adaptable",
+      "mood": "corporate",
+      "description": "Hotel urbano con galería de habitaciones y motor de reservas integrado.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "form"
+      ],
+      "colors": {
+        "primary": "#101820",
+        "secondary": "#f2f2f2",
+        "accent": "#b08d57"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Jun 12, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#101820",
+        "accent": "#b08d57"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "relais-rossar",
+      "name": "Relais Rossar",
+      "url": "https://relaisrossar.it/",
+      "niche": "hotel",
+      "weight": "heavy",
+      "mood": "rústico",
+      "description": "Relais de campiña italiana con fotografía cálida y parallax entre habitaciones y viñedo.",
+      "elements": [
+        "parallax",
+        "fullbleed-video",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#241a10",
+        "secondary": "#f4ecd8",
+        "accent": "#8c6b3f"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Jun 09, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "ScrollFloat",
+        "BlurText",
+        "Aurora",
+        "Particles",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#241a10",
+        "accent": "#8c6b3f"
+      },
+      "weight_detail": "Heavy: combina parallax + fullbleed-video — bundle y tiempo de carga mayores, justificado por el mood rústico del nicho hotel."
+    },
+    {
+      "id": "omai-villas",
+      "name": "Omai",
+      "url": "https://omaivillas.com/",
+      "niche": "hotel",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Villas privadas de lujo con tour 3D y reserva directa.",
+      "elements": [
+        "3d-model",
+        "parallax",
+        "form"
+      ],
+      "colors": {
+        "primary": "#0d0d0d",
+        "secondary": "#f2ece0",
+        "accent": "#c17a3a"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Apr 18, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "ScrollFloat",
+        "BlurText"
+      ],
+      "color_hints": {
+        "primary": "#0d0d0d",
+        "accent": "#c17a3a"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho hotel."
+    },
+    {
+      "id": "tribe-stays",
+      "name": "Tribe Stays",
+      "url": "https://tribestays.com/student-hostel",
+      "niche": "hotel",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Hostels para estudiantes con identidad colorida y comparador de habitaciones.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "form"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#fff8e8",
+        "accent": "#ff5c8a"
+      },
+      "typography": {
+        "display": "Poppins",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Apr 26, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#ff5c8a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "paput-menorca",
+      "name": "Paput Menorca",
+      "url": "https://paputmenorca.com/",
+      "niche": "hotel",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Hotel boutique mediterráneo con fotografía luminosa y grid editorial.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#101010",
+        "accent": "#2f6f7a"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#2f6f7a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "cosmos-so",
+      "name": "Cosmos",
+      "url": "https://www.cosmos.so/",
+      "niche": "saas",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Herramienta de research visual con grid tipo moodboard y micro-interacciones sutiles.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f5f5f5",
+        "accent": "#4f8ef7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#4f8ef7"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "antimetal",
+      "name": "Antimetal",
+      "url": "https://antimetal.com/",
+      "niche": "saas",
+      "weight": "adaptable",
+      "mood": "corporate",
+      "description": "SaaS de FinOps/cloud con storytelling técnico y dashboards simulados.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#0d1117",
+        "secondary": "#f0f3f7",
+        "accent": "#2ea043"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#0d1117",
+        "accent": "#2ea043"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "faces-app",
+      "name": "Faces",
+      "url": "https://faces.app/",
+      "niche": "saas",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "App de diseño/AI con hero tipográfico y demo de producto embebida.",
+      "elements": [
+        "typography-focus",
+        "product-showcase",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#ffffff",
+        "accent": "#7c5cff"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#7c5cff"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, product-showcase, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "measured-analytics",
+      "name": "Measured Analytics",
+      "url": "https://measured.site/",
+      "niche": "saas",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Analytics SaaS con visualización 3D de datos como hero.",
+      "elements": [
+        "3d-model",
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#08090c",
+        "secondary": "#eef1f5",
+        "accent": "#4f8ef7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#08090c",
+        "accent": "#4f8ef7"
+      },
+      "weight_detail": "Heavy: combina 3d-model — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho saas."
+    },
+    {
+      "id": "ponder-ai",
+      "name": "Ponder",
+      "url": "https://ponder.ai/",
+      "niche": "saas",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Plataforma de AI para research con landing tipográfica y bento de features.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#0b0b0f",
+        "secondary": "#f4f4f7",
+        "accent": "#6c5ce7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "ScrollFloat",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#0b0b0f",
+        "accent": "#6c5ce7"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, animations-gsap se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "opacity-saas",
+      "name": "Opacity",
+      "url": "https://opacity.com/",
+      "niche": "saas",
+      "weight": "adaptable",
+      "mood": "corporate",
+      "description": "SaaS técnico con storytelling de producto y sección de integraciones.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "form"
+      ],
+      "colors": {
+        "primary": "#0a0f1c",
+        "secondary": "#eef1f7",
+        "accent": "#3b82f6"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0a0f1c",
+        "accent": "#3b82f6"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "datacurve-ai",
+      "name": "Datacurve",
+      "url": "https://datacurve.ai/",
+      "niche": "saas",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Plataforma de datos para AI con hero animado y bento de casos de uso.",
+      "elements": [
+        "grid",
+        "animations-gsap",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f2f2f2",
+        "accent": "#22d3ee"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#22d3ee"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, animations-gsap, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "steven-com",
+      "name": "Steven",
+      "url": "https://steven.com/",
+      "niche": "saas",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "SaaS de marketing/negocio con landing bento y CTA directo.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "form"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#ffffff",
+        "accent": "#ff6b57"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#ff6b57"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "calarts-graphic-design",
+      "name": "CalArts Graphic Design 2026",
+      "url": "https://design2026.calarts.edu/",
+      "niche": "education",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Muestra anual de la carrera de diseño gráfico de CalArts, con tipografía experimental y navegación no convencional por proyecto de estudiante.",
+      "elements": [
+        "typography-focus",
+        "grid",
+        "animations-gsap"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f5f2e8",
+        "accent": "#ff3d00"
+      },
+      "typography": {
+        "display": "custom variable",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "AnimatedList",
+        "ScrollFloat",
+        "FadeIn"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#ff3d00"
+      },
+      "weight_detail": "Heavy: combina animations-gsap — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho education."
+    },
+    {
+      "id": "the-manifest",
+      "name": "The Manifest",
+      "url": "https://themanifest.fyi/",
+      "niche": "education",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Publicación educativa sobre diseño y tecnología con tipografía editorial limpia.",
+      "elements": [
+        "typography-focus",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#0f0f0f",
+        "secondary": "#ffffff",
+        "accent": "#7a7a7a"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#0f0f0f",
+        "accent": "#7a7a7a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, grid se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "web-rewind",
+      "name": "Web Rewind",
+      "url": "https://www.web-rewind.com/",
+      "niche": "education",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Recorrido educativo interactivo en 3D sobre la historia del diseño web.",
+      "elements": [
+        "3d-model",
+        "parallax",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#0a0a14",
+        "secondary": "#eef0f5",
+        "accent": "#4f8ef7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "ScrollFloat",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0a0a14",
+        "accent": "#4f8ef7"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho education."
+    },
+    {
+      "id": "obys-design-books",
+      "name": "Obys' Design Books",
+      "url": "https://library.obys.agency/",
+      "niche": "education",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Biblioteca digital de libros de diseño de la agencia Obys, con grid editorial tipo catálogo.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f4f4f4",
+        "accent": "#e8b400"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#e8b400"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "creative-web-manual",
+      "name": "The Creative Website Manual™",
+      "url": "https://www.creativewebmanual.com/",
+      "niche": "education",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Guía/curso sobre diseño web creativo con tono didáctico y ejemplos interactivos.",
+      "elements": [
+        "typography-focus",
+        "hover-interaction",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#fdf6e3",
+        "accent": "#ff5c8a"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#ff5c8a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, hover-interaction, grid se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "tacit-stripe-press",
+      "name": "Tacit — Stripe Press",
+      "url": "https://www.stripe.press/tacit",
+      "niche": "education",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Editorial de Stripe Press sobre conocimiento tácito, con tipografía de libro y scroll pausado.",
+      "elements": [
+        "typography-focus",
+        "parallax-text"
+      ],
+      "colors": {
+        "primary": "#1a1a2e",
+        "secondary": "#f6f3ec",
+        "accent": "#635bff"
+      },
+      "typography": {
+        "display": "Tiempos",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "ScrollFloat"
+      ],
+      "color_hints": {
+        "primary": "#1a1a2e",
+        "accent": "#635bff"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, parallax-text se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "unesco-virtual-museum",
+      "name": "UNESCO Virtual Museum",
+      "url": "https://museum.unesco.org/",
+      "niche": "education",
+      "weight": "heavy",
+      "mood": "corporate",
+      "description": "Museo virtual educativo de la UNESCO con recorrido 3D de exhibiciones culturales.",
+      "elements": [
+        "3d-model",
+        "grid",
+        "parallax"
+      ],
+      "colors": {
+        "primary": "#0b1a2b",
+        "secondary": "#f0ece0",
+        "accent": "#1c6ea4"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BentoGrid",
+        "AnimatedList",
+        "ScrollFloat",
+        "BlurText"
+      ],
+      "color_hints": {
+        "primary": "#0b1a2b",
+        "accent": "#1c6ea4"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax — bundle y tiempo de carga mayores, justificado por el mood corporate del nicho education."
+    },
+    {
+      "id": "board-fun",
+      "name": "Board.fun",
+      "url": "https://board.fun/",
+      "niche": "education",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Plataforma educativa gamificada de hardware/electrónica con identidad retro-gaming.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f5f0e0",
+        "accent": "#39ff14"
+      },
+      "typography": {
+        "display": "pixel display",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#39ff14"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "marine-layer",
+      "name": "Marine Layer",
+      "url": "https://marinelayer.com/",
+      "niche": "fashion",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "Marca de ropa casual californiana con e-commerce de producto y fotografía lifestyle.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#1a2a3a",
+        "secondary": "#f5f2ea",
+        "accent": "#d97b4f"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#1a2a3a",
+        "accent": "#d97b4f"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "stroms",
+      "name": "Ströms Man & Woman",
+      "url": "https://stroms.com/",
+      "niche": "fashion",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Sastrería sueca centenaria con fotografía editorial en blanco y negro.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0f0f0f",
+        "secondary": "#ffffff",
+        "accent": "#8c8c8c"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0f0f0f",
+        "accent": "#8c8c8c"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "lemaire",
+      "name": "Lemaire",
+      "url": "https://lemaire.fr/",
+      "niche": "fashion",
+      "weight": "heavy",
+      "mood": "minimalista",
+      "description": "Casa de moda parisina con estética silenciosa y navegación editorial de colección.",
+      "elements": [
+        "grid",
+        "parallax-text",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#ece6da",
+        "secondary": "#1a1a1a",
+        "accent": "#8a7a63"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Jun 14, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "ScrollFloat",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ece6da",
+        "accent": "#8a7a63"
+      },
+      "weight_detail": "Heavy: motion y layout complejos elevan el peso aunque no dependa de video/3D — revisar antes de clonar 1:1."
+    },
+    {
+      "id": "delvaux",
+      "name": "Delvaux Digital Flagship Store",
+      "url": "https://delvaux.com/",
+      "niche": "fashion",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Maison de marroquinería belga con flagship digital 3D y presentación de producto cinemática.",
+      "elements": [
+        "3d-model",
+        "product-showcase",
+        "parallax"
+      ],
+      "colors": {
+        "primary": "#0d0d0d",
+        "secondary": "#f2ece0",
+        "accent": "#a8874f"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Honorable Mention (Jun 15, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BentoGrid",
+        "TiltCard",
+        "ScrollFloat",
+        "BlurText"
+      ],
+      "color_hints": {
+        "primary": "#0d0d0d",
+        "accent": "#a8874f"
+      },
+      "weight_detail": "Heavy: combina 3d-model + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho fashion."
+    },
+    {
+      "id": "serotoninn",
+      "name": "Serotoninn",
+      "url": "https://serotoninn.com/",
+      "niche": "fashion",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Marca de streetwear con identidad psicodélica y tipografía experimental.",
+      "elements": [
+        "typography-focus",
+        "hover-interaction",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#fdf0d5",
+        "accent": "#ff2e93"
+      },
+      "typography": {
+        "display": "custom display",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#ff2e93"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, hover-interaction, grid se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "wolverine-worldwide",
+      "name": "Wolverine Worldwide",
+      "url": "https://wolverineworldwide.com/",
+      "niche": "fashion",
+      "weight": "heavy",
+      "mood": "corporate",
+      "description": "Grupo global de calzado con storytelling de marcas y transiciones GSAP.",
+      "elements": [
+        "animations-gsap",
+        "parallax",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#f2f2f2",
+        "accent": "#c1121f"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": "Site of the Day + Developer Award (Jun 24, 2026)",
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#c1121f"
+      },
+      "weight_detail": "Heavy: combina animations-gsap + parallax — bundle y tiempo de carga mayores, justificado por el mood corporate del nicho fashion."
+    },
+    {
+      "id": "becane-paris",
+      "name": "Bécane",
+      "url": "https://www.becaneparis.com/",
+      "niche": "fashion",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Marca de e-bikes con estética fashion y grid de producto limpio.",
+      "elements": [
+        "grid",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#101010",
+        "accent": "#4f8ef7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#4f8ef7"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "outfit-hellohello",
+      "name": "OUTFIT®",
+      "url": "https://outfit.hellohello.is/",
+      "niche": "fashion",
+      "weight": "adaptable",
+      "mood": "moderno",
+      "description": "E-commerce de moda con lookbook interactivo y microinteracciones de hover.",
+      "elements": [
+        "grid",
+        "hover-interaction",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f5f5f5",
+        "accent": "#e8577b"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#e8577b"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, hover-interaction, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "die-antwoord",
+      "name": "DIE ANTWOORD",
+      "url": "https://dieantwoord.com/",
+      "niche": "music",
+      "weight": "heavy",
+      "mood": "playful",
+      "description": "Sitio oficial del dúo sudafricano con estética zef cruda y visuales maximalistas.",
+      "elements": [
+        "fullbleed-video",
+        "animations-gsap",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f2f2f2",
+        "accent": "#ffe600"
+      },
+      "typography": {
+        "display": "custom display",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#ffe600"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + animations-gsap — bundle y tiempo de carga mayores, justificado por el mood playful del nicho music."
+    },
+    {
+      "id": "sfjazz",
+      "name": "SFJAZZ",
+      "url": "https://www.sfjazz.org/",
+      "niche": "music",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Institución de jazz de San Francisco con cartelera de eventos y venta de entradas.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "form"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#f4efe4",
+        "accent": "#c9a227"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#c9a227"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "silent-partners-studio",
+      "name": "Silent Partners Studio",
+      "url": "https://silentpartnersstudio.com/",
+      "niche": "music",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Estudio de producción musical con reel en video fullbleed y portafolio de artistas.",
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f0f0f0",
+        "accent": "#4f8ef7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "awwwards",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat",
+        "BlurText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#4f8ef7"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + parallax — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho music."
+    },
+    {
+      "id": "poolsuite",
+      "name": "Poolsuite",
+      "url": "https://poolsuite.net/",
+      "niche": "music",
+      "weight": "heavy",
+      "mood": "playful",
+      "description": "\"Sistema operativo\" musical retro-vaporwave, ícono de internet nostálgico con reproductor integrado.",
+      "elements": [
+        "animations-gsap",
+        "grid",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#ff7a45",
+        "secondary": "#fff4e0",
+        "accent": "#00b3a4"
+      },
+      "typography": {
+        "display": "VCR OSD Mono",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "ScrollFloat",
+        "FadeIn",
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#ff7a45",
+        "accent": "#00b3a4"
+      },
+      "weight_detail": "Heavy: combina animations-gsap — bundle y tiempo de carga mayores, justificado por el mood playful del nicho music."
+    },
+    {
+      "id": "molecular-sound",
+      "name": "Molecular Sound",
+      "url": "https://www.molecularsound.com/",
+      "niche": "music",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Estudio de sonido/mastering con identidad sonora minimal y reproductor de reel.",
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#0f0f0f",
+        "secondary": "#ffffff",
+        "accent": "#7a7a7a"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#0f0f0f",
+        "accent": "#7a7a7a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "allagi-music",
+      "name": "Allagi",
+      "url": "https://allagi.music/",
+      "niche": "music",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Artista/productor con landing minimal centrada en el reproductor y visual de disco.",
+      "elements": [
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f5f5f5",
+        "accent": "#ff5a36"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#ff5a36"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "235-music-publishing",
+      "name": "235 Music Publishing",
+      "url": "https://235musicpublishing.com/",
+      "niche": "music",
+      "weight": "adaptable",
+      "mood": "corporate",
+      "description": "Editorial musical con catálogo de artistas y licenciamiento.",
+      "elements": [
+        "grid",
+        "form"
+      ],
+      "colors": {
+        "primary": "#101010",
+        "secondary": "#f2f2f2",
+        "accent": "#2563eb"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#101010",
+        "accent": "#2563eb"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "even-the-devil-smiles",
+      "name": "Even the Devil Smiles",
+      "url": "https://www.e-t-d-s.com/",
+      "niche": "music",
+      "weight": "adaptable",
+      "mood": "artesanal",
+      "description": "Banda/proyecto musical con identidad artesanal e ilustración custom.",
+      "elements": [
+        "typography-focus",
+        "hover-interaction",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#1a1410",
+        "secondary": "#f2ece0",
+        "accent": "#8c6b45"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#1a1410",
+        "accent": "#8c6b45"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; typography-focus, hover-interaction, grid se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "studio-x",
+      "name": "Studio X",
+      "url": "https://www.thisisstudiox.com/",
+      "niche": "architecture",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Estudio de arquitectura con portafolio de proyectos en grid editorial y tipografía sobria.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0f0f0f",
+        "secondary": "#ffffff",
+        "accent": "#8c8c8c"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0f0f0f",
+        "accent": "#8c8c8c"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "innadove",
+      "name": "Innadove",
+      "url": "https://innadove.com/en/main-en/",
+      "niche": "architecture",
+      "weight": "heavy",
+      "mood": "elegante",
+      "description": "Estudio de interiorismo con fotografía a pantalla completa y parallax entre proyectos.",
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "grid"
+      ],
+      "colors": {
+        "primary": "#1a1712",
+        "secondary": "#f3ead9",
+        "accent": "#a8874f"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat",
+        "BlurText",
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "color_hints": {
+        "primary": "#1a1712",
+        "accent": "#a8874f"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + parallax — bundle y tiempo de carga mayores, justificado por el mood elegante del nicho architecture."
+    },
+    {
+      "id": "telha-clarke",
+      "name": "Telha Clarke",
+      "url": "https://telhaclarke.com.au/",
+      "niche": "architecture",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Estudio australiano de arquitectura residencial con grid fotográfico de casas.",
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#101010",
+        "accent": "#6b8f7a"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#6b8f7a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "radaville-studio",
+      "name": "Radaville Studio",
+      "url": "https://radaville.studio/",
+      "niche": "architecture",
+      "weight": "adaptable",
+      "mood": "corporate",
+      "description": "Estudio de diseño de interiores/hogar con portafolio minimal y formulario de consulta.",
+      "elements": [
+        "grid",
+        "form",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f4f4f4",
+        "accent": "#b08d57"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#b08d57"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, form, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "biga-cat",
+      "name": "Biga",
+      "url": "https://biga.cat/en",
+      "niche": "architecture",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Estudio catalán de arquitectura y diseño con grid limpio y tipografía editorial.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#f5f5f5",
+        "accent": "#c17a3a"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#c17a3a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "ingrao-inc",
+      "name": "Ingrao",
+      "url": "https://ingraoinc.com/",
+      "niche": "architecture",
+      "weight": "heavy",
+      "mood": "premium",
+      "description": "Firma de interiorismo de lujo en NY con fotografía cinemática de proyectos residenciales.",
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#14110c",
+        "secondary": "#f5eee0",
+        "accent": "#b8935a"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#14110c",
+        "accent": "#b8935a"
+      },
+      "weight_detail": "Heavy: combina fullbleed-video + parallax — bundle y tiempo de carga mayores, justificado por el mood premium del nicho architecture."
+    },
+    {
+      "id": "archi-malin",
+      "name": "Archi-malin",
+      "url": "https://www.archi-malinstudio.com/",
+      "niche": "architecture",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Estudio de arquitectura con grid de proyectos y tono directo/humano.",
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#101010",
+        "accent": "#4f8ef7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#4f8ef7"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "andrea-diego",
+      "name": "Andrea Diego",
+      "url": "https://www.andreadiego.es/",
+      "niche": "architecture",
+      "weight": "adaptable",
+      "mood": "elegante",
+      "description": "Estudio español de arquitectura residencial con portafolio editorial y fotografía natural.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#f6f3ec",
+        "secondary": "#1a1a1a",
+        "accent": "#8c6b45"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#f6f3ec",
+        "accent": "#8c6b45"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "bucks-sauce",
+      "name": "Bucks Sauce",
+      "url": "https://buckssauce.com/",
+      "niche": "food",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Marca de salsas artesanales con e-commerce colorido y packaging protagonista.",
+      "elements": [
+        "product-showcase",
+        "grid",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#1a0a05",
+        "secondary": "#fdf0d5",
+        "accent": "#e8471a"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "TiltCard",
+        "AnimatedList",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#1a0a05",
+        "accent": "#e8471a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; product-showcase, grid, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "la-revoltosa",
+      "name": "La Revoltosa",
+      "url": "https://larevoltosa.es/",
+      "niche": "food",
+      "weight": "heavy",
+      "mood": "artesanal",
+      "description": "Marca de conservas/gourmet española con producto en 3D y storytelling de origen.",
+      "elements": [
+        "3d-model",
+        "product-showcase",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#1a1408",
+        "secondary": "#f4ede0",
+        "accent": "#c9a227"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BentoGrid",
+        "TiltCard",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#1a1408",
+        "accent": "#c9a227"
+      },
+      "weight_detail": "Heavy: combina 3d-model — bundle y tiempo de carga mayores, justificado por el mood artesanal del nicho food."
+    },
+    {
+      "id": "drinksom",
+      "name": "SOM",
+      "url": "https://www.drinksom.eu/",
+      "niche": "food",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Marca de bebidas funcionales con grid de producto limpio y paleta pastel.",
+      "elements": [
+        "grid",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#101010",
+        "accent": "#7ac9a0"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#7ac9a0"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "teh-tarik-nation",
+      "name": "Teh Tarik Nation",
+      "url": "https://tehtariknation.com/",
+      "niche": "food",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Cadena de té/café malayo con identidad colorida y menú de delivery destacado.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "form"
+      ],
+      "colors": {
+        "primary": "#1a0e05",
+        "secondary": "#fdf0d5",
+        "accent": "#e8a13a"
+      },
+      "typography": {
+        "display": "Poppins",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#1a0e05",
+        "accent": "#e8a13a"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, form se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "hungry-tiger",
+      "name": "Hungry Tiger",
+      "url": "https://www.eathungrytiger.com/",
+      "niche": "food",
+      "weight": "heavy",
+      "mood": "moderno",
+      "description": "Marca de delivery de comida con producto en 3D y catálogo interactivo.",
+      "elements": [
+        "3d-model",
+        "grid",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#fdf0d5",
+        "accent": "#ff5a36"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "Orb",
+        "Particles",
+        "Aurora",
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#0a0a0a",
+        "accent": "#ff5a36"
+      },
+      "weight_detail": "Heavy: combina 3d-model — bundle y tiempo de carga mayores, justificado por el mood moderno del nicho food."
+    },
+    {
+      "id": "oatside",
+      "name": "Oatside",
+      "url": "https://oatside.com/",
+      "niche": "food",
+      "weight": "adaptable",
+      "mood": "playful",
+      "description": "Marca de leche de avena con ilustración custom y e-commerce directo.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "hover-interaction"
+      ],
+      "colors": {
+        "primary": "#f5f0e0",
+        "secondary": "#101010",
+        "accent": "#ff8c42"
+      },
+      "typography": {
+        "display": "Poppins",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "color_hints": {
+        "primary": "#f5f0e0",
+        "accent": "#ff8c42"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, hover-interaction se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "hellocopilot",
+      "name": "Copilot",
+      "url": "https://hellocopilot.com/",
+      "niche": "food",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "App/marca de food-tech con ilustración editorial y e-commerce integrado.",
+      "elements": [
+        "grid",
+        "typography-focus",
+        "product-showcase"
+      ],
+      "colors": {
+        "primary": "#111111",
+        "secondary": "#f5f5f5",
+        "accent": "#4f8ef7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "BlurText",
+        "GradientText",
+        "SplitText",
+        "TiltCard"
+      ],
+      "color_hints": {
+        "primary": "#111111",
+        "accent": "#4f8ef7"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, typography-focus, product-showcase se resuelven livianos — prioriza FCP sobre espectacularidad."
+    },
+    {
+      "id": "ginivini",
+      "name": "Gini",
+      "url": "https://www.ginivini.com/en",
+      "niche": "food",
+      "weight": "adaptable",
+      "mood": "minimalista",
+      "description": "Marca de bebidas premium con grid de producto y storytelling de ingredientes.",
+      "elements": [
+        "grid",
+        "product-showcase",
+        "typography-focus"
+      ],
+      "colors": {
+        "primary": "#ffffff",
+        "secondary": "#101010",
+        "accent": "#7ac9a0"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "source": "landing.love",
+      "award": null,
+      "performance": {
+        "measured": false,
+        "note": "pendiente batch Lighthouse"
+      },
+      "reverse_engineered": false,
+      "reactbits_components": [
+        "BentoGrid",
+        "AnimatedList",
+        "TiltCard",
+        "BlurText",
+        "GradientText",
+        "SplitText"
+      ],
+      "color_hints": {
+        "primary": "#ffffff",
+        "accent": "#7ac9a0"
+      },
+      "weight_detail": "Adaptable: sin video/3D/parallax pesado; grid, product-showcase, typography-focus se resuelven livianos — prioriza FCP sobre espectacularidad."
+    }
+  ]
+}

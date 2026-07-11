@@ -1,0 +1,50 @@
+---
+// components/footer/variants/big-cta.astro
+// Variant `big-cta`: banda superior con una declaración tipográfica grande (invitación),
+// y debajo el bloque estándar de columnas + barra legal (nada del contenido requerido se
+// oculta). El schema de footer NO tiene campo de acción, así que NO se fabrica un botón:
+// la "CTA" es el tratamiento enfático del `tagline` (fallback: texto del logo). Un botón
+// real requeriría extender footer.schema.json (fuera de este batch puro HTML/CSS).
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { logo, tagline, links = [], social = [], copyright } = content;
+const statement = tagline ?? logo?.text;
+---
+<footer id={id} class="plg-footer plg-footer--big-cta" data-motion={motionName} data-motion-el="footer">
+  <div class="plg-footer__inner">
+    {statement && (
+      <div class="plg-footer__cta">
+        <p class="plg-footer__cta-line" data-motion-el="headline">{statement}</p>
+        {logo && logo.text && tagline && (
+          <a class="plg-footer__logo" href={logo.href ?? '#'}>{logo.text}</a>
+        )}
+      </div>
+    )}
+
+    {links.length > 0 && (
+      <div class="plg-footer__top">
+        {links.map((col: any) => (
+          <nav class="plg-footer__col" aria-label={col.title}>
+            {col.title && <h3>{col.title}</h3>}
+            <ul>
+              {col.items.map((l: any) => (
+                <li><a href={l.href}>{l.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+      </div>
+    )}
+
+    <div class="plg-footer__bottom">
+      {copyright && <p class="plg-footer__copy">{copyright}</p>}
+      {social.length > 0 && (
+        <ul class="plg-footer__social" role="list">
+          {social.map((s: any) => (
+            <li><a href={s.href}>{s.label}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+</footer>

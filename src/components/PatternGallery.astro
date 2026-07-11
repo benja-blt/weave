@@ -1,0 +1,117 @@
+---
+// src/components/PatternGallery.astro — L6 (UI de plataforma).
+// Galería explorable de los 72 patrones L7. Lee src/data/webs-corpus.json (fuente de verdad),
+// arma filtros por nicho y renderiza una PatternCard por patrón. El filtrado es JS vanilla
+// (sin deps). La reveal de las cards la maneja el motor de entrance de L3 (data-motion="premium"
+// en la grilla → cada card [data-motion-el] aparece al entrar al viewport).
+import PatternCard from './PatternCard.astro';
+import webs from '../data/webs-corpus.json';
+
+const patterns = webs.patterns;
+
+// Orden estable de nichos + conteo por nicho para las etiquetas del filtro.
+const ORDER = ['cafe', 'restaurant', 'burger', 'beauty', 'dental', 'agency', 'studio', 'portfolio', 'ecommerce'];
+const counts = patterns.reduce((acc: Record<string, number>, p: any) => {
+  acc[p.niche] = (acc[p.niche] || 0) + 1;
+  return acc;
+}, {});
+const nichos = ORDER.filter((n) => counts[n]);
+const label = (n: string) => n.charAt(0).toUpperCase() + n.slice(1);
+---
+<div class="pattern-gallery" data-pattern-gallery>
+  <div class="pattern-gallery__filters" role="tablist" aria-label="Filtrar por nicho">
+    <button class="filter-btn is-active" data-filter="all" type="button">
+      Todos <span class="filter-btn__count">{patterns.length}</span>
+    </button>
+    {nichos.map((n) => (
+      <button class="filter-btn" data-filter={n} type="button">
+        {label(n)} <span class="filter-btn__count">{counts[n]}</span>
+      </button>
+    ))}
+  </div>
+
+  <div class="pattern-gallery__grid" data-motion="premium">
+    {patterns.map((p: any) => <PatternCard pattern={p} />)}
+  </div>
+
+  <p class="pattern-gallery__empty" hidden>No hay patrones en este nicho todavía.</p>
+</div>
+
+<style>
+  .pattern-gallery { width: 100%; }
+
+  .pattern-gallery__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-10);
+  }
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-fg);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-family: var(--font-family-body);
+    font-size: var(--size-sm);
+    font-weight: var(--weight-medium);
+    transition:
+      background var(--motion-duration-fast) var(--motion-ease-standard),
+      color var(--motion-duration-fast) var(--motion-ease-standard),
+      border-color var(--motion-duration-fast) var(--motion-ease-standard);
+  }
+  .filter-btn:hover { border-color: var(--color-accent); }
+  .filter-btn.is-active {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+    border-color: var(--color-accent);
+  }
+  .filter-btn__count {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    opacity: 0.7;
+  }
+
+  .pattern-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    gap: var(--space-8);
+  }
+  @media (max-width: 640px) {
+    .pattern-gallery__grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  }
+
+  .pattern-gallery__empty {
+    text-align: center;
+    color: var(--color-fg-muted);
+    padding: var(--space-16) 0;
+  }
+</style>
+
+<script>
+  // Filtrado por nicho (vanilla, sin deps). Al mostrar una card que el motor de entrance dejó
+  // oculta (opacity 0 bajo .motion-ready), le forzamos `.is-in` para que no quede invisible.
+  const gal = document.querySelector('[data-pattern-gallery]');
+  if (gal) {
+    const btns = Array.from(gal.querySelectorAll('.filter-btn'));
+    const cards = Array.from(gal.querySelectorAll('.pattern-card'));
+    const empty = gal.querySelector('.pattern-gallery__empty');
+    btns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const f = btn.getAttribute('data-filter');
+        btns.forEach((b) => b.classList.toggle('is-active', b === btn));
+        let visible = 0;
+        cards.forEach((card) => {
+          const show = f === 'all' || card.getAttribute('data-niche') === f;
+          card.hidden = !show;
+          if (show) { card.classList.add('is-in'); visible++; }
+        });
+        if (empty) empty.hidden = visible !== 0;
+      });
+    });
+  }
+</script>

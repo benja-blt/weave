@@ -1,0 +1,40 @@
+---
+// components/gallery/variants/carousel.astro
+// Variant `carousel`: scroll horizontal con scroll-snap NATIVO → navegable SIN JS
+// (arrastre, rueda, y teclado porque el track es focusable con tabindex). Las flechas/dots
+// son enhancement de L3: dejo el hook data-gallery-controls y NO renderizo controles muertos
+// (botones que sin JS no harían nada romperían la regla "usable con JS off").
+// Fallback-first: imágenes con width/height (anti-CLS) + loading="lazy"; el video
+// (mixed-media) es enhancement futuro, inerte acá.
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { eyebrow, title, intro, items = [] } = content;
+---
+<section id={id} class="plg-gallery plg-gallery--carousel" data-motion={motionName} data-motion-el="gallery" data-gallery-controls="arrows dots">
+  <div class="plg-gallery__inner">
+    {(eyebrow || title || intro) && (
+      <header class="plg-gallery__header">
+        {eyebrow && <p class="plg-gallery__eyebrow" data-motion-el="eyebrow">{eyebrow}</p>}
+        {title && <h2 class="plg-gallery__title" data-motion-el="title">{title}</h2>}
+        {intro && <p class="plg-gallery__intro" data-motion-el="intro">{intro}</p>}
+      </header>
+    )}
+    <ul class="plg-gallery__track" role="list" tabindex="0" aria-label={title ?? 'Galería'}>
+      {items.map((it: any, i: number) => (
+        <li class="plg-gallery__slide">
+          <figure class="plg-gallery__figure" data-motion-el="item" data-motion-order={i}>
+            <img
+              src={it.src}
+              alt={it.alt}
+              width={it.width}
+              height={it.height}
+              loading="lazy"
+              decoding="async"
+            />
+            {it.caption && <figcaption class="plg-gallery__caption">{it.caption}</figcaption>}
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

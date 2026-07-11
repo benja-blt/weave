@@ -1,0 +1,16 @@
+/* AUTO-GENERADO — tema warm */
+:root, [data-theme="warm"] {
+  --color-bg: #faf6f0;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3ebe0;
+  --color-fg: #1c140e;
+  --color-fg-muted: #6f513a;
+  --color-border: #e7d7c4;
+  --color-accent: #7a4a2b;
+  --color-accent-fg: #faf6f0;
+  --color-accent-soft: #e7d7c4;
+  --color-highlight: #c65d3b;
+  --font-family-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-mono: 'JetBrains Mono', ui-monospace, monospace;
+}

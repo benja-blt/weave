@@ -1,0 +1,24 @@
+---
+// components/cta/variants/boxed.astro
+// Variant `boxed`: tarjeta contenida y centrada sobre fondo de página, con borde + sombra.
+// Texto + acciones apilados y centrados. Botones sobre superficie (--primary / --ghost).
+// Puro HTML/CSS; el enhancement (video-bg) del type cta queda inerte acá.
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { eyebrow, headline, subhead, action, secondary } = content;
+---
+<section id={id} class="plg-cta plg-cta--boxed" data-motion={motionName} data-motion-el="cta">
+  <div class="plg-cta__box">
+    <div class="plg-cta__text">
+      {eyebrow && <p class="plg-cta__eyebrow" data-motion-el="eyebrow">{eyebrow}</p>}
+      <h2 class="plg-cta__headline" data-motion-el="headline">{headline}</h2>
+      {subhead && <p class="plg-cta__subhead" data-motion-el="subhead">{subhead}</p>}
+    </div>
+    <div class="plg-cta__actions" data-motion-el="actions">
+      <a class="plg-btn plg-btn--primary" href={action.href}>{action.label}</a>
+      {secondary && (
+        <a class="plg-btn plg-btn--ghost" href={secondary.href}>{secondary.label}</a>
+      )}
+    </div>
+  </div>
+</section>

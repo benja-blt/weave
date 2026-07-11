@@ -1,0 +1,43 @@
+/* assets/assets.css — presentación de assets pesados (L4). SOLO tokens semánticos.
+ *
+ * Se importa desde las variants que exponen video (data-enhance). Con JS off o en tier low el
+ * <video> NUNCA se monta y estas reglas quedan inertes (sus selectores no matchean): el fallback
+ * estático (la <img> que renderizó la variant) manda.
+ *
+ * Separado de motion.css a propósito: el crossfade poster→video es asset pipeline (L4), no
+ * coreografía de entrance/scroll (L3). El loader (assets/loaders/video.js) togglea las clases y
+ * `data-video-state`; acá vive la transición.
+ */
+
+.plg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: 0;
+}
+
+/* ── video-bg: fondo cinemático detrás del contenido, crossfade contra el poster ──────────
+   Arranca invisible; el CSS lo revela cuando el <video> emite 'playing'. Si se pausa o falla,
+   data-video-state vuelve a "fallback" y el poster reaparece. */
+.plg-video--bg {
+  z-index: -2;
+  opacity: 0;
+  transition: opacity var(--motion-duration-base) var(--motion-ease-standard);
+}
+[data-video-state="playing"] .plg-video--bg { opacity: 1; }
+
+/* El poster (la <img> ya presente en el DOM) se desvanece mientras el video corre. */
+.plg-video-poster {
+  transition: opacity var(--motion-duration-base) var(--motion-ease-standard);
+}
+[data-video-state="playing"] .plg-video-poster { opacity: 0; }
+
+/* Reduced-motion: sin crossfade. En video-bg el autoplay ni siquiera arranca, así que el poster
+   se queda fijo; anulamos la transición para que no haya destello. */
+@media (prefers-reduced-motion: reduce) {
+  .plg-video--bg,
+  .plg-video-poster { transition: none; }
+}

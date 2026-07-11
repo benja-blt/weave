@@ -1,0 +1,155 @@
+/* components/footer/footer.css — SOLO tokens semánticos. */
+.plg-footer {
+  background: var(--color-surface-alt);
+  color: var(--color-fg);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-section) var(--space-gutter) var(--space-section-sm);
+  font-family: var(--font-family-body);
+}
+.plg-footer__inner {
+  max-width: var(--layout-container-max);
+  margin-inline: auto;
+  display: grid;
+  gap: var(--space-section-sm);
+}
+.plg-footer__top {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-gutter);
+}
+.plg-footer__brand { display: grid; gap: var(--space-gap); align-content: start; }
+.plg-footer__logo {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-display);
+  letter-spacing: var(--font-tracking-display);
+  color: var(--color-fg);
+  text-decoration: none;
+}
+.plg-footer__tagline {
+  margin: 0;
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-body);
+  line-height: var(--font-leading-body);
+  max-width: var(--layout-measure);
+}
+.plg-footer__col h3 {
+  margin: 0 0 var(--space-gap);
+  font-size: var(--font-size-eyebrow);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--font-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+.plg-footer__col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-gap);
+}
+.plg-footer__col a {
+  color: var(--color-fg);
+  text-decoration: none;
+  font-size: var(--font-size-body);
+  transition: color var(--motion-duration) var(--motion-ease);
+}
+.plg-footer__col a:hover,
+.plg-footer__col a:focus-visible { color: var(--color-accent); }
+
+.plg-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-gutter);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-gutter);
+}
+.plg-footer__copy {
+  margin: 0;
+  color: var(--color-fg-muted);
+  font-size: var(--font-size-body);
+}
+.plg-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-gutter);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.plg-footer__social a {
+  color: var(--color-fg-muted);
+  text-decoration: none;
+  font-size: var(--font-size-body);
+  transition: color var(--motion-duration) var(--motion-ease);
+}
+.plg-footer__social a:hover,
+.plg-footer__social a:focus-visible { color: var(--color-accent); }
+
+/* Nav inline (reusada por minimal y brand): links en una fila que envuelve. */
+.plg-footer__inline ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-gutter);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.plg-footer__inline a {
+  color: var(--color-fg-muted);
+  text-decoration: none;
+  font-size: var(--font-size-body);
+  transition: color var(--motion-duration) var(--motion-ease);
+}
+.plg-footer__inline a:hover,
+.plg-footer__inline a:focus-visible { color: var(--color-accent); }
+
+/* ── Variant: minimal ─────────────────────────────────────────────────────
+   Una fila compacta; sin columnas. */
+.plg-footer--minimal { padding-block: var(--space-section-sm); }
+.plg-footer--minimal .plg-footer__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-gutter);
+}
+.plg-footer--minimal .plg-footer__copy { color: var(--color-fg-muted); }
+
+/* ── Variant: big-cta ─────────────────────────────────────────────────────
+   Banda tipográfica grande arriba; debajo, columnas + legal reusados del base. */
+.plg-footer__cta {
+  display: grid;
+  gap: var(--space-gap);
+  padding-bottom: var(--space-section-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+.plg-footer__cta-line {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-display);
+  line-height: var(--font-leading-display);
+  letter-spacing: var(--font-tracking-display);
+  color: var(--color-fg);
+  max-width: var(--layout-measure);
+}
+
+/* ── Variant: brand ───────────────────────────────────────────────────────
+   Wordmark grande protagonista; links en fila secundaria. */
+.plg-footer__brandblock {
+  display: grid;
+  gap: var(--space-gap);
+  justify-items: start;
+}
+.plg-footer__wordmark {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-display);
+  line-height: var(--font-leading-display);
+  letter-spacing: var(--font-tracking-display);
+  color: var(--color-fg);
+  text-decoration: none;
+}

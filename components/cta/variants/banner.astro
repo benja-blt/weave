@@ -1,0 +1,22 @@
+---
+// components/cta/variants/banner.astro — variant DEFAULT.
+// Bloque sobre color accent. Botones invertidos (on-accent) para contraste correcto.
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { eyebrow, headline, subhead, action, secondary } = content;
+---
+<section id={id} class="plg-cta plg-cta--banner" data-motion={motionName} data-motion-el="cta">
+  <div class="plg-cta__inner">
+    <div class="plg-cta__text">
+      {eyebrow && <p class="plg-cta__eyebrow" data-motion-el="eyebrow">{eyebrow}</p>}
+      <h2 class="plg-cta__headline" data-motion-el="headline">{headline}</h2>
+      {subhead && <p class="plg-cta__subhead" data-motion-el="subhead">{subhead}</p>}
+    </div>
+    <div class="plg-cta__actions" data-motion-el="actions">
+      <a class="plg-btn plg-btn--on-accent" href={action.href}>{action.label}</a>
+      {secondary && (
+        <a class="plg-btn plg-btn--ghost-invert" href={secondary.href}>{secondary.label}</a>
+      )}
+    </div>
+  </div>
+</section>

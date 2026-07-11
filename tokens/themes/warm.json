@@ -1,0 +1,23 @@
+{
+  "$description": "TEMA WARM: cafetería / hospitality premium. Cálido, terroso, editorial. Define los tokens semánticos que SÍ cambian por tema: color.* y font.family.*. Referencia primitivos. Este es el tema default de La Martu.",
+  "$theme": "warm",
+  "color": {
+    "bg":         { "value": "{color.sand.50.value}",  "$comment": "fondo de página" },
+    "surface":    { "value": "{color.neutral.0.value}", "$comment": "cards, paneles" },
+    "surface-alt":{ "value": "{color.sand.100.value}" },
+    "fg":         { "value": "{color.sand.950.value}", "$comment": "texto principal" },
+    "fg-muted":   { "value": "{color.sand.700.value}", "$comment": "texto secundario" },
+    "border":     { "value": "{color.sand.200.value}" },
+    "accent":     { "value": "{color.espresso.500.value}", "$comment": "color de marca / CTA" },
+    "accent-fg":  { "value": "{color.sand.50.value}",  "$comment": "texto sobre accent" },
+    "accent-soft":{ "value": "{color.sand.200.value}" },
+    "highlight":  { "value": "{color.accent.terracotta.value}", "$comment": "detalles, hover" }
+  },
+  "font": {
+    "family": {
+      "display": { "value": "'Fraunces', Georgia, 'Times New Roman', serif", "$comment": "serif editorial para titulares" },
+      "body":    { "value": "'Inter', system-ui, -apple-system, sans-serif" },
+      "mono":    { "value": "'JetBrains Mono', ui-monospace, monospace" }
+    }
+  }
+}

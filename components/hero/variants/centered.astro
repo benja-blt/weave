@@ -1,0 +1,25 @@
+---
+// components/hero/variants/centered.astro — variant DEFAULT.
+// Titular protagonista centrado. Sin asset above-the-fold → LCP liviano.
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { eyebrow, headline, subhead, actions = [] } = content;
+---
+<section id={id} class="plg-hero plg-hero--centered" data-motion={motionName} data-motion-el="hero">
+  <div class="plg-hero__inner">
+    {eyebrow && (
+      <p class="plg-hero__eyebrow" data-motion-el="eyebrow" data-motion-order="0">{eyebrow}</p>
+    )}
+    <h1 class="plg-hero__headline" data-motion-el="headline" data-motion-order="1">{headline}</h1>
+    {subhead && (
+      <p class="plg-hero__subhead" data-motion-el="subhead" data-motion-order="2">{subhead}</p>
+    )}
+    {actions.length > 0 && (
+      <div class="plg-hero__actions" data-motion-el="actions" data-motion-order="3">
+        {actions.map((a: any) => (
+          <a class={`plg-btn plg-btn--${a.variant ?? 'primary'}`} href={a.href}>{a.label}</a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

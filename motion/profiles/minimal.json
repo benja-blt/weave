@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/motion/profiles/minimal.json",
+  "id": "minimal",
+  "description": "El piso. Todo lo que no entra en budget o corre en device débil / prefers-reduced-motion degrada acá. Cero JS pesado: solo un fade barato por IntersectionObserver (o nada).",
+  "axes": {
+    "entrance": "fade",
+    "scroll": "none",
+    "three": "none",
+    "cursor": "default",
+    "transitions": "instant",
+    "hover": "subtle"
+  },
+  "when": "Landings de conversión, mobile, tier bajo, respeto a prefers-reduced-motion, o cualquier página que deba priorizar INP/LCP por sobre el show.",
+  "whenNot": "Cuando el cliente paga por 'efecto Awwwards' y el device lo banca: ahí va premium+.",
+  "cost": {
+    "jsKb": "incluido en el core liviano (< 10 KB gzip), no carga GSAP",
+    "inpRisk": "none",
+    "degradesTo": null
+  }
+}

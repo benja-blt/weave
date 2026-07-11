@@ -1,0 +1,51 @@
+---
+// components/hero/variants/split.astro
+// Variant `split`: texto a un lado, imagen al otro. Usa `media.image` (el schema de hero
+// ya declara `media`, opcional). Si hay imagen es candidata a LCP above-the-fold →
+// NO lazy, fetchpriority="high", con width/height para reservar espacio (anti-CLS).
+// Sin imagen: la columna de texto ocupa todo el ancho (no se oculta contenido requerido).
+// El video/enhancement pesado NO va acá: esta variant es puro HTML/CSS (imagen estática).
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { eyebrow, headline, subhead, actions = [], media } = content;
+const img = media?.image;
+---
+<section
+  id={id}
+  class="plg-hero plg-hero--split"
+  data-hero-has-media={img ? 'true' : 'false'}
+  data-motion={motionName}
+  data-motion-el="hero"
+>
+  <div class="plg-hero__split">
+    <div class="plg-hero__col">
+      {eyebrow && (
+        <p class="plg-hero__eyebrow" data-motion-el="eyebrow" data-motion-order="0">{eyebrow}</p>
+      )}
+      <h1 class="plg-hero__headline" data-motion-el="headline" data-motion-order="1">{headline}</h1>
+      {subhead && (
+        <p class="plg-hero__subhead" data-motion-el="subhead" data-motion-order="2">{subhead}</p>
+      )}
+      {actions.length > 0 && (
+        <div class="plg-hero__actions" data-motion-el="actions" data-motion-order="3">
+          {actions.map((a: any) => (
+            <a class={`plg-btn plg-btn--${a.variant ?? 'primary'}`} href={a.href}>{a.label}</a>
+          ))}
+        </div>
+      )}
+    </div>
+
+    {img && (
+      <figure class="plg-hero__media" data-motion-el="media" data-motion-order="1">
+        <img
+          src={img}
+          alt={media.alt ?? ''}
+          width={media.width}
+          height={media.height}
+          fetchpriority="high"
+          decoding="async"
+        />
+      </figure>
+    )}
+  </div>
+</section>

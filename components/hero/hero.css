@@ -1,0 +1,144 @@
+/* components/hero/hero.css — SOLO tokens semánticos. */
+.plg-hero {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-family-body);
+}
+.plg-hero--centered {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  min-height: 82vh;
+  padding: var(--space-section) var(--space-gutter);
+}
+.plg-hero__inner {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-gutter);
+  max-width: var(--layout-measure);
+}
+.plg-hero__eyebrow {
+  margin: 0;
+  font-size: var(--font-size-eyebrow);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--font-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+.plg-hero__headline {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-display);
+  line-height: var(--font-leading-display);
+  letter-spacing: var(--font-tracking-display);
+  font-weight: var(--font-weight-display);
+  color: var(--color-fg);
+  text-wrap: balance;
+}
+.plg-hero__subhead {
+  margin: 0;
+  font-size: var(--font-size-lead);
+  line-height: var(--font-leading-body);
+  color: var(--color-fg-muted);
+}
+.plg-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-inline);
+  margin-top: var(--space-gap);
+}
+
+/* ── Variant: split ───────────────────────────────────────────────────────
+   Texto + imagen lado a lado en desktop; apila en mobile. */
+.plg-hero--split {
+  padding: var(--space-section) var(--space-gutter);
+}
+.plg-hero__split {
+  display: grid;
+  gap: var(--space-section-sm);
+  align-items: center;
+  max-width: var(--layout-container-max);
+  margin-inline: auto;
+}
+.plg-hero__col {
+  display: grid;
+  gap: var(--space-gutter);
+  max-width: var(--layout-measure);
+}
+/* En split el titular alinea a la izquierda y no se centra el bloque. */
+.plg-hero__split .plg-hero__actions { justify-content: flex-start; }
+.plg-hero__media {
+  margin: 0;
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  background: var(--color-surface-alt);
+  box-shadow: var(--shadow-card);
+}
+.plg-hero__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+@media (min-width: 769px) {
+  .plg-hero__split { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Variant: editorial-type ──────────────────────────────────────────────
+   Tipografía protagonista, alineada a la izquierda. Sin media (LCP = texto). */
+.plg-hero--editorial {
+  padding: var(--space-section) var(--space-gutter);
+}
+.plg-hero__inner--editorial {
+  justify-items: start;
+  text-align: start;
+  max-width: var(--layout-container-max);
+  margin-inline: auto;
+}
+.plg-hero__inner--editorial .plg-hero__subhead { max-width: var(--layout-measure); }
+.plg-hero__inner--editorial .plg-hero__actions { justify-content: flex-start; }
+.plg-hero__headline--xl { font-size: var(--font-size-display); }
+
+/* ── Variant: fullbleed-image ─────────────────────────────────────────────
+   Imagen de borde a borde. Contraste NO depende de la imagen: fondo sólido
+   oscuro (--color-fg) + scrim (color-mix sobre token) + texto claro. */
+.plg-hero--fullbleed {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: 82vh;
+  padding: var(--space-section) var(--space-gutter);
+  background: var(--color-fg);
+  overflow: hidden;
+}
+.plg-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.plg-hero--fullbleed::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--color-fg) 55%, transparent);
+}
+.plg-hero__inner--fullbleed { text-align: center; }
+.plg-hero--fullbleed .plg-hero__headline { color: var(--color-accent-fg); }
+.plg-hero--fullbleed .plg-hero__eyebrow,
+.plg-hero--fullbleed .plg-hero__subhead {
+  color: color-mix(in srgb, var(--color-accent-fg) 82%, transparent);
+}
+/* Botón ghost legible sobre el scrim oscuro (el primary/on-accent ya contrasta). */
+.plg-hero--fullbleed .plg-btn--ghost {
+  color: var(--color-accent-fg);
+  border-color: var(--color-accent-fg);
+}
+.plg-hero--fullbleed .plg-btn--ghost:hover {
+  background: color-mix(in srgb, var(--color-accent-fg) 15%, transparent);
+}

@@ -1,0 +1,171 @@
+---
+// src/pages/onboarding/step-1.astro — Paso 1: datos básicos del negocio.
+// Usa el shell Onboarding.astro (navbar + progress + estilos globales). El estado se persiste en
+// localStorage bajo 'weave:onboarding' para que los 4 pasos compartan los datos (Astro es estático:
+// no hay server-state entre pasos). "Continuar" valida nombre + tipo antes de ir a step-2.
+import Onboarding from '../../layouts/Onboarding.astro';
+
+const niches = [
+  { id: 'cafe',       emoji: '☕', name: 'Café' },
+  { id: 'restaurant', emoji: '🍽️', name: 'Restaurant' },
+  { id: 'burger',     emoji: '🍔', name: 'Burger' },
+  { id: 'beauty',     emoji: '💅', name: 'Beauty' },
+  { id: 'dental',     emoji: '🦷', name: 'Dental' },
+  { id: 'otro',       emoji: '🏢', name: 'Otro' },
+];
+---
+<Onboarding
+  step={1}
+  title="Weave — Paso 1: tu negocio"
+  heading="Empecemos por <em>lo básico.</em>"
+  sub="Tres respuestas cortas. Con esto la IA ya empieza a entender la personalidad de tu marca."
+>
+  <form id="step1" class="s1" novalidate>
+    <!-- Pregunta 1 -->
+    <div class="o-field" data-motion-el data-motion-order="3">
+      <label class="o-label" for="biz-name">¿Cómo se llama tu negocio? <span class="req">*</span></label>
+      <input class="o-input" id="biz-name" name="name" type="text" autocomplete="organization"
+             placeholder="Ej. Café Aurora" maxlength="60" required />
+    </div>
+
+    <!-- Pregunta 2 -->
+    <div class="o-field" data-motion-el data-motion-order="4">
+      <label class="o-label" for="biz-desc">Contanos sobre tu negocio</label>
+      <span class="o-hint">Cuanto más detallés, mejor elige la IA.</span>
+      <textarea class="o-textarea" id="biz-desc" name="description"
+                placeholder={"Ej: Somos un restaurante de gastronomía colombiana fusion en Medellín. Ambiente moderno y acogedor, con bowls y platos creativos. Nuestros clientes son jóvenes de 20-35 años..."}
+                maxlength="600" rows="5"></textarea>
+    </div>
+
+    <!-- Pregunta 3 -->
+    <div class="o-field" data-motion-el data-motion-order="5">
+      <span class="o-label">¿Qué tipo de negocio es? <span class="req">*</span></span>
+      <div class="choice" role="radiogroup" aria-label="Tipo de negocio">
+        {niches.map((n) => (
+          <label class="choice__opt">
+            <input type="radio" name="niche" value={n.id} required />
+            <span class="emoji" aria-hidden="true">{n.emoji}</span>
+            <span class="name">{n.name}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Pregunta 4: colores -->
+    <div class="o-field" data-motion-el data-motion-order="6">
+      <span class="o-label">¿Qué colores querés en tu web? <span class="opt">(opcional)</span></span>
+      <div class="color-pickers">
+        <label class="color-field">
+          <span class="color-field__label">Color principal</span>
+          <input type="color" name="colorPrimary" value="#1A1A1A" />
+          <span class="o-hint">El color que más domina</span>
+        </label>
+        <label class="color-field">
+          <span class="color-field__label">Color de acento</span>
+          <input type="color" name="colorAccent" value="#C17A3A" />
+          <span class="o-hint">Botones y detalles</span>
+        </label>
+      </div>
+      <div class="choice choice--mode" role="radiogroup" aria-label="Modo de color">
+        <label class="choice__opt choice__opt--pill">
+          <input type="radio" name="colorMode" value="dark" />
+          <span class="name">Modo oscuro</span>
+        </label>
+        <label class="choice__opt choice__opt--pill">
+          <input type="radio" name="colorMode" value="light" />
+          <span class="name">Modo claro</span>
+        </label>
+        <label class="choice__opt choice__opt--pill">
+          <input type="radio" name="colorMode" value="auto" checked />
+          <span class="name">Que lo elija la IA</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Pregunta 5: prompt libre -->
+    <div class="o-field" data-motion-el data-motion-order="7">
+      <label class="o-label" for="prompt">¿Qué querés que tenga tu web? <span class="opt">(opcional)</span></label>
+      <span class="o-hint">Cuanto más detallés, mejor queda tu web.</span>
+      <textarea class="o-textarea" id="prompt" name="prompt" rows="6" maxlength="2000"
+        placeholder={"Describí todo lo que querés:\n· Secciones (menú, galería, reservas, ubicación, contacto)\n· Estilo (oscuro/claro, elegante/moderno/rústico)\n· Tu público objetivo\n· Lo que hace único a tu negocio\n· Colores o webs que te gusten de referencia\n· Cualquier detalle importante"}></textarea>
+    </div>
+
+    <div class="o-actions" data-motion-el data-motion-order="8">
+      <a class="o-back" href="/">← Volver al inicio</a>
+      <button class="btn btn--accent btn--lg" type="submit" id="continue" aria-disabled="true">
+        Continuar <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </form>
+
+  <style is:global>
+    /* Campos nuevos de step-1 (colores + prompt) — prefijo .s1, mismo patrón que .s2. */
+    .s1 .o-label .opt { font-family: var(--font-family-body); font-weight: var(--weight-regular); font-size: var(--size-sm); color: var(--muted); }
+
+    .s1 .color-pickers { display: flex; gap: var(--space-6); margin-bottom: var(--space-5); flex-wrap: wrap; }
+    .s1 .color-field { display: flex; flex-direction: column; gap: var(--space-2); flex: 1 1 160px; }
+    .s1 .color-field__label { font-size: var(--size-sm); font-weight: var(--weight-medium); color: var(--ink); }
+    .s1 .color-field input[type="color"] {
+      width: 100%; height: 48px; border: 1px solid var(--line); border-radius: var(--radius-input);
+      background: transparent; cursor: pointer; padding: 4px;
+    }
+    .s1 .color-field .o-hint { margin: 0; }
+
+    .s1 .choice--mode { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-2); }
+    .s1 .choice__opt--pill {
+      flex-direction: row; padding: 0.6rem 1.3rem; gap: var(--space-2);
+    }
+  </style>
+
+  <script>
+    const KEY = 'weave:onboarding';
+    const form = document.getElementById('step1');
+    const btn = document.getElementById('continue');
+
+    // Rehidratar si el usuario ya pasó por acá.
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if (saved.name) form.name.value = saved.name;
+    if (saved.description) form.description.value = saved.description;
+    if (saved.niche) {
+      const el = form.querySelector(`input[name="niche"][value="${saved.niche}"]`);
+      if (el) el.checked = true;
+    }
+    if (saved.colors?.primary) form.colorPrimary.value = saved.colors.primary;
+    if (saved.colors?.accent) form.colorAccent.value = saved.colors.accent;
+    if (saved.colorMode) {
+      const el = form.querySelector(`input[name="colorMode"][value="${saved.colorMode}"]`);
+      if (el) el.checked = true;
+    }
+    if (saved.prompt) form.prompt.value = saved.prompt;
+
+    const isValid = () => form.name.value.trim() !== '' && !!form.querySelector('input[name="niche"]:checked');
+    const sync = () => btn.setAttribute('aria-disabled', String(!isValid()));
+
+    form.addEventListener('input', sync);
+    form.addEventListener('change', sync);
+    sync();
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!isValid()) {
+        // Enfocar lo que falte.
+        (form.name.value.trim() === '' ? form.name : form.querySelector('input[name="niche"]')).focus();
+        return;
+      }
+      const niche = form.querySelector('input[name="niche"]:checked');
+      const colorMode = form.querySelector('input[name="colorMode"]:checked');
+      const data = {
+        ...saved,
+        name: form.name.value.trim(),
+        description: form.description.value.trim(),
+        niche: niche.value,
+        nicheLabel: niche.closest('.choice__opt').querySelector('.name').textContent,
+        colors: { primary: form.colorPrimary.value, accent: form.colorAccent.value },
+        colorMode: colorMode ? colorMode.value : 'auto',
+        prompt: form.prompt.value.trim(),
+      };
+      localStorage.setItem(KEY, JSON.stringify(data));
+      window.location.href = '/onboarding/step-2';
+    });
+  </script>
+</Onboarding>

@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/foundation/page-schema.json",
+  "title": "Page Definition",
+  "description": "El corazón del generador. Un page.json describe una landing completa como datos: metadatos, tema de tokens, perfil de motion, presupuesto de performance y una lista ordenada de secciones. El generador lo produce, web-reverseengineering.md lo alimenta y Astro lo renderiza. Este schema valida la ESTRUCTURA (el envelope). El contenido de cada sección lo valida el *.schema.json de su componente (ver component-contract.md).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "theme", "motionProfile", "budget", "sections"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["client", "archetype", "locale"],
+      "properties": {
+        "client": { "type": "string", "description": "Slug del cliente, ej. 'la-martu'." },
+        "archetype": {
+          "type": "string",
+          "enum": ["A1-hospitality", "A2-servicios-turno", "A3-marcas-productos", "A4-b2b"],
+          "description": "Preset base del que deriva esta página."
+        },
+        "locale": { "type": "string", "default": "es-AR" },
+        "version": { "type": "string", "default": "1.0.0" },
+        "title": { "type": "string" },
+        "description": { "type": "string", "description": "Meta description para SEO." }
+      }
+    },
+    "theme": {
+      "type": "string",
+      "enum": ["luxury", "tech", "editorial", "warm", "dark", "clean", "bold", "minimal"],
+      "description": "Tema de design tokens. Remapea los tokens semánticos."
+    },
+    "motionProfile": {
+      "type": "string",
+      "enum": ["minimal", "premium", "immersive", "luxury", "tech", "editorial", "cinematic"],
+      "description": "Perfil de motion por default para toda la página. Cada sección puede hacer override."
+    },
+    "budget": {
+      "type": "object",
+      "description": "Presupuesto de performance. Es una CONSTRAINT: el perf-gate del build degrada motion/assets si no se cumple.",
+      "additionalProperties": false,
+      "required": ["lcp", "inp", "jsKb"],
+      "properties": {
+        "lcp": { "type": "number", "default": 2.5, "description": "Largest Contentful Paint objetivo (segundos)." },
+        "inp": { "type": "number", "default": 200, "description": "Interaction to Next Paint objetivo (ms)." },
+        "cls": { "type": "number", "default": 0.1, "description": "Cumulative Layout Shift objetivo." },
+        "jsKb": { "type": "number", "default": 150, "description": "Techo de JS inicial (KB, gzip)." },
+        "pageKb": { "type": "number", "default": 1800, "description": "Peso total de página objetivo (KB)." }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Lista ORDENADA de secciones. El orden es el orden visual de la página.",
+      "items": { "$ref": "#/$defs/section" }
+    }
+  },
+  "$defs": {
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string", "description": "Id único de la instancia dentro de la página, ej. 'hero-1'." },
+        "type": {
+          "type": "string",
+          "description": "Tipo de sección. DEBE existir en section-vocabulary.json.",
+          "enum": [
+            "navbar", "hero", "cta", "gallery", "cards", "services", "pricing",
+            "testimonials", "faq", "contact", "footer", "maps", "forms",
+            "reservation", "product-showcase", "team", "timeline", "stats",
+            "logo-cloud", "bento-grid", "menu-section", "before-after",
+            "video-section", "3d-viewer", "interactive-showcase", "tour-section",
+            "featured-projects", "case-studies"
+          ]
+        },
+        "variant": {
+          "type": "string",
+          "description": "Variante de layout del componente. Debe ser una de las variants declaradas para este type en section-vocabulary.json."
+        },
+        "visible": { "type": "boolean", "default": true, "description": "Permite desactivar una sección sin borrarla del spec." },
+        "content": {
+          "type": "object",
+          "description": "Datos de la sección. Su forma la valida el *.schema.json del componente, no este schema."
+        },
+        "motion": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Override de motion para esta sección puntual. Si se omite, hereda el motionProfile de la página.",
+          "properties": {
+            "override": {
+              "type": "string",
+              "enum": ["minimal", "premium", "immersive", "luxury", "tech", "editorial", "cinematic"],
+              "description": "Usa un perfil nombrado distinto al de la página."
+            },
+            "axes": {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Ajuste fino por eje (pisa el perfil). Ver motion/axes.json.",
+              "properties": {
+                "entrance": { "type": "string", "enum": ["none", "fade", "reveal", "dramatic"] },
+                "scroll": { "type": "string", "enum": ["none", "parallax", "pin", "scrollytelling"] },
+                "three": { "type": "string", "enum": ["none", "ambient", "product", "scene"] },
+                "cursor": { "type": "string", "enum": ["default", "custom", "magnetic"] },
+                "transitions": { "type": "string", "enum": ["instant", "smooth", "cinematic"] },
+                "hover": { "type": "string", "enum": ["subtle", "rich"] }
+              }
+            }
+          }
+        },
+        "enhancement": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Enhancement pesado solicitado (3D/video/tour). El enhancement-resolver decide si se activa según budget y device-tier. El fallback es OBLIGATORIO si se pide un enhancement.",
+          "properties": {
+            "requested": {
+              "type": "string",
+              "enum": ["none", "video", "video-bg", "3d", "3d-viewer", "tour", "lottie"],
+              "default": "none"
+            },
+            "fallback": {
+              "type": "string",
+              "description": "Ruta al asset de fallback (poster/imagen) o 'static'. Requerido si requested != none."
+            }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "requested": { "not": { "const": "none" } } }, "required": ["requested"] },
+              "then": { "required": ["fallback"] }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

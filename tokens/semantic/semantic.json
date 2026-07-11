@@ -1,0 +1,55 @@
+{
+  "$description": "SEMÁNTICOS theme-agnostic: aliases que NO cambian entre temas (espaciado de sección, radios por rol, roles tipográficos por tamaño, sombras por rol, motion base). Los componentes usan SOLO tokens semánticos. Los COLORES y las FAMILIAS tipográficas son semánticos que SÍ cambian por tema → viven en tokens/themes/*.json.",
+  "space": {
+    "section":    { "value": "{space.24.value}", "$comment": "padding vertical de una sección" },
+    "section-sm": { "value": "{space.16.value}" },
+    "gutter":     { "value": "{space.6.value}" },
+    "gap":        { "value": "{space.4.value}" },
+    "inline":     { "value": "{space.3.value}" }
+  },
+  "layout": {
+    "container-max": { "value": "{grid.container-max.value}", "$comment": "ancho máx del contenedor de sección (alias semántico del primitivo grid)" },
+    "measure":       { "value": "{grid.content-max.value}",   "$comment": "medida de línea legible para bloques de texto" }
+  },
+  "radius": {
+    "button": { "value": "{radius.full.value}" },
+    "card":   { "value": "{radius.lg.value}" },
+    "media":  { "value": "{radius.xl.value}" },
+    "input":  { "value": "{radius.md.value}" }
+  },
+  "shadow": {
+    "card":    { "value": "{shadow.md.value}" },
+    "raised":  { "value": "{shadow.lg.value}" },
+    "float":   { "value": "{shadow.xl.value}" }
+  },
+  "font": {
+    "size": {
+      "eyebrow":  { "value": "{size.sm.value}" },
+      "body":     { "value": "{size.base.value}" },
+      "lead":     { "value": "{size.lg.value}" },
+      "h3":       { "value": "{size.2xl.value}" },
+      "h2":       { "value": "{size.3xl.value}" },
+      "h1":       { "value": "{size.4xl.value}" },
+      "display":  { "value": "{size.6xl.value}" }
+    },
+    "weight": {
+      "body":    { "value": "{weight.regular.value}" },
+      "heading": { "value": "{weight.semibold.value}" },
+      "display": { "value": "{weight.bold.value}" }
+    },
+    "leading": {
+      "heading": { "value": "{leading.snug.value}" },
+      "body":    { "value": "{leading.normal.value}" },
+      "display": { "value": "{leading.tight.value}" }
+    },
+    "tracking": {
+      "eyebrow": { "value": "{tracking.widest.value}" },
+      "display": { "value": "{tracking.tight.value}" },
+      "body":    { "value": "{tracking.normal.value}" }
+    }
+  },
+  "motion": {
+    "duration": { "value": "{motion.duration.base.value}" },
+    "ease":     { "value": "{motion.ease.emphasized.value}" }
+  }
+}

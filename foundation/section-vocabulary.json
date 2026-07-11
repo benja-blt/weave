@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/foundation/section-vocabulary.json",
+  "title": "Section Vocabulary",
+  "description": "Fuente única de verdad de las secciones válidas. Define, por cada type: sus variants permitidas, los campos de content requeridos, qué enhancement soporta, y en qué arquetipos aparece. El validate.js del generador usa esto para lintear cada page.json. Agregar una sección nueva = agregar una entrada acá + crear su componente.",
+  "version": "1.0.0",
+  "enhancementLevels": {
+    "none": "Solo HTML/CSS + micro-motion. Nunca dispara carga pesada.",
+    "media": "Puede pedir video o video-bg (con poster fallback obligatorio).",
+    "three": "Puede pedir escena/objeto WebGL (con imagen fallback obligatoria y device-tier gate)."
+  },
+  "sections": {
+    "navbar": {
+      "variants": ["transparent", "solid", "minimal", "centered-logo"],
+      "contentRequired": ["logo", "links"],
+      "enhancement": "none",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno", "A3-marcas-productos", "A4-b2b"],
+      "notes": "Sticky por default. 'transparent' se vuelve solid al scrollear."
+    },
+    "hero": {
+      "variants": ["split", "centered", "fullbleed-image", "fullbleed-video", "3d-scene", "editorial-type"],
+      "contentRequired": ["headline"],
+      "enhancement": "three",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno", "A3-marcas-productos", "A4-b2b"],
+      "notes": "El LCP suele vivir acá: cuidar el asset above-the-fold contra el budget."
+    },
+    "cta": {
+      "variants": ["banner", "split", "boxed", "fullbleed"],
+      "contentRequired": ["headline", "action"],
+      "enhancement": "media",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno", "A3-marcas-productos", "A4-b2b"]
+    },
+    "gallery": {
+      "variants": ["masonry", "grid", "carousel", "fullbleed-scroll", "mixed-media"],
+      "contentRequired": ["items"],
+      "enhancement": "media",
+      "archetypes": ["A1-hospitality", "A3-marcas-productos"],
+      "notes": "mixed-media permite imágenes + video en la misma grilla."
+    },
+    "cards": {
+      "variants": ["grid", "hover-reveal", "stacked"],
+      "contentRequired": ["items"],
+      "enhancement": "none",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno", "A4-b2b"]
+    },
+    "services": {
+      "variants": ["grid", "list", "accordion", "icon-cards"],
+      "contentRequired": ["items"],
+      "enhancement": "none",
+      "archetypes": ["A2-servicios-turno", "A4-b2b"]
+    },
+    "pricing": {
+      "variants": ["tiers", "single", "comparison-table", "toggle"],
+      "contentRequired": ["plans"],
+      "enhancement": "none",
+      "archetypes": ["A4-b2b"]
+    },
+    "testimonials": {
+      "variants": ["carousel", "grid", "single-quote", "wall"],
+      "contentRequired": ["items"],
+      "enhancement": "none",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno", "A3-marcas-productos", "A4-b2b"]
+    },
+    "faq": {
+      "variants": ["accordion", "two-column", "list"],
+      "contentRequired": ["items"],
+      "enhancement": "none",
+      "archetypes": ["A2-servicios-turno", "A4-b2b"]
+    },
+    "contact": {
+      "variants": ["split-map", "form-only", "cta-block"],
+      "contentRequired": ["fields"],
+      "enhancement": "none",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno", "A3-marcas-productos", "A4-b2b"]
+    },
+    "footer": {
+      "variants": ["minimal", "columns", "big-cta", "brand"],
+      "contentRequired": ["links"],
+      "enhancement": "none",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno", "A3-marcas-productos", "A4-b2b"]
+    },
+    "maps": {
+      "variants": ["embed", "static-pin", "styled"],
+      "contentRequired": ["coordinates"],
+      "enhancement": "none",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno"],
+      "notes": "Preferir static-pin (imagen) + link a Maps para no cargar el SDK pesado salvo interacción."
+    },
+    "forms": {
+      "variants": ["inline", "stacked", "multi-step"],
+      "contentRequired": ["fields"],
+      "enhancement": "none",
+      "archetypes": ["A2-servicios-turno", "A4-b2b"]
+    },
+    "reservation": {
+      "variants": ["inline", "widget-embed", "cta-to-whatsapp"],
+      "contentRequired": ["method"],
+      "enhancement": "none",
+      "archetypes": ["A1-hospitality", "A2-servicios-turno"]
+    },
+    "product-showcase": {
+      "variants": ["split", "sticky-scroll", "carousel", "feature-grid"],
+      "contentRequired": ["products"],
+      "enhancement": "three",
+      "archetypes": ["A3-marcas-productos"]
+    },
+    "team": {
+      "variants": ["grid", "carousel", "hover-bio"],
+      "contentRequired": ["members"],
+      "enhancement": "none",
+      "archetypes": ["A2-servicios-turno", "A4-b2b"]
+    },
+    "timeline": {
+      "variants": ["vertical", "horizontal-scroll", "process-steps"],
+      "contentRequired": ["steps"],
+      "enhancement": "none",
+      "archetypes": ["A3-marcas-productos", "A4-b2b"],
+      "notes": "Ideal para 'proceso/craft' de una bodega o el 'cómo funciona' de un SaaS."
+    },
+    "stats": {
+      "variants": ["row", "grid", "animated-counters"],
+      "contentRequired": ["items"],
+      "enhancement": "none",
+      "archetypes": ["A2-servicios-turno", "A4-b2b"]
+    },
+    "logo-cloud": {
+      "variants": ["row", "marquee", "grid"],
+      "contentRequired": ["logos"],
+      "enhancement": "none",
+      "archetypes": ["A4-b2b"]
+    },
+    "bento-grid": {
+      "variants": ["classic", "asymmetric", "feature-focus"],
+      "contentRequired": ["cells"],
+      "enhancement": "media",
+      "archetypes": ["A4-b2b"],
+      "notes": "Patrón estrella para SaaS/IA (Apple/Stripe). Cada celda puede llevar micro-motion."
+    },
+    "menu-section": {
+      "variants": ["editorial", "categorized", "grid", "pdf-link"],
+      "contentRequired": ["categories"],
+      "enhancement": "none",
+      "archetypes": ["A1-hospitality"]
+    },
+    "before-after": {
+      "variants": ["slider", "side-by-side", "grid"],
+      "contentRequired": ["pairs"],
+      "enhancement": "none",
+      "archetypes": ["A2-servicios-turno"]
+    },
+    "video-section": {
+      "variants": ["fullbleed", "framed", "split-text"],
+      "contentRequired": ["video"],
+      "enhancement": "media",
+      "archetypes": ["A1-hospitality", "A3-marcas-productos", "A4-b2b"]
+    },
+    "3d-viewer": {
+      "variants": ["rotate", "explode", "configurable"],
+      "contentRequired": ["model"],
+      "enhancement": "three",
+      "archetypes": ["A3-marcas-productos"],
+      "notes": "Fallback OBLIGATORIO a imagen del producto. Solo se activa en device-tier alto."
+    },
+    "interactive-showcase": {
+      "variants": ["scrollytelling", "hover-explore", "tabs-3d"],
+      "contentRequired": ["scenes"],
+      "enhancement": "three",
+      "archetypes": ["A3-marcas-productos", "A4-b2b"]
+    },
+    "tour-section": {
+      "variants": ["360", "walkthrough-scroll", "hotspots"],
+      "contentRequired": ["scenes"],
+      "enhancement": "three",
+      "archetypes": ["A1-hospitality", "A4-b2b"],
+      "notes": "Hoteles/real estate. Fallback a galería de imágenes."
+    },
+    "featured-projects": {
+      "variants": ["grid", "horizontal-scroll", "fullbleed-list"],
+      "contentRequired": ["projects"],
+      "enhancement": "media",
+      "archetypes": ["A4-b2b"]
+    },
+    "case-studies": {
+      "variants": ["list", "detailed-cards", "metrics-focus"],
+      "contentRequired": ["studies"],
+      "enhancement": "none",
+      "archetypes": ["A4-b2b"]
+    }
+  }
+}

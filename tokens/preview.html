@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Tokens — tema warm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="build/tokens-base.css">
+<link rel="stylesheet" href="build/theme-warm.css">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-family-body);
+    line-height: var(--font-leading-body);
+    padding: var(--space-16) var(--space-6);
+  }
+  .wrap { max-width: var(--grid-content-max); margin: 0 auto; }
+  .eyebrow {
+    font-size: var(--font-size-eyebrow);
+    letter-spacing: var(--font-tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: var(--font-weight-heading);
+  }
+  h1, h2, h3 { font-family: var(--font-family-display); line-height: var(--font-leading-display); letter-spacing: var(--font-tracking-display); font-weight: var(--font-weight-display); }
+  .display { font-size: var(--font-size-display); }
+  h1 { font-size: var(--font-size-h1); }
+  h2 { font-size: var(--font-size-h2); margin-top: var(--space-16); }
+  h3 { font-size: var(--font-size-h3); }
+  p.lead { font-size: var(--font-size-lead); color: var(--color-fg-muted); max-width: 52ch; margin-top: var(--space-4); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-6); }
+  .swatch { width: 120px; }
+  .chip { height: 72px; border-radius: var(--radius-card); border: 1px solid var(--color-border); box-shadow: var(--shadow-card); }
+  .swatch small { display:block; margin-top: var(--space-2); font-size: var(--font-size-eyebrow); color: var(--color-fg-muted); }
+  .btn {
+    display:inline-block; margin-top: var(--space-6);
+    background: var(--color-accent); color: var(--color-accent-fg);
+    padding: var(--space-3) var(--space-6); border-radius: var(--radius-button);
+    font-weight: var(--font-weight-heading); text-decoration:none;
+    transition: transform var(--motion-duration) var(--motion-ease);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .card {
+    background: var(--color-surface); border:1px solid var(--color-border);
+    border-radius: var(--radius-card); box-shadow: var(--shadow-raised);
+    padding: var(--space-8); margin-top: var(--space-8); max-width: 420px;
+  }
+  .scale > div { border-bottom: 1px dashed var(--color-border); padding: var(--space-2) 0; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">La Martu · tema warm</p>
+    <h1 class="display">Café de especialidad</h1>
+    <p class="lead">Así se ve el tema <strong>warm</strong> renderizado 100% con design tokens. Cambiar a <code>luxury</code> o <code>dark</code> reestilizaría todo esto sin tocar una línea de markup.</p>
+    <a class="btn" href="#">Reservar mesa</a>
+
+    <h2>Roles de color</h2>
+    <div class="row">
+      <div class="swatch"><div class="chip" style="background:var(--color-bg)"></div><small>bg</small></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-surface)"></div><small>surface</small></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-surface-alt)"></div><small>surface-alt</small></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-fg)"></div><small>fg</small></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-fg-muted)"></div><small>fg-muted</small></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-accent)"></div><small>accent</small></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-highlight)"></div><small>highlight</small></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-border)"></div><small>border</small></div>
+    </div>
+
+    <h2>Escala tipográfica</h2>
+    <div class="scale">
+      <div style="font-size:var(--font-size-display);font-family:var(--font-family-display)">Display</div>
+      <div style="font-size:var(--font-size-h1);font-family:var(--font-family-display)">Heading 1</div>
+      <div style="font-size:var(--font-size-h2);font-family:var(--font-family-display)">Heading 2</div>
+      <div style="font-size:var(--font-size-lead)">Lead paragraph</div>
+      <div style="font-size:var(--font-size-body)">Body — el zorro marrón salta sobre el perro perezoso.</div>
+      <div style="font-size:var(--font-size-eyebrow);letter-spacing:var(--font-tracking-eyebrow);text-transform:uppercase">Eyebrow</div>
+    </div>
+
+    <div class="card">
+      <p class="eyebrow">Card de ejemplo</p>
+      <h3>Espresso de origen</h3>
+      <p class="lead" style="margin-top:var(--space-2)">Radio, sombra, espaciado y color: todo desde tokens semánticos.</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,652 @@
+---
+// src/pages/index.astro — Weave, landing negro/azul cielo (Framer/Linear). Reusa Base.astro
+// (tokens + motion + fonts). Paleta azul hardcodeada en .wv (el sistema de tokens es warm; acá
+// la landing define su propia escala fría). Three.js LOCAL (npm i three), bundleado por Astro.
+// Hero multicapa: orbs CSS + esfera wireframe WebGL + partículas WebGL + grid + scrim.
+import Base from '../layouts/Base.astro';
+
+const steps = [
+  { n: '01', title: 'Contanos tu negocio', desc: 'Describís tu negocio, subís fotos de tu lugar y pegás tu Instagram.', icon: 'camera' },
+  { n: '02', title: 'La IA analiza todo', desc: 'La IA analiza el estilo, el mood y la personalidad de tu lugar. Elige el patrón perfecto entre los mejores sitios del mundo.', icon: 'spark' },
+  { n: '03', title: 'Publicás en minutos', desc: 'Landing premium lista. Descargá el código o publicá en Netlify con un click.', icon: 'launch' },
+];
+
+const examples = [
+  { label: 'Café', cta: 'Reservar', mockTitle: 'Specialty Coffee', badge: '☕ Café · Minimalista', time: '⚡ 3 min', c1: '#0A1A0A', c2: '#1A3A1A', c3: '#4CAF50' },
+  { label: 'Mesa', cta: 'Reservar', mockTitle: 'Fine Dining', badge: '🍽️ Restaurant · Elegante', time: '⚡ 4 min', c1: '#0A0F1A', c2: '#1A2A4A', c3: '#D4AF37' },
+  { label: 'Burger', cta: 'Pedir', mockTitle: 'Craft Burgers', badge: '🍔 Burger · Moderno', time: '⚡ 3 min', c1: '#1A0500', c2: '#3D1000', c3: '#FF4500' },
+  { label: 'Beauty', cta: 'Reservar', mockTitle: 'Beauty Studio', badge: '💅 Beauty · Premium', time: '⚡ 4 min', c1: '#1A0A12', c2: '#2A1020', c3: '#FF69B4' },
+  { label: 'Dental', cta: 'Turno', mockTitle: 'Dental Care', badge: '🦷 Dental · Elegante', time: '⚡ 3 min', c1: '#0A1A1A', c2: '#102A2A', c3: '#00BCD4' },
+  { label: 'Studio', cta: 'Contactar', mockTitle: 'Creative Studio', badge: '🏢 Agency · Premium', time: '⚡ 5 min', c1: '#0A0A14', c2: '#14142A', c3: '#4F8EF7' },
+];
+
+const sources = ['Weave', 'Los mejores diseños del mundo', '72 patrones', 'Café', 'Restaurant', 'Burger', 'Beauty', 'Dental', 'Agency'];
+
+const beforeAfter = [
+  { niche: 'Café', beforeTitle: 'Bienvenidos a nuestro café', afterTitle: 'Specialty Coffee', c1: '#0A2A1A', c2: '#2ECC71' },
+  { niche: 'Restaurant', beforeTitle: 'Bienvenidos a nuestro restaurante', afterTitle: 'Fine Dining', c1: '#0A0F1A', c2: '#D4AF37' },
+  { niche: 'Burger', beforeTitle: 'Bienvenidos a nuestra hamburguesería', afterTitle: 'Craft Burgers', c1: '#1A0500', c2: '#FF4500' },
+];
+
+const testimonials = [
+  { name: 'María García', business: 'Café Aroma · Buenos Aires', avatar: 'MG', avatarBg: '#2ECC71', text: 'En menos de 10 minutos tenía la web de mi café lista. Mis clientes no lo podían creer.', stars: 5 },
+  { name: 'Carlos Mendez', business: 'La Parrilla de Carlos · Córdoba', avatar: 'CM', avatarBg: '#D4AF37', text: 'Antes no tenía ni Instagram actualizado. Ahora tengo una web que parece de restaurante de lujo.', stars: 5 },
+  { name: 'Valentina López', business: 'Burger House · Rosario', avatar: 'VL', avatarBg: '#FF4500', text: 'Subí fotos de mi local, describí qué hacemos, y Weave eligió un diseño perfecto para nosotros.', stars: 5 },
+  { name: 'Diego Fernández', business: 'Studio DF · Mendoza', avatar: 'DF', avatarBg: '#4F8EF7', text: 'Para mi agencia era imposible justificar el costo de una web custom. Weave lo resolvió.', stars: 5 },
+  { name: 'Laura Sánchez', business: 'Beauty by Laura · Santa Fe', avatar: 'LS', avatarBg: '#FF69B4', text: 'El diseño que eligió la IA fue exactamente el estilo que yo tenía en mente pero no sabía cómo pedir.', stars: 5 },
+  { name: 'Martín Torres', business: 'Dental Sonrisa · CABA', avatar: 'MT', avatarBg: '#00BCD4', text: 'Mis pacientes me preguntan quién me hizo la web. Les digo que una IA y no lo creen.', stars: 5 },
+];
+---
+<Base
+  title="Weave — Contanos tu negocio, nosotros lo convertimos en web"
+  description="Subís fotos, describís tu lugar, y Weave genera una web lista para publicar."
+>
+  <div class="wv">
+    <!-- ── NAVBAR ─────────────────────────────────────────────────────────── -->
+    <header class="nav">
+      <a class="nav__logo" href="/"><span class="dia">◈</span> Weave</a>
+      <nav class="nav__links">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#ejemplos">Ejemplos</a>
+      </nav>
+      <a class="btn btn--solid btn--sm" href="/onboarding/step-1">Empezar gratis</a>
+    </header>
+
+    <main>
+      <!-- ── HERO (multicapa) ─────────────────────────────────────────────── -->
+      <section class="hero" data-motion="premium" data-motion-el="hero">
+        <!-- CAPA 1 — orbs animados CSS -->
+        <div class="hero__orb" aria-hidden="true"></div>
+        <div class="hero__orb2" aria-hidden="true"></div>
+        <!-- CAPA 2 — esfera wireframe WebGL (Three.js) -->
+        <canvas id="hero-sphere" class="hero__sphere" aria-hidden="true"></canvas>
+        <!-- CAPA 3 — partículas WebGL (Three.js) -->
+        <canvas id="particles" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:0.5"></canvas>
+        <!-- Scrim -->
+        <div class="hero__scrim" aria-hidden="true"></div>
+        <!-- CAPA 4 — grid lines -->
+        <div class="hero__grid" aria-hidden="true"></div>
+
+        <!-- CAPA 5 — contenido -->
+        <div class="hero__inner">
+          <h1 class="hero__title" data-motion-el data-motion-order="0">
+            <span class="hero__l1">Contanos tu negocio.</span>
+            <span class="hero__l2">Nosotros lo convertimos en web.</span>
+          </h1>
+          <p class="hero__lead" data-motion-el data-motion-order="1">
+            Subís fotos, describís tu lugar, y Weave genera una web lista para publicar.
+          </p>
+          <div class="hero__actions" data-motion-el data-motion-order="2">
+            <a class="btn btn--accent btn--lg" href="/onboarding/step-1">Empezar ahora <span aria-hidden="true">→</span></a>
+            <a class="btn btn--ghost btn--lg" href="#ejemplos">Ver ejemplos</a>
+          </div>
+        </div>
+
+        <div class="hero__scroll" aria-hidden="true">
+          <span class="hero__scroll-line"></span>
+        </div>
+      </section>
+
+      <!-- ── MARQUEE ──────────────────────────────────────────────────────── -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          {[0, 1, 2].map(() => (
+            <span class="marquee__group">
+              {sources.map((s) => <span class="marquee__item">{s}<i>·</i></span>)}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- ── CÓMO FUNCIONA ────────────────────────────────────────────────── -->
+      <section id="como-funciona" class="section" data-motion="premium" data-motion-el="how">
+        <header class="head">
+          <p class="eyebrow" data-motion-el data-motion-order="0">El proceso</p>
+          <h2 class="h2" data-motion-el data-motion-order="1">Tres pasos.<br />Una landing que convierte.</h2>
+        </header>
+        <div class="steps">
+          {steps.map((s, i) => (
+            <article class="step" data-motion-el data-motion-order={i}>
+              <span class="step__n">{s.n}</span>
+              <span class="step__icon">
+                {s.icon === 'camera' && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2L8 5h8l1.5 2h2A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z" />
+                    <circle cx="12" cy="13" r="3.2" />
+                  </svg>
+                )}
+                {s.icon === 'spark' && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />
+                    <path d="M19 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z" />
+                  </svg>
+                )}
+                {s.icon === 'launch' && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 17L17 7" /><path d="M8 7h9v9" />
+                  </svg>
+                )}
+              </span>
+              <h3 class="step__title">{s.title}</h3>
+              <p class="step__desc">{s.desc}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <!-- ── EJEMPLOS DE OUTPUT (bento grid) ──────────────────────────────── -->
+      <section id="ejemplos" class="section section--surface" data-motion="premium" data-motion-el="ex">
+        <header class="head">
+          <p class="eyebrow" data-motion-el data-motion-order="0">Resultados</p>
+          <h2 class="h2" data-motion-el data-motion-order="1">Así quedan las webs generadas.</h2>
+          <p class="lede" data-motion-el data-motion-order="2">Cada web es única — creada analizando tu negocio, tus fotos y tu estilo.</p>
+        </header>
+        <div class="carousel-wrapper">
+          <div class="carousel" id="examples-carousel">
+            {[...examples, ...examples].map((ex) => (
+              <article class="example" style={`--c1:${ex.c1}; --c2:${ex.c2}; --c3:${ex.c3}`}>
+                <div class="mock">
+                  <div class="mock__nav">
+                    <span class="mock__logo"><span class="dia">◈</span> {ex.label}</span>
+                    <span class="mock__links"><i></i><i></i><i></i></span>
+                    <span class="mock__navbtn">{ex.cta}</span>
+                  </div>
+                  <div class="mock__hero">
+                    <div class="mock__herobg"></div>
+                    <div class="mock__herocontent">
+                      <span class="mock__h1">{ex.mockTitle}</span>
+                      <span class="mock__sub"></span>
+                      <span class="mock__btns"><i></i><i></i></span>
+                    </div>
+                  </div>
+                  <div class="mock__services"><span></span><span></span><span></span></div>
+                  <div class="mock__gallery"><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="example__foot">
+                  <span class="tag tag--niche">{ex.badge}</span>
+                  <span class="tag tag--time">{ex.time}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ANTES vs DESPUÉS ─────────────────────────────────────────────── -->
+      <section class="section before-after">
+        <header class="head">
+          <p class="eyebrow">Transformación</p>
+          <h2 class="h2">El antes y después.</h2>
+          <p class="lede">La misma info, dos resultados completamente distintos.</p>
+        </header>
+        <div class="carousel-wrapper">
+          <div class="carousel carousel--slow">
+            {[...beforeAfter, ...beforeAfter].map((ba) => (
+              <article class="ba-card" style={`--c1:${ba.c1}; --c2:${ba.c2}`}>
+                <div class="ba-before">
+                  <span class="ba-before__label">Sin Weave · {ba.niche}</span>
+                  <span class="ba-before__title">{ba.beforeTitle}</span>
+                </div>
+                <div class="ba-divider" aria-hidden="true"></div>
+                <div class="ba-after">
+                  <span class="ba-after__label">Con Weave</span>
+                  <span class="ba-after__title">{ba.afterTitle}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TESTIMONIOS ──────────────────────────────────────────────────── -->
+      <section class="section testimonials">
+        <header class="head">
+          <p class="eyebrow">Lo que dicen</p>
+          <h2 class="h2">Negocios que ya están online.</h2>
+        </header>
+        <div class="carousel-wrapper">
+          <div class="carousel carousel--reverse">
+            {[...testimonials, ...testimonials].map((t) => (
+              <article class="testi-card">
+                <div class="testi-stars" aria-hidden="true">{'★'.repeat(t.stars)}</div>
+                <p class="testi-text">{t.text}</p>
+                <div class="testi-author">
+                  <span class="testi-avatar" style={`--av-bg:${t.avatarBg}`}>{t.avatar}</span>
+                  <span>
+                    <span class="testi-name">{t.name}</span><br />
+                    <span class="testi-biz">{t.business}</span>
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CTA FINAL ────────────────────────────────────────────────────── -->
+      <section class="final" data-motion="premium" data-motion-el="cta">
+        <div class="final__grain" aria-hidden="true"></div>
+        <div class="final__inner">
+          <p class="final__stat" data-motion-el data-motion-order="0">
+            <span class="final__num">72</span>
+            <span class="final__unit">diseños de los mejores sitios del mundo.</span>
+          </p>
+          <p class="final__sub" data-motion-el data-motion-order="1">Uno de ellos es perfecto para tu negocio.<br />La IA lo encuentra en segundos.</p>
+          <a class="btn btn--solid btn--lg" href="/onboarding/step-1" data-motion-el data-motion-order="2">Encontrá el tuyo <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </main>
+
+    <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+    <footer class="foot">
+      <span class="foot__logo"><span class="dia">◈</span> Weave</span>
+      <span class="foot__meta">© 2026 · Weave</span>
+    </footer>
+  </div>
+
+  <style is:global>
+    body { background: #000000; }
+    :root { color-scheme: dark; }
+    html { scroll-behavior: smooth; }
+    ::selection { background: rgba(79, 142, 247, 0.55); color: #fff; }
+  </style>
+
+  <style>
+    /* ── Escala de la landing (negro/azul cielo — Framer/Linear) ──────────── */
+    .wv {
+      --bg: #000000;
+      --surface: #0A0A2E;
+      --ink: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.5);
+      --line: rgba(79, 142, 247, 0.12);
+      --accent: #4F8EF7;
+      --accent-2: #060147;
+      --accent-soft: rgba(79, 142, 247, 0.1);
+      --glow: rgba(79, 142, 247, 0.35);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-family-body);
+      overflow-x: hidden;
+    }
+    .dia { color: var(--accent); }
+
+    /* ── Botones ──────────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-family-body); font-weight: var(--weight-semibold);
+      font-size: var(--size-base); line-height: 1;
+      padding: 0.9rem 1.6rem; border-radius: var(--radius-full);
+      text-decoration: none; border: 1px solid transparent;
+      transition: transform 180ms var(--motion-ease-emphasized), box-shadow 180ms var(--motion-ease-emphasized), filter 180ms ease, background 180ms ease;
+    }
+    .btn--sm { padding: 0.55rem 1.1rem; font-size: var(--size-sm); }
+    .btn--lg { padding: 1rem 2rem; font-size: var(--size-lg); }
+    .btn--accent { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
+    .btn--accent:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: 0 12px 44px var(--glow); }
+    .btn--solid { background: var(--accent); color: #000000; }
+    .btn--solid:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 10px 34px var(--glow); }
+    .btn--ghost { color: var(--ink); border-color: rgba(255, 255, 255, 0.25); }
+    .btn--ghost:hover { border-color: var(--ink); background: rgba(255, 255, 255, 0.06); }
+    .btn--light { background: #fff; color: var(--accent-2); }
+    .btn--light:hover { transform: scale(1.03); box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4); }
+    .btn span { transition: transform 180ms var(--motion-ease-emphasized); }
+    .btn:hover span { transform: translateX(3px); }
+
+    /* ── Navbar (glass) ───────────────────────────────────────────────────── */
+    .nav {
+      position: fixed; inset: 0 0 auto 0; z-index: 100; height: 64px;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 0 var(--space-8);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav__logo { justify-self: start; font-family: var(--font-family-display); font-weight: var(--weight-bold); font-size: var(--size-lg); color: var(--ink); text-decoration: none; }
+    .nav__links { justify-self: center; display: flex; gap: var(--space-6); }
+    .nav__links a { color: var(--muted); text-decoration: none; font-size: var(--size-sm); font-weight: var(--weight-medium); transition: color 200ms ease; }
+    .nav__links a:hover { color: var(--ink); }
+    .nav .btn { justify-self: end; }
+    @media (max-width: 720px) { .nav__links { display: none; } .nav { grid-template-columns: 1fr auto; } }
+
+    /* ── Hero ─────────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 100svh;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .hero__orb {
+      position: absolute; top: 30%; left: 50%; width: min(900px, 130vw); height: 600px;
+      background: radial-gradient(closest-side, rgba(6, 1, 71, 0.9) 0%, transparent 100%);
+      filter: blur(140px); animation: orbFloat 8s ease-in-out infinite; z-index: 1; will-change: transform;
+    }
+    .hero__orb2 {
+      position: absolute; top: 60%; left: 20%; width: min(500px, 90vw); height: 400px;
+      background: radial-gradient(closest-side, rgba(79, 142, 247, 0.2) 0%, transparent 100%);
+      filter: blur(100px); animation: orbFloat 12s ease-in-out infinite reverse; z-index: 1; will-change: transform;
+    }
+    @keyframes orbFloat {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+      33% { transform: translate(-45%, -55%) scale(1.1); opacity: 0.5; }
+      66% { transform: translate(-55%, -45%) scale(0.95); opacity: 0.35; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+    }
+    .hero__sphere {
+      position: absolute; top: 50%; right: 8%; transform: translateY(-50%);
+      width: clamp(280px, 32vw, 460px); height: clamp(280px, 32vw, 460px);
+      z-index: 1; pointer-events: none;
+    }
+    @media (max-width: 768px) { .hero__sphere { display: none; } }
+    .hero__scrim {
+      position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.6) 100%);
+    }
+    .hero__grid {
+      position: absolute; inset: 0; z-index: 3; opacity: 0.5; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(79, 142, 247, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 142, 247, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 20%, transparent 75%);
+      mask-image: radial-gradient(circle at 50% 40%, #000 20%, transparent 75%);
+    }
+    .hero__inner { position: relative; z-index: 4; max-width: 900px; padding: var(--space-24) var(--space-6) var(--space-16); }
+    .hero__title { margin: 0; font-family: var(--font-family-display); font-weight: var(--weight-bold); line-height: 1.05; letter-spacing: var(--tracking-tight); font-size: clamp(3rem, 7vw, 6.5rem); }
+    .hero__l1 { display: block; color: var(--ink); }
+    .hero__l2 { display: block; color: var(--accent); }
+    .hero__lead { margin: var(--space-8) auto 0; max-width: 42ch; font-size: clamp(1rem, 1.8vw, 1.2rem); line-height: var(--leading-relaxed); color: rgba(255, 255, 255, 0.7); }
+    .hero__actions { margin-top: var(--space-10); display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
+    .hero__scroll { position: absolute; bottom: var(--space-8); left: 50%; transform: translateX(-50%); z-index: 4; display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+    .hero__scroll-line { width: 1px; height: 42px; background: linear-gradient(var(--ink), transparent); animation: scrollpulse 1.8s var(--motion-ease-standard) infinite; transform-origin: top; }
+    @keyframes scrollpulse { 0%, 100% { transform: scaleY(0.4); opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+    /* Reveal cinematográfico del hero: más lento, con blur-in (pisa motion.css con mayor
+       especificidad — .wv + .hero + atributo + data-astro-cid de scoping). */
+    .wv .hero [data-motion-el] {
+      transition:
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      filter: blur(8px);
+    }
+    .wv .hero [data-motion-el].is-in { filter: blur(0); }
+    .wv .hero [data-motion-el][data-motion-order="0"] { transition-delay: 0ms !important; }
+    .wv .hero [data-motion-el][data-motion-order="1"] { transition-delay: 600ms !important; }
+    .wv .hero [data-motion-el][data-motion-order="2"] { transition-delay: 1200ms !important; }
+    .wv .hero [data-motion-el][data-motion-order="3"] { transition-delay: 1800ms !important; }
+
+    /* ── Marquee ──────────────────────────────────────────────────────────── */
+    .marquee { overflow: hidden; background: var(--surface); border-block: 1px solid var(--line); padding: var(--space-4) 0; }
+    .marquee__track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+    .marquee__track:hover { animation-play-state: paused; }
+    .marquee__group { display: flex; }
+    .marquee__item { display: inline-flex; align-items: center; gap: var(--space-6); padding-right: var(--space-6); font-family: var(--font-family-mono); font-size: var(--size-xs); text-transform: uppercase; letter-spacing: var(--tracking-widest); color: var(--muted); white-space: nowrap; }
+    .marquee__item i { color: var(--accent); font-style: normal; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
+
+    /* ── Secciones ────────────────────────────────────────────────────────── */
+    .section { position: relative; padding: var(--space-32) var(--space-8); max-width: var(--layout-container-max); margin: 0 auto; }
+    .section--surface { max-width: none; background: var(--surface); border-block: 1px solid var(--line); }
+    .section--surface > .head, .section--surface > .carousel-wrapper { max-width: var(--layout-container-max); margin-inline: auto; }
+    .head { max-width: 64ch; margin: 0 auto var(--space-16); text-align: center; }
+    .eyebrow { margin: 0 0 var(--space-4); font-family: var(--font-family-mono); font-size: var(--size-xs); text-transform: uppercase; letter-spacing: var(--tracking-widest); color: var(--accent); }
+    .h2 { margin: 0; font-family: var(--font-family-display); font-weight: var(--weight-bold); line-height: var(--leading-snug); font-size: clamp(2.5rem, 5vw, 4rem); color: var(--ink); }
+    .lede { margin: var(--space-5) auto 0; max-width: 52ch; font-size: var(--size-sm); line-height: var(--leading-relaxed); color: var(--muted); }
+
+    /* Pasos */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-12); }
+    @media (max-width: 860px) { .steps { grid-template-columns: 1fr; gap: var(--space-10); } }
+    .step { position: relative; }
+    .step__n { font-family: var(--font-family-display); font-weight: var(--weight-bold); font-size: 5.5rem; line-height: 1; color: var(--accent); opacity: 0.28; }
+    .step__icon { display: block; margin: var(--space-4) 0 var(--space-5); color: var(--accent); }
+    .step__icon svg { width: 32px; height: 32px; }
+    .step__title { margin: 0 0 var(--space-3); font-size: var(--size-xl); font-weight: var(--weight-semibold); color: var(--ink); }
+    .step__desc { margin: 0; font-size: var(--size-sm); line-height: var(--leading-relaxed); color: var(--muted); max-width: 34ch; }
+    @media (min-width: 861px) {
+      .step:not(:last-child)::after { content: ''; position: absolute; top: 90px; left: calc(100% - var(--space-6)); width: var(--space-12); border-top: 1px dashed rgba(79, 142, 247, 0.35); }
+    }
+
+    /* ── Carrusel genérico (ejemplos / antes-después / testimonios) ───────── */
+    .carousel-wrapper {
+      overflow: hidden; width: 100%;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .carousel { display: flex; gap: 20px; width: max-content; animation: carouselScroll 30s linear infinite; }
+    .carousel:hover { animation-play-state: paused; }
+    .carousel--slow { animation-duration: 40s; }
+    .carousel--reverse { animation-direction: reverse; animation-duration: 35s; }
+    @keyframes carouselScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .carousel { animation: none; } }
+
+    /* ── Ejemplos (mockups detallados) ─────────────────────────────────────── */
+    .carousel .example { flex: 0 0 420px; height: 320px; }
+    @media (max-width: 640px) {
+      .carousel .example { flex-basis: 300px; height: 240px; }
+    }
+    .example {
+      border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface);
+      cursor: pointer;
+      transition: transform 260ms var(--motion-ease-emphasized), border-color 260ms ease, box-shadow 260ms ease;
+    }
+    .example:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: color-mix(in srgb, var(--c3) 60%, transparent);
+      box-shadow: 0 20px 60px color-mix(in srgb, var(--c3) 30%, transparent), 0 20px 60px rgba(79, 142, 247, 0.2);
+    }
+
+    .mock { aspect-ratio: 16 / 10; display: flex; flex-direction: column; background: var(--c1); overflow: hidden; }
+    .mock__nav { flex: 0 0 auto; height: 26px; display: flex; align-items: center; gap: 8px; padding: 0 10px; background: color-mix(in srgb, var(--c1) 82%, #000); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .mock__logo { font-family: var(--font-family-display); font-size: 9px; color: rgba(255, 255, 255, 0.92); white-space: nowrap; }
+    .mock__logo .dia { color: var(--c3); }
+    .mock__links { display: flex; gap: 6px; margin-left: 6px; }
+    .mock__links i { width: 16px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, 0.28); }
+    .mock__navbtn { margin-left: auto; font-family: var(--font-family-body); font-size: 7px; font-weight: 600; color: #fff; background: color-mix(in srgb, var(--c3) 80%, #000); padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+    .mock__hero { position: relative; flex: 1 1 auto; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .mock__herobg { position: absolute; inset: 0; background: linear-gradient(160deg, var(--c1), var(--c2)); }
+    .mock__herobg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 72% 28%, color-mix(in srgb, var(--c3) 45%, transparent), transparent 60%); }
+    .mock__herocontent { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 10px; }
+    .mock__h1 { font-family: var(--font-family-display); font-style: italic; color: #fff; font-size: clamp(0.85rem, 2vw, 1.25rem); text-align: center; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4); }
+    .mock__sub { width: 84px; height: 5px; border-radius: 999px; background: rgba(255, 255, 255, 0.42); }
+    .mock__btns { display: flex; gap: 6px; margin-top: 3px; }
+    .mock__btns i { width: 42px; height: 15px; border-radius: 999px; }
+    .mock__btns i:first-child { background: #fff; }
+    .mock__btns i:last-child { background: transparent; border: 1px solid rgba(255, 255, 255, 0.55); }
+    .mock__services { flex: 0 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px 10px 4px; }
+    .mock__services span { height: 26px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.07); }
+    .mock__gallery { flex: 0 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 0 10px 9px; }
+    .mock__gallery i { aspect-ratio: 1; border-radius: 4px; background: linear-gradient(135deg, color-mix(in srgb, var(--c2) 65%, #000), var(--c3)); opacity: 0.82; }
+
+    .example__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-4) var(--space-5); }
+    .tag { font-family: var(--font-family-mono); font-size: 0.72rem; color: var(--muted); }
+    .tag--time { color: var(--accent); white-space: nowrap; }
+
+    /* ── Antes / Después ──────────────────────────────────────────────────── */
+    .ba-card {
+      flex: 0 0 600px; height: 280px; display: grid; grid-template-columns: 1fr auto 1fr;
+      border-radius: 16px; overflow: hidden; border: 1px solid var(--line);
+    }
+    @media (max-width: 640px) { .ba-card { flex-basis: 320px; height: 320px; grid-template-columns: 1fr; grid-template-rows: 1fr auto 1fr; } }
+    .ba-before {
+      background: #1A1A1A; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; padding: 24px;
+    }
+    .ba-before__label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.3); }
+    .ba-before__title { font-family: Arial, sans-serif; font-size: 1rem; color: rgba(255, 255, 255, 0.4); text-align: center; }
+    .ba-divider { width: 2px; background: var(--line); position: relative; display: flex; align-items: center; justify-content: center; }
+    @media (max-width: 640px) { .ba-divider { width: 100%; height: 2px; } }
+    .ba-divider::after {
+      content: '→'; background: var(--accent); color: #000; width: 28px; height: 28px; border-radius: 50%;
+      flex: none; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold;
+    }
+    .ba-after {
+      background: linear-gradient(135deg, var(--c1), var(--c2)); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px; padding: 24px;
+    }
+    .ba-after__label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255, 255, 255, 0.5); }
+    .ba-after__title { font-family: var(--font-family-display); font-style: italic; font-size: 1.4rem; color: #fff; text-align: center; }
+
+    /* ── Testimonios ──────────────────────────────────────────────────────── */
+    .testi-card {
+      flex: 0 0 380px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+      padding: 28px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .testi-stars { display: flex; gap: 4px; color: #FFB800; font-size: 0.85rem; }
+    .testi-text { font-size: var(--size-sm); line-height: var(--leading-relaxed); color: rgba(255, 255, 255, 0.8); flex: 1; margin: 0; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%; background: var(--av-bg); display: flex;
+      align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #000; flex-shrink: 0;
+    }
+    .testi-name { font-size: var(--size-sm); font-weight: var(--weight-semibold); color: var(--ink); }
+    .testi-biz { font-size: var(--size-xs); color: var(--muted); }
+
+    /* ── CTA final ────────────────────────────────────────────────────────── */
+    .final { position: relative; overflow: hidden; text-align: center; padding: clamp(5rem, 12vw, 9rem) var(--space-8); background: linear-gradient(135deg, #000000 0%, #060147 60%, #000000 100%); }
+    .final__grain {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .final__inner { position: relative; z-index: 2; max-width: 40ch; margin: 0 auto; }
+    .final__stat { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 0 0 var(--space-8); }
+    .final__num { font-family: var(--font-family-display); font-size: clamp(5rem, 15vw, 12rem); font-weight: 700; line-height: 1; color: #fff; letter-spacing: -0.02em; }
+    .final__unit { font-size: var(--size-lg); color: rgba(255, 255, 255, 0.85); text-align: center; max-width: 30ch; }
+    .final__sub { margin: 0 0 var(--space-10); font-size: var(--size-lg); color: rgba(255, 255, 255, 0.85); }
+
+    /* ── Footer ───────────────────────────────────────────────────────────── */
+    .foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; padding: var(--space-8) var(--space-12); background: #000000; border-top: 1px solid var(--line); }
+    .foot__logo { font-family: var(--font-family-display); font-weight: var(--weight-bold); color: var(--ink); }
+    .foot__meta { font-family: var(--font-family-mono); font-size: var(--size-xs); color: var(--muted); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee__track, .hero__scroll-line, .hero__orb, .hero__orb2 { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+
+  <!-- Three.js: esfera wireframe del hero (paquete local, bundleado por Astro). -->
+  <script>
+    import * as THREE from 'three';
+    const canvas = document.getElementById('hero-sphere');
+    if (canvas instanceof HTMLCanvasElement && window.matchMedia('(min-width: 769px)').matches) {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+      camera.position.z = 6;
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+      const pointLight = new THREE.PointLight(0x4f8ef7, 1.5);
+      pointLight.position.set(5, 5, 5);
+      scene.add(pointLight);
+
+      const geometry = new THREE.SphereGeometry(2.2, 64, 64);
+      const material = new THREE.MeshStandardMaterial({
+        color: 0x4f8ef7,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.12,
+      });
+      const sphere = new THREE.Mesh(geometry, material);
+      scene.add(sphere);
+
+      function resize() {
+        const size = canvas.clientWidth;
+        if (!size) return;
+        renderer.setSize(size, size, false);
+        camera.aspect = 1;
+        camera.updateProjectionMatrix();
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      let mx = 0, my = 0;
+      window.addEventListener('mousemove', (e) => {
+        mx = (e.clientX / window.innerWidth - 0.5);
+        my = (e.clientY / window.innerHeight - 0.5);
+      });
+
+      if (reduce) {
+        renderer.render(scene, camera);
+      } else {
+        (function animate() {
+          requestAnimationFrame(animate);
+          sphere.rotation.y += 0.002;
+          sphere.rotation.x += 0.001;
+          sphere.position.x = mx * 1.5;
+          sphere.position.y = -my * 1.5;
+          renderer.render(scene, camera);
+        })();
+      }
+    }
+  </script>
+
+  <!-- Three.js: partículas WebGL del hero (paquete local, bundleado por Astro). -->
+  <script>
+    import * as THREE from 'three';
+    const canvas = document.getElementById('particles');
+    if (canvas) {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.z = 5;
+
+      const count = 800;
+      const positions = new Float32Array(count * 3);
+      for (let i = 0; i < count * 3; i++) positions[i] = (Math.random() - 0.5) * 14;
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const mat = new THREE.PointsMaterial({ color: 0x4f8ef7, size: 0.025, transparent: true, opacity: 0.8, sizeAttenuation: true });
+      const points = new THREE.Points(geo, mat);
+      scene.add(points);
+
+      let mx = 0, my = 0;
+      window.addEventListener('mousemove', (e) => { mx = (e.clientX / window.innerWidth - 0.5) * 0.3; my = (e.clientY / window.innerHeight - 0.5) * 0.3; });
+      window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+
+      if (reduce) {
+        renderer.render(scene, camera); // frame estático: respeta reduced-motion
+      } else {
+        const clock = new THREE.Clock();
+        (function animate() {
+          requestAnimationFrame(animate);
+          const t = clock.getElapsedTime();
+          points.rotation.y = t * 0.025 + mx;
+          points.rotation.x = t * 0.012 + my;
+          renderer.render(scene, camera);
+        })();
+      }
+    }
+  </script>
+
+  <!-- Cursor glow (vanilla, solo puntero fino + no reduced-motion) -->
+  <script>
+    const fine = window.matchMedia('(pointer: fine)').matches;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (fine && !reduce) {
+      const orb = document.createElement('div');
+      orb.style.cssText = [
+        'position:fixed', 'pointer-events:none', 'z-index:9999',
+        'width:400px', 'height:400px', 'border-radius:50%',
+        'background:radial-gradient(circle, rgba(79,142,247,0.14) 0%, transparent 70%)',
+        'transform:translate(-50%,-50%)', 'left:-9999px', 'top:-9999px',
+        'mix-blend-mode:screen', 'transition:opacity .3s ease',
+      ].join(';');
+      document.body.appendChild(orb);
+      let mx = 0, my = 0, cx = 0, cy = 0, seen = false;
+      window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; seen = true; });
+      (function loop() {
+        cx += (mx - cx) * 0.08; cy += (my - cy) * 0.08;
+        if (seen) { orb.style.left = cx + 'px'; orb.style.top = cy + 'px'; }
+        requestAnimationFrame(loop);
+      })();
+    }
+  </script>
+</Base>

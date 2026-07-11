@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/components/navbar/navbar.schema.json",
+  "title": "Navbar content",
+  "description": "Valida el `content` de una sección type=navbar. contentRequired: logo, links.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["logo", "links"],
+  "properties": {
+    "logo": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Texto o imagen. Al menos uno de text/src.",
+      "anyOf": [{ "required": ["text"] }, { "required": ["src"] }],
+      "properties": {
+        "text": { "type": "string" },
+        "src": { "type": "string" },
+        "alt": { "type": "string" },
+        "href": { "type": "string", "default": "#" }
+      }
+    },
+    "links": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "href"],
+        "properties": {
+          "label": { "type": "string" },
+          "href": { "type": "string" },
+          "current": { "type": "boolean" }
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "description": "CTAs opcionales en la barra.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "href"],
+        "properties": {
+          "label": { "type": "string" },
+          "href": { "type": "string" },
+          "variant": { "type": "string", "enum": ["primary", "ghost"], "default": "primary" }
+        }
+      }
+    }
+  }
+}

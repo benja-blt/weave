@@ -1,0 +1,56 @@
+---
+// components/cta/variants/split.astro
+// Variant `split`: dos columnas sobre fondo de página.
+//   - CON media.image: texto + acciones a un lado, panel visual (imagen) al otro.
+//   - SIN media: cae al layout histórico texto | acciones (no se rompe nada).
+// El `media` del schema es opcional → banner/boxed no lo usan y siguen validando igual.
+// La imagen del CTA vive mid/bottom de página (no LCP) → loading="lazy". El video pesado
+// es enhancement de Wave 2, no se maneja acá (esta variant es puro HTML/CSS).
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { eyebrow, headline, subhead, action, secondary, media } = content;
+const img = media?.image;
+---
+<section
+  id={id}
+  class="plg-cta plg-cta--split"
+  data-cta-has-media={img ? 'true' : 'false'}
+  data-motion={motionName}
+  data-motion-el="cta"
+>
+  <div class="plg-cta__split">
+    <div class="plg-cta__text">
+      {eyebrow && <p class="plg-cta__eyebrow" data-motion-el="eyebrow">{eyebrow}</p>}
+      <h2 class="plg-cta__headline" data-motion-el="headline">{headline}</h2>
+      {subhead && <p class="plg-cta__subhead" data-motion-el="subhead">{subhead}</p>}
+      {img && (
+        <div class="plg-cta__actions" data-motion-el="actions">
+          <a class="plg-btn plg-btn--primary" href={action.href}>{action.label}</a>
+          {secondary && (
+            <a class="plg-btn plg-btn--ghost" href={secondary.href}>{secondary.label}</a>
+          )}
+        </div>
+      )}
+    </div>
+
+    {img ? (
+      <figure class="plg-cta__media" data-motion-el="media">
+        <img
+          src={img}
+          alt={media.alt ?? ''}
+          width={media.width}
+          height={media.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    ) : (
+      <div class="plg-cta__actions" data-motion-el="actions">
+        <a class="plg-btn plg-btn--primary" href={action.href}>{action.label}</a>
+        {secondary && (
+          <a class="plg-btn plg-btn--ghost" href={secondary.href}>{secondary.label}</a>
+        )}
+      </div>
+    )}
+  </div>
+</section>

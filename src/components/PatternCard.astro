@@ -1,0 +1,182 @@
+---
+// src/components/PatternCard.astro — L6 (UI de plataforma).
+// Card individual de un patrón del corpus L7. Fallback-first: el "thumbnail" es un gradiente
+// generado con los colores del propio patrón (no dependemos de screenshots que no tenemos).
+// data-motion-el → lo revela el motor de entrance (L3) al entrar al viewport.
+export interface Pattern {
+  id: string;
+  name: string;
+  url: string;
+  niche: string;
+  mood: string;
+  weight: 'adaptable' | 'heavy' | string;
+  description: string;
+  elements: string[];
+  colors: { primary: string; secondary: string; accent: string };
+}
+export interface Props { pattern: Pattern; }
+const { pattern } = Astro.props;
+const { name, url, niche, mood, weight, description, elements, colors } = pattern;
+---
+<article class="pattern-card" data-niche={niche} data-weight={weight} data-motion-el>
+  <div
+    class="pattern-card__thumb"
+    style={`--c1:${colors.primary}; --c2:${colors.accent}; --c3:${colors.secondary}`}
+  >
+    <span class="pattern-card__niche">{niche}</span>
+    <span class="pattern-card__weight" data-weight={weight}>{weight}</span>
+    <span class="pattern-card__swatches" aria-hidden="true">
+      <i style={`background:${colors.primary}`}></i>
+      <i style={`background:${colors.secondary}`}></i>
+      <i style={`background:${colors.accent}`}></i>
+    </span>
+  </div>
+
+  <div class="pattern-card__body">
+    <h3 class="pattern-card__name">{name}</h3>
+    <p class="pattern-card__mood">Mood · <span>{mood}</span></p>
+    <p class="pattern-card__desc">{description}</p>
+    <ul class="pattern-card__tags" role="list">
+      {elements.slice(0, 3).map((el) => <li class="pattern-card__tag">{el}</li>)}
+    </ul>
+  </div>
+
+  <a class="pattern-card__link" href={url} target="_blank" rel="noopener noreferrer">
+    Ver sitio <span aria-hidden="true">→</span>
+  </a>
+</article>
+
+<style>
+  .pattern-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition:
+      transform var(--motion-duration-base) var(--motion-ease-emphasized),
+      box-shadow var(--motion-duration-base) var(--motion-ease-emphasized);
+  }
+  .pattern-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-raised);
+  }
+  /* El atributo [hidden] (que togglea el filtro) aplica display:none vía UA-stylesheet, pero
+     el display:flex de autor le gana. Esta regla de autor, más específica, lo arregla. */
+  .pattern-card[hidden] { display: none; }
+
+  .pattern-card__thumb {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background:
+      radial-gradient(120% 120% at 15% 15%, var(--c3) 0%, transparent 55%),
+      linear-gradient(135deg, var(--c1) 0%, var(--c2) 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: var(--space-3);
+  }
+  .pattern-card__niche {
+    font-family: var(--font-family-body);
+    font-size: var(--size-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.32);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(2px);
+  }
+  .pattern-card__weight {
+    font-size: var(--size-xs);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--color-sand-900);
+  }
+  .pattern-card__weight[data-weight='heavy'] {
+    background: var(--color-accent-terracotta);
+    color: #fff;
+  }
+  .pattern-card__swatches {
+    position: absolute;
+    left: var(--space-3);
+    bottom: var(--space-3);
+    display: flex;
+    gap: 4px;
+  }
+  .pattern-card__swatches i {
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    display: block;
+  }
+
+  .pattern-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    flex: 1;
+  }
+  .pattern-card__name {
+    margin: 0;
+    font-family: var(--font-family-display);
+    font-size: var(--size-lg);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
+    color: var(--color-fg);
+  }
+  .pattern-card__mood {
+    margin: 0;
+    font-size: var(--size-xs);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-fg-muted);
+  }
+  .pattern-card__mood span { color: var(--color-accent); font-weight: var(--weight-semibold); }
+  .pattern-card__desc {
+    margin: 0;
+    font-size: var(--size-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-fg-muted);
+  }
+  .pattern-card__tags {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .pattern-card__tag {
+    font-family: var(--font-family-mono);
+    font-size: 0.72rem;
+    color: var(--color-fg-muted);
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .pattern-card__link {
+    align-self: flex-start;
+    margin: 0 var(--space-5) var(--space-5);
+    font-size: var(--size-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .pattern-card__link span {
+    display: inline-block;
+    transition: transform var(--motion-duration-fast) var(--motion-ease-emphasized);
+  }
+  .pattern-card:hover .pattern-card__link span { transform: translateX(4px); }
+</style>

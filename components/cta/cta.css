@@ -1,0 +1,154 @@
+/* components/cta/cta.css — SOLO tokens semánticos. */
+.plg-cta {
+  padding: var(--space-section) var(--space-gutter);
+  font-family: var(--font-family-body);
+  background: var(--color-bg);
+}
+.plg-cta--banner .plg-cta__inner {
+  max-width: var(--layout-container-max);
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-gutter);
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  border-radius: var(--radius-media);
+  box-shadow: var(--shadow-raised);
+  padding: var(--space-section-sm) var(--space-gutter);
+}
+.plg-cta__text {
+  display: grid;
+  gap: var(--space-gap);
+  max-width: var(--layout-measure);
+}
+.plg-cta__eyebrow {
+  margin: 0;
+  font-size: var(--font-size-eyebrow);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--font-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent-fg);
+}
+.plg-cta__headline {
+  margin: 0;
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-h2);
+  line-height: var(--font-leading-heading);
+  letter-spacing: var(--font-tracking-display);
+  font-weight: var(--font-weight-display);
+  color: var(--color-accent-fg);
+  text-wrap: balance;
+}
+.plg-cta__subhead {
+  margin: 0;
+  font-size: var(--font-size-lead);
+  line-height: var(--font-leading-body);
+  color: var(--color-accent-fg);
+}
+.plg-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-inline);
+}
+
+/* ── Variants sobre superficie (split / boxed) ────────────────────────────
+   El base pinta el texto en --color-accent-fg (para el banner sobre accent).
+   Sobre fondo de página hay que volver a los tokens de foreground normales. */
+.plg-cta--split .plg-cta__headline,
+.plg-cta--boxed .plg-cta__headline { color: var(--color-fg); }
+.plg-cta--split .plg-cta__eyebrow,
+.plg-cta--boxed .plg-cta__eyebrow,
+.plg-cta--split .plg-cta__subhead,
+.plg-cta--boxed .plg-cta__subhead { color: var(--color-fg-muted); }
+
+/* ── Variant: split ───────────────────────────────────────────────────────
+   SIN media: texto | acciones. CON media.image: texto+acciones | panel visual.
+   Apila en mobile en ambos casos. El data-attr en la sección discrimina el layout. */
+.plg-cta--split .plg-cta__split {
+  max-width: var(--layout-container-max);
+  margin-inline: auto;
+  display: grid;
+  gap: var(--space-section-sm);
+  align-items: center;
+}
+.plg-cta__media {
+  margin: 0;
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  background: var(--color-surface-alt);
+  box-shadow: var(--shadow-card);
+}
+.plg-cta__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+@media (min-width: 769px) {
+  /* Sin media: texto | acciones (acciones a la derecha). */
+  .plg-cta--split[data-cta-has-media='false'] .plg-cta__split {
+    grid-template-columns: 1fr auto;
+  }
+  .plg-cta--split[data-cta-has-media='false'] .plg-cta__actions {
+    justify-content: flex-end;
+  }
+  /* Con media: dos columnas parejas, texto+acciones | imagen. */
+  .plg-cta--split[data-cta-has-media='true'] .plg-cta__split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Variant: boxed ───────────────────────────────────────────────────────
+   Tarjeta contenida y centrada, con borde + sombra. */
+.plg-cta--boxed .plg-cta__box {
+  max-width: var(--layout-measure);
+  margin-inline: auto;
+  display: grid;
+  gap: var(--space-gutter);
+  justify-items: center;
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-media);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-section-sm) var(--space-gutter);
+}
+.plg-cta--boxed .plg-cta__actions { justify-content: center; }
+
+/* ── Variant: fullbleed ───────────────────────────────────────────────────
+   Borde a borde con fondo visual. SIN imagen: fondo accent (como banner).
+   CON imagen: imagen de fondo + scrim (color-mix sobre token) para contraste.
+   El texto/botones ya heredan los estilos on-accent del base (legibles en ambos). */
+.plg-cta--fullbleed {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+.plg-cta__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Scrim solo cuando hay imagen; sobre accent puro no hace falta (accent-fg ya contrasta). */
+.plg-cta--fullbleed[data-cta-has-media='true']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--color-fg) 55%, transparent);
+}
+.plg-cta__inner--fullbleed {
+  max-width: var(--layout-container-max);
+  margin-inline: auto;
+  display: grid;
+  gap: var(--space-gutter);
+  justify-items: center;
+  text-align: center;
+}

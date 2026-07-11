@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/components/gallery/gallery.schema.json",
+  "title": "Gallery content",
+  "description": "Valida el `content` de una sección type=gallery. contentRequired: items. `video` por item es enhancement (mixed-media) con la imagen `src` como fallback obligatorio.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["items"],
+  "properties": {
+    "eyebrow": { "type": "string" },
+    "title": { "type": "string" },
+    "intro": { "type": "string" },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["src", "alt"],
+        "properties": {
+          "src": { "type": "string", "description": "Imagen fallback (AVIF/WebP). Siempre presente." },
+          "alt": { "type": "string" },
+          "width": { "type": "number", "description": "Reservar espacio: evita CLS." },
+          "height": { "type": "number" },
+          "caption": { "type": "string" },
+          "video": { "type": "string", "description": "Enhancement opt-in (mixed-media). Solo se activa si el resolver lo aprueba." },
+          "model": { "type": "string", "description": "URL del GLB (mixed-media). Enhancement three: fallback obligatorio = src. Solo en device-tier high; si un item trae video y model, gana model." }
+        }
+      }
+    }
+  }
+}

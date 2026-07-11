@@ -1,0 +1,60 @@
+---
+// components/hero/variants/3d-scene.astro
+// Variant `3d-scene`: hero con una escena Three.js de fondo (modelo que rota / responde al scroll).
+// Estructura idéntica a fullbleed-video/-image: reusa .plg-hero--fullbleed (fondo edge-to-edge +
+// scrim + texto claro), así el contraste NO depende del asset.
+//   - FALLBACK OBLIGATORIO: la <img> (poster/thumbnail del modelo) se renderiza SIEMPRE y es el
+//     LCP (fetchpriority="high", sin lazy). Con JS off o tier low = imagen estática con scrim.
+//     Nunca roto.
+//   - El <canvas> NO se monta acá: la variant solo expone data-enhance="3d" + src (GLB) + fallback.
+//     assets/loaders/three/scene-loader.js lo monta en runtime, SOLO en device-tier high (hoy es
+//     scaffold: sin Three instalado, se queda la imagen; el 3D real se activa en L6).
+//   - Es la variant MÁS pesada del sistema: candidata a perfil premium/immersive. En minimal/low
+//     es solo la imagen (que ya es premium con el scrim).
+//   - media.image = fallback/poster ; media.model = URL del GLB (hero.schema.json ya lo declara).
+import '../../../assets/assets.css';
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { eyebrow, headline, subhead, actions = [], media } = content;
+const img = media?.image;
+const enhanceKind = media?.model ? '3d' : undefined;
+---
+<section
+  id={id}
+  class="plg-hero plg-hero--fullbleed"
+  data-hero-has-media={img ? 'true' : 'false'}
+  data-enhance={enhanceKind}
+  data-enhance-src={enhanceKind ? media.model : undefined}
+  data-enhance-fallback={enhanceKind ? (img ? 'poster' : 'static') : undefined}
+  data-motion={motionName}
+  data-motion-el="hero"
+>
+  {img && (
+    <img
+      class="plg-hero__bg"
+      src={img}
+      alt={media.alt ?? ''}
+      width={media.width}
+      height={media.height}
+      fetchpriority="high"
+      decoding="async"
+      data-motion-el="media"
+    />
+  )}
+  <div class="plg-hero__inner plg-hero__inner--fullbleed">
+    {eyebrow && (
+      <p class="plg-hero__eyebrow" data-motion-el="eyebrow" data-motion-order="0">{eyebrow}</p>
+    )}
+    <h1 class="plg-hero__headline" data-motion-el="headline" data-motion-order="1">{headline}</h1>
+    {subhead && (
+      <p class="plg-hero__subhead" data-motion-el="subhead" data-motion-order="2">{subhead}</p>
+    )}
+    {actions.length > 0 && (
+      <div class="plg-hero__actions" data-motion-el="actions" data-motion-order="3">
+        {actions.map((a: any) => (
+          <a class={`plg-btn plg-btn--${a.variant ?? 'primary'}`} href={a.href}>{a.label}</a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

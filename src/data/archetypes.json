@@ -1,0 +1,1180 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-07-10T01:17:26.478Z",
+  "total_archetypes": 38,
+  "_meta": {
+    "method": "2 arquetipos por nicho (minimalista + premium) sobre los 19 nichos del corpus L7 (webs-corpus.json). palette/typography son diseño propio, informado por la identidad del nicho y los pattern_ids referenciados como inspiración visual — no extraídos pixel a pixel."
+  },
+  "archetypes": [
+    {
+      "id": "cafe-minimalista",
+      "niche": "cafe",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#111111",
+        "accent": "#8C8C8C"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "GradientText"
+      ],
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "arabica-coffee",
+        "interlude-nyc"
+      ],
+      "color_personality": "blanco dominante, tinta casi negra, gris neutro — silencio visual"
+    },
+    {
+      "id": "cafe-premium",
+      "niche": "cafe",
+      "mood": "premium",
+      "hero": "fullbleed-video",
+      "palette": {
+        "bg": "#0A0A0A",
+        "primary": "#2C1A0E",
+        "accent": "#C17A3A"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Aurora",
+        "Particles",
+        "BlurText"
+      ],
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "typography-focus"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "truth-coffee",
+        "rachels-coffee-house"
+      ],
+      "color_personality": "cálido, artesanal, café oscuro con acento tostado"
+    },
+    {
+      "id": "restaurant-minimalista",
+      "niche": "restaurant",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FAFAF8",
+        "primary": "#141414",
+        "accent": "#9C9C9C"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "SplitText"
+      ],
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "noma",
+        "atomix-nyc"
+      ],
+      "color_personality": "blanco roto, tinta profunda, foco absoluto en tipografía"
+    },
+    {
+      "id": "restaurant-premium",
+      "niche": "restaurant",
+      "mood": "premium",
+      "hero": "fullbleed-video",
+      "palette": {
+        "bg": "#0D0705",
+        "primary": "#3A0E12",
+        "accent": "#C9A227"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "reservation-form"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "the-fat-duck",
+        "simply-chocolate"
+      ],
+      "color_personality": "borgoña oscuro y dorado — alta cocina, fine dining"
+    },
+    {
+      "id": "burger-minimalista",
+      "niche": "burger",
+      "mood": "minimalista",
+      "hero": "grid",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#1A1A1A",
+        "accent": "#E03A2F"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "AnimatedList"
+      ],
+      "elements": [
+        "grid",
+        "product-showcase"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "five-guys",
+        "shake-shack"
+      ],
+      "color_personality": "blanco, negro y un rojo directo — apetito sin ruido"
+    },
+    {
+      "id": "burger-premium",
+      "niche": "burger",
+      "mood": "premium",
+      "hero": "product-showcase",
+      "palette": {
+        "bg": "#160A05",
+        "primary": "#3D1000",
+        "accent": "#FF6A2B"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "expressive",
+      "reactbits": [
+        "TiltCard",
+        "GradientText"
+      ],
+      "elements": [
+        "product-showcase",
+        "hover-interaction",
+        "typography-focus"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "burger-and-lobster",
+        "black-tap"
+      ],
+      "color_personality": "marrón carbón y naranja fuego — gourmet urbano"
+    },
+    {
+      "id": "beauty-minimalista",
+      "niche": "beauty",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FBF7F5",
+        "primary": "#221A18",
+        "accent": "#C79E93"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "GradientText"
+      ],
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "artika-salon",
+        "ama-salon"
+      ],
+      "color_personality": "crema y nude — piel, calma, spa"
+    },
+    {
+      "id": "beauty-premium",
+      "niche": "beauty",
+      "mood": "premium",
+      "hero": "fullbleed-video",
+      "palette": {
+        "bg": "#120A10",
+        "primary": "#3A1030",
+        "accent": "#E8A8C9"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Aurora",
+        "TiltCard"
+      ],
+      "elements": [
+        "fullbleed-video",
+        "hover-interaction"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "honey-rose-aesthetics",
+        "luca-aesthetic"
+      ],
+      "color_personality": "violeta profundo y rosa satinado — clínica estética de lujo"
+    },
+    {
+      "id": "dental-minimalista",
+      "niche": "dental",
+      "mood": "minimalista",
+      "hero": "grid",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#0F1F1D",
+        "accent": "#4FB8AC"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "BlurText"
+      ],
+      "elements": [
+        "grid",
+        "form"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "boulder-smiles",
+        "arbor-dental"
+      ],
+      "color_personality": "blanco clínico con verde-agua — confianza y limpieza"
+    },
+    {
+      "id": "dental-premium",
+      "niche": "dental",
+      "mood": "premium",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#0A0F14",
+        "primary": "#132A33",
+        "accent": "#C9A227"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "expressive",
+      "reactbits": [
+        "GradientText",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "typography-focus",
+        "parallax",
+        "form"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "luca-aesthetic",
+        "sweet-magnolia-dentistry"
+      ],
+      "color_personality": "azul noche y dorado — odontología estética premium"
+    },
+    {
+      "id": "agency-minimalista",
+      "niche": "agency",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#0A0A0A",
+        "accent": "#4F8EF7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "SplitText"
+      ],
+      "elements": [
+        "typography-focus",
+        "grid"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "pentagram",
+        "instrument"
+      ],
+      "color_personality": "blanco y negro con un azul de acento — editorial, seguro"
+    },
+    {
+      "id": "agency-premium",
+      "niche": "agency",
+      "mood": "premium",
+      "hero": "3d-model",
+      "palette": {
+        "bg": "#050505",
+        "primary": "#111111",
+        "accent": "#7C3AED"
+      },
+      "typography": {
+        "display": "Neue Montreal",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Orb",
+        "Aurora",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "3d-model",
+        "animations-gsap",
+        "parallax"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "active-theory",
+        "clay"
+      ],
+      "color_personality": "negro absoluto con violeta eléctrico — showreel de agencia top"
+    },
+    {
+      "id": "studio-minimalista",
+      "niche": "studio",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#0A0A0A",
+        "primary": "#F0F0F0",
+        "accent": "#7A7A7A"
+      },
+      "typography": {
+        "display": "Neue Montreal",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "GradientText"
+      ],
+      "elements": [
+        "typography-focus",
+        "grid"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "synchronized-studio",
+        "unseen-studio"
+      ],
+      "color_personality": "negro mate y blanco roto — estudio creativo silencioso"
+    },
+    {
+      "id": "studio-premium",
+      "niche": "studio",
+      "mood": "premium",
+      "hero": "3d-model",
+      "palette": {
+        "bg": "#000000",
+        "primary": "#0D0D0D",
+        "accent": "#00E5FF"
+      },
+      "typography": {
+        "display": "Neue Montreal",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Orb",
+        "Particles",
+        "Aurora"
+      ],
+      "elements": [
+        "3d-model",
+        "fullbleed-video",
+        "animations-gsap"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "lusion",
+        "immersive-garden"
+      ],
+      "color_personality": "negro total con cian eléctrico — WebGL showcase"
+    },
+    {
+      "id": "portfolio-minimalista",
+      "niche": "portfolio",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#111111",
+        "accent": "#3B82F6"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "SplitText"
+      ],
+      "elements": [
+        "typography-focus",
+        "grid"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "van-schneider",
+        "brittany-chiang"
+      ],
+      "color_personality": "blanco y tinta con un azul personal — marca personal clara"
+    },
+    {
+      "id": "portfolio-premium",
+      "niche": "portfolio",
+      "mood": "premium",
+      "hero": "hover-interaction",
+      "palette": {
+        "bg": "#0A0A0A",
+        "primary": "#161616",
+        "accent": "#F2C744"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "expressive",
+      "reactbits": [
+        "TiltCard",
+        "MagneticButton"
+      ],
+      "elements": [
+        "hover-interaction",
+        "masonry",
+        "animations-gsap"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "jacek-jeznach",
+        "bruno-simon"
+      ],
+      "color_personality": "negro con dorado — portfolio de autor, obra protagonista"
+    },
+    {
+      "id": "ecommerce-minimalista",
+      "niche": "ecommerce",
+      "mood": "minimalista",
+      "hero": "grid",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#111111",
+        "accent": "#111111"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "TiltCard"
+      ],
+      "elements": [
+        "grid",
+        "product-showcase"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "glossier",
+        "ssense"
+      ],
+      "color_personality": "blanco absoluto, tinta — producto como protagonista"
+    },
+    {
+      "id": "ecommerce-premium",
+      "niche": "ecommerce",
+      "mood": "premium",
+      "hero": "product-showcase",
+      "palette": {
+        "bg": "#0A0A0A",
+        "primary": "#141414",
+        "accent": "#B08D57"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Orb",
+        "TiltCard",
+        "GradientText"
+      ],
+      "elements": [
+        "3d-model",
+        "product-showcase",
+        "parallax"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "bang-olufsen",
+        "aesop"
+      ],
+      "color_personality": "negro y bronce — objeto de deseo, lujo silencioso"
+    },
+    {
+      "id": "realestate-minimalista",
+      "niche": "realestate",
+      "mood": "minimalista",
+      "hero": "grid",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#111111",
+        "accent": "#B5A48C"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "TiltCard"
+      ],
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "cobloc",
+        "eleos"
+      ],
+      "color_personality": "blanco y beige piedra — arquitectura silenciosa"
+    },
+    {
+      "id": "realestate-premium",
+      "niche": "realestate",
+      "mood": "premium",
+      "hero": "3d-model",
+      "palette": {
+        "bg": "#0D0D0D",
+        "primary": "#101820",
+        "accent": "#C9A227"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Orb",
+        "Particles",
+        "Aurora"
+      ],
+      "elements": [
+        "3d-model",
+        "parallax",
+        "form"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "vaulk",
+        "hubtown"
+      ],
+      "color_personality": "negro azulado y dorado — torre/desarrollo de lujo"
+    },
+    {
+      "id": "fitness-minimalista",
+      "niche": "fitness",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#0F0F0F",
+        "accent": "#39FF14"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "typography-focus",
+        "form"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "between-the-ears",
+        "skulpt-fitness"
+      ],
+      "color_personality": "blanco y negro con verde lima — foco y disciplina"
+    },
+    {
+      "id": "fitness-premium",
+      "niche": "fitness",
+      "mood": "premium",
+      "hero": "fullbleed-video",
+      "palette": {
+        "bg": "#000000",
+        "primary": "#0C0C0C",
+        "accent": "#C9A227"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Aurora",
+        "Particles"
+      ],
+      "elements": [
+        "fullbleed-video",
+        "typography-focus",
+        "grid"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "john-reed-fitness",
+        "phive-fitness"
+      ],
+      "color_personality": "negro absoluto con dorado — gimnasio boutique de lujo"
+    },
+    {
+      "id": "bar-minimalista",
+      "niche": "bar",
+      "mood": "minimalista",
+      "hero": "product-showcase",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#1A1A1A",
+        "accent": "#E8577B"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "TiltCard"
+      ],
+      "elements": [
+        "grid",
+        "product-showcase"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "bijou-wines",
+        "avaline"
+      ],
+      "color_personality": "blanco con un rosa vino — vino natural, packaging protagonista"
+    },
+    {
+      "id": "bar-premium",
+      "niche": "bar",
+      "mood": "premium",
+      "hero": "fullbleed-video",
+      "palette": {
+        "bg": "#140A05",
+        "primary": "#3A0E12",
+        "accent": "#C9A227"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Aurora",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "product-showcase"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "post-familiar-wine",
+        "pasqua-wines"
+      ],
+      "color_personality": "borgoña oscuro y dorado — bodega/vinoteca de autor"
+    },
+    {
+      "id": "hotel-minimalista",
+      "niche": "hotel",
+      "mood": "minimalista",
+      "hero": "grid",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#101010",
+        "accent": "#2F6F7A"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "BlurText"
+      ],
+      "elements": [
+        "grid",
+        "form"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "nils-am-see",
+        "paput-menorca"
+      ],
+      "color_personality": "blanco luminoso con verde-azulado — hotel boutique mediterráneo"
+    },
+    {
+      "id": "hotel-premium",
+      "niche": "hotel",
+      "mood": "premium",
+      "hero": "fullbleed-video",
+      "palette": {
+        "bg": "#14110C",
+        "primary": "#1A1712",
+        "accent": "#B8935A"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Aurora",
+        "Particles",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "fullbleed-video",
+        "3d-model",
+        "form"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "son-daven",
+        "omai-villas"
+      ],
+      "color_personality": "marrón noche y dorado cálido — resort de lujo"
+    },
+    {
+      "id": "saas-minimalista",
+      "niche": "saas",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#111111",
+        "accent": "#4F8EF7"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "BentoGrid"
+      ],
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "cosmos-so",
+        "faces-app"
+      ],
+      "color_personality": "blanco con azul de producto — SaaS limpio y directo"
+    },
+    {
+      "id": "saas-premium",
+      "niche": "saas",
+      "mood": "premium",
+      "hero": "3d-model",
+      "palette": {
+        "bg": "#08090C",
+        "primary": "#0D1117",
+        "accent": "#7C5CFF"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "expressive",
+      "reactbits": [
+        "Orb",
+        "GradientText",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "3d-model",
+        "grid",
+        "animations-gsap"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "measured-analytics",
+        "ponder-ai"
+      ],
+      "color_personality": "negro azulado con violeta — deep tech, AI premium"
+    },
+    {
+      "id": "education-minimalista",
+      "niche": "education",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#0F0F0F",
+        "accent": "#7A7A7A"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "SplitText"
+      ],
+      "elements": [
+        "typography-focus",
+        "grid"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "the-manifest",
+        "obys-design-books"
+      ],
+      "color_personality": "blanco editorial — libro, biblioteca, foco en lectura"
+    },
+    {
+      "id": "education-premium",
+      "niche": "education",
+      "mood": "premium",
+      "hero": "3d-model",
+      "palette": {
+        "bg": "#0B1A2B",
+        "primary": "#0A0A14",
+        "accent": "#1C6EA4"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Orb",
+        "Particles",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "3d-model",
+        "parallax",
+        "typography-focus"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "unesco-virtual-museum",
+        "web-rewind"
+      ],
+      "color_personality": "azul institucional profundo — academia/museo de prestigio"
+    },
+    {
+      "id": "fashion-minimalista",
+      "niche": "fashion",
+      "mood": "minimalista",
+      "hero": "grid",
+      "palette": {
+        "bg": "#ECE6DA",
+        "primary": "#1A1A1A",
+        "accent": "#8A7A63"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "BlurText"
+      ],
+      "elements": [
+        "grid",
+        "parallax-text"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "lemaire",
+        "becane-paris"
+      ],
+      "color_personality": "beige crudo y tinta — moda silenciosa, quiet luxury"
+    },
+    {
+      "id": "fashion-premium",
+      "niche": "fashion",
+      "mood": "premium",
+      "hero": "3d-model",
+      "palette": {
+        "bg": "#0D0D0D",
+        "primary": "#141414",
+        "accent": "#A8874F"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Orb",
+        "TiltCard",
+        "GradientText"
+      ],
+      "elements": [
+        "3d-model",
+        "product-showcase",
+        "parallax"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "delvaux",
+        "wolverine-worldwide"
+      ],
+      "color_personality": "negro y bronce — maison de lujo, flagship digital"
+    },
+    {
+      "id": "music-minimalista",
+      "niche": "music",
+      "mood": "minimalista",
+      "hero": "typography-focus",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#111111",
+        "accent": "#7A7A7A"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BlurText",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "typography-focus",
+        "hover-interaction"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "molecular-sound",
+        "allagi-music"
+      ],
+      "color_personality": "blanco y negro — reproductor y sonido, cero distracción"
+    },
+    {
+      "id": "music-premium",
+      "niche": "music",
+      "mood": "premium",
+      "hero": "fullbleed-video",
+      "palette": {
+        "bg": "#0A0A0A",
+        "primary": "#101010",
+        "accent": "#FFE600"
+      },
+      "typography": {
+        "display": "custom display",
+        "body": "Inter"
+      },
+      "motion": "expressive",
+      "reactbits": [
+        "Aurora",
+        "Particles",
+        "FadeIn"
+      ],
+      "elements": [
+        "fullbleed-video",
+        "animations-gsap",
+        "typography-focus"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "die-antwoord",
+        "silent-partners-studio"
+      ],
+      "color_personality": "negro con amarillo eléctrico — maximalista, visual de artista"
+    },
+    {
+      "id": "architecture-minimalista",
+      "niche": "architecture",
+      "mood": "minimalista",
+      "hero": "grid",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#0F0F0F",
+        "accent": "#8C8C8C"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "BlurText"
+      ],
+      "elements": [
+        "grid",
+        "typography-focus"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "studio-x",
+        "telha-clarke"
+      ],
+      "color_personality": "blanco y gris piedra — estudio de arquitectura silencioso"
+    },
+    {
+      "id": "architecture-premium",
+      "niche": "architecture",
+      "mood": "premium",
+      "hero": "fullbleed-video",
+      "palette": {
+        "bg": "#14110C",
+        "primary": "#1A1712",
+        "accent": "#B8935A"
+      },
+      "typography": {
+        "display": "Canela",
+        "body": "Inter"
+      },
+      "motion": "cinematic",
+      "reactbits": [
+        "Aurora",
+        "ScrollFloat"
+      ],
+      "elements": [
+        "fullbleed-video",
+        "parallax",
+        "typography-focus"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "ingrao-inc",
+        "innadove"
+      ],
+      "color_personality": "marrón oscuro y dorado — interiorismo de lujo"
+    },
+    {
+      "id": "food-minimalista",
+      "niche": "food",
+      "mood": "minimalista",
+      "hero": "product-showcase",
+      "palette": {
+        "bg": "#FFFFFF",
+        "primary": "#111111",
+        "accent": "#7AC9A0"
+      },
+      "typography": {
+        "display": "Inter",
+        "body": "Inter"
+      },
+      "motion": "subtle",
+      "reactbits": [
+        "BentoGrid",
+        "TiltCard"
+      ],
+      "elements": [
+        "grid",
+        "product-showcase"
+      ],
+      "weight": "adaptable",
+      "pattern_ids": [
+        "drinksom",
+        "hellocopilot"
+      ],
+      "color_personality": "blanco con verde suave — packaging limpio, foodtech"
+    },
+    {
+      "id": "food-premium",
+      "niche": "food",
+      "mood": "premium",
+      "hero": "3d-model",
+      "palette": {
+        "bg": "#1A1408",
+        "primary": "#1A0E05",
+        "accent": "#C9A227"
+      },
+      "typography": {
+        "display": "Fraunces",
+        "body": "Inter"
+      },
+      "motion": "expressive",
+      "reactbits": [
+        "Orb",
+        "TiltCard",
+        "GradientText"
+      ],
+      "elements": [
+        "3d-model",
+        "product-showcase",
+        "typography-focus"
+      ],
+      "weight": "heavy",
+      "pattern_ids": [
+        "la-revoltosa",
+        "hungry-tiger"
+      ],
+      "color_personality": "marrón cálido y dorado — gourmet artesanal"
+    }
+  ]
+}

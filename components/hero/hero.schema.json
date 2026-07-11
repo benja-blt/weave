@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plg.local/components/hero/hero.schema.json",
+  "title": "Hero content",
+  "description": "Valida el `content` de una sección type=hero. contentRequired: headline. `media` queda declarado para variants con asset (split / fullbleed-*), inerte en la variant centered.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["headline"],
+  "properties": {
+    "eyebrow": { "type": "string" },
+    "headline": { "type": "string", "minLength": 1 },
+    "subhead": { "type": "string" },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "href"],
+        "properties": {
+          "label": { "type": "string" },
+          "href": { "type": "string" },
+          "variant": { "type": "string", "enum": ["primary", "ghost"], "default": "primary" }
+        }
+      }
+    },
+    "media": {
+      "type": "object",
+      "description": "Asset opcional para variants con media. El fallback (poster/imagen) es obligatorio si se pide un enhancement (ver page-schema).",
+      "additionalProperties": false,
+      "properties": {
+        "image": { "type": "string" },
+        "alt": { "type": "string" },
+        "video": { "type": "string" },
+        "poster": { "type": "string" },
+        "model": { "type": "string", "description": "URL del GLB (variant 3d-scene). Enhancement three: fallback obligatorio = image. Solo se monta en device-tier high." },
+        "width": { "type": "number" },
+        "height": { "type": "number" }
+      }
+    }
+  }
+}

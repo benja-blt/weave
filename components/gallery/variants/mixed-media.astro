@@ -1,0 +1,50 @@
+---
+// components/gallery/variants/mixed-media.astro
+// Variant `mixed-media`: galería inmersiva donde cada item puede ser imagen, video O modelo 3D.
+// Comparte el layout de fullbleed-scroll (scroll-snap vertical, slides fullscreen; ver gallery.css
+// .plg-gallery--mixed-media / __scroller / __slide-full / __slide-media).
+//   - FALLBACK-FIRST: cada slide renderiza SIEMPRE su imagen (it.src, loading="lazy", width/height
+//     anti-CLS, object-fit cover). Video y 3D son enhancements opt-in.
+//   - Un item declara a lo sumo UN enhancement por slide (nunca dos a la vez). Prioridad:
+//     model → data-enhance="3d" ; si no, video → data-enhance="video". Si trae ambos, gana model.
+//   - El video/canvas los monta L4 en runtime (assets/loaders/video.js / three/scene-loader.js),
+//     gateado por device-tier. En minimal/low = galería de imágenes pura (premium por composición).
+//   - A diferencia de hero/3d-scene, el 3D acá es MÁS LIVIANO: la escena comparte viewport con la
+//     slide (no llena la pantalla como fondo) — ese sizing es cosa del scene-loader en L6, no del
+//     layout. Igual candidata a premium por peso.
+import '../../../assets/assets.css';
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { items = [] } = content;
+
+// Resuelve el enhancement de un item: model tiene prioridad sobre video; nunca los dos.
+const enhanceOf = (it: any) =>
+  it.model ? { kind: '3d', src: it.model } : it.video ? { kind: 'video', src: it.video } : null;
+---
+<section id={id} class="plg-gallery plg-gallery--mixed-media" data-motion={motionName} data-motion-el="gallery">
+  <ul class="plg-gallery__scroller" role="list">
+    {items.map((it: any, i: number) => {
+      const enh = enhanceOf(it);
+      return (
+        <li class="plg-gallery__slide-full" data-motion-el="item" data-motion-order={i}>
+          <figure
+            class="plg-gallery__slide-media"
+            data-enhance={enh ? enh.kind : undefined}
+            data-enhance-src={enh ? enh.src : undefined}
+            data-enhance-fallback={enh ? 'poster' : undefined}
+          >
+            <img
+              src={it.src}
+              alt={it.alt}
+              width={it.width}
+              height={it.height}
+              loading="lazy"
+              decoding="async"
+            />
+            {it.caption && <figcaption class="plg-gallery__slide-caption">{it.caption}</figcaption>}
+          </figure>
+        </li>
+      );
+    })}
+  </ul>
+</section>

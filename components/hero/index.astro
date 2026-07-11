@@ -1,0 +1,60 @@
+---
+// components/hero/index.astro
+// Contrato L2: props de instancia + content (validado por hero.schema.json).
+// Variant default `centered`: type-forward, sin media pesada → el LCP es texto (budget-friendly).
+// Estilo SOLO con tokens semánticos. Motion desacoplado vía data-motion.
+import '../shared/button.css';
+import './hero.css';
+import Centered from './variants/centered.astro';
+import Split from './variants/split.astro';
+import EditorialType from './variants/editorial-type.astro';
+import FullbleedImage from './variants/fullbleed-image.astro';
+import FullbleedVideo from './variants/fullbleed-video.astro';
+import ThreeDScene from './variants/3d-scene.astro';
+
+export interface HeroAction { label: string; href: string; variant?: 'primary' | 'ghost'; }
+export interface HeroContent {
+  eyebrow?: string;
+  headline: string;
+  subhead?: string;
+  actions?: HeroAction[];
+}
+export interface Props {
+  id?: string;
+  variant?: string;
+  content?: HeroContent;
+  theme?: string;
+  motion?: any;
+  enhancement?: any;
+}
+
+// Contenido genérico de ejemplo (NO un cliente real).
+const demo: HeroContent = {
+  eyebrow: 'Estudio de diseño',
+  headline: 'Construimos experiencias que se recuerdan',
+  subhead: 'Landing pages premium, rápidas y con carácter. Del concepto al pixel, sin fricción.',
+  actions: [
+    { label: 'Ver trabajo', href: '#work', variant: 'primary' },
+    { label: 'Hablemos', href: '#contact', variant: 'ghost' },
+  ],
+};
+
+const {
+  id = 'hero-1',
+  variant = 'centered',
+  content = demo,
+  motion,
+  enhancement,
+} = Astro.props;
+
+const variants: Record<string, any> = {
+  centered: Centered,
+  split: Split,
+  'editorial-type': EditorialType,
+  'fullbleed-image': FullbleedImage,
+  'fullbleed-video': FullbleedVideo,
+  '3d-scene': ThreeDScene,
+};
+const Variant = variants[variant] ?? Centered;
+---
+<Variant {id} {content} {motion} {enhancement} />

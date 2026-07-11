@@ -1,0 +1,385 @@
+---
+// src/pages/onboarding/step-3.astro — Paso 3: "el momento mágico". La IA analiza el negocio
+// (Onboarding.astro + analyzer.js vía /api/analyze) y devuelve el TOP 3 de patrones del corpus
+// (matcher.js). Sin heading fijo en el layout: cada estado (loading/resultados/error) maneja su
+// propio título vía JS/markup, así el layout no impone un heading que no aplica a los 3 estados.
+import Onboarding from '../../layouts/Onboarding.astro';
+---
+<Onboarding step={3} title="Weave — Analizando tu negocio">
+  <div class="s3">
+    <!-- ── ESTADO A — LOADING ─────────────────────────────────────────────── -->
+    <section id="state-loading" class="s3-loading">
+      <div class="s3-loading__orb" aria-hidden="true"></div>
+      <div class="s3-loading__spinner" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <p class="s3-loading__text" id="loading-text">Analizando tu negocio...</p>
+      <p class="s3-loading__sub">Esto tarda solo unos segundos</p>
+      <div class="s3-loading__progress">
+        <span class="s3-loading__progress-fill" id="progress-fill"></span>
+      </div>
+    </section>
+
+    <!-- ── ESTADO B — RESULTADOS ──────────────────────────────────────────── -->
+    <section id="state-results" class="s3-results" hidden>
+      <header class="s3-results__head">
+        <p class="eyebrow">Análisis completado</p>
+        <h2 class="s3-results__title">Estos son tus <em>3 patrones perfectos.</em></h2>
+        <p class="s3-results__sub">Elegimos entre 152 diseños del mundo para tu negocio.</p>
+      </header>
+      <div class="s3-cards" id="cards"></div>
+      <div class="s3-cta">
+        <button class="btn btn--accent btn--lg" id="cta-continue">
+          Generar mi web <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── ESTADO C — ERROR ───────────────────────────────────────────────── -->
+    <section id="state-error" class="s3-error" hidden>
+      <svg class="s3-error__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M15 9l-6 6M9 9l6 6" />
+      </svg>
+      <h2 class="s3-error__title">Algo salió mal</h2>
+      <p class="s3-error__sub" id="error-message">No pudimos analizar tu negocio. Podés reintentar.</p>
+      <div class="s3-error__actions">
+        <button class="btn btn--accent btn--lg" id="retry-btn">Reintentar</button>
+        <a class="btn btn--ghost btn--lg" href="/onboarding/step-2">Volver</a>
+      </div>
+    </section>
+  </div>
+
+  <style is:global>
+    /* .s3 rompe el max-width:780px de .onb (heredado del layout) para que la grid de resultados
+       tenga aire; loading/error se re-centran adentro con su propio max-width angosto. */
+    .s3 { width: 100vw; position: relative; left: 50%; margin-left: -50vw; }
+
+    /* .s3-loading/.s3-error fijan display:flex con la misma especificidad que la regla UA
+       [hidden]{display:none} — sin esto, el atributo hidden queda anulado por orden de cascada
+       y los 3 estados se ven superpuestos. */
+    .s3-loading[hidden], .s3-results[hidden], .s3-error[hidden] { display: none; }
+
+    /* ── Estado A: loading ─────────────────────────────────────────────────── */
+    .s3-loading {
+      position: relative; max-width: 560px; margin: 0 auto; padding: var(--space-16) var(--space-6) var(--space-20);
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-6);
+      min-height: 56vh; justify-content: center; overflow: hidden;
+    }
+    .s3-loading__orb {
+      position: absolute; top: 30%; left: 50%; width: min(800px, 140vw); height: 600px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(closest-side, rgba(6, 1, 71, 0.9), transparent);
+      filter: blur(140px); z-index: 0; pointer-events: none;
+      animation: s3orbpulse 2.5s ease-in-out infinite;
+    }
+    @keyframes s3orbpulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.7; }
+    }
+    .s3-loading__spinner { position: relative; z-index: 1; width: 54px; height: 54px; }
+    .s3-loading__spinner span {
+      position: absolute; width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 10px var(--glow);
+      animation: s3dot 1s ease-in-out infinite;
+    }
+    .s3-loading__spinner span:nth-child(1) { top: 0; left: 22px; animation-delay: 0ms; }
+    .s3-loading__spinner span:nth-child(2) { top: 22px; right: 0; animation-delay: 250ms; }
+    .s3-loading__spinner span:nth-child(3) { bottom: 0; left: 22px; animation-delay: 500ms; }
+    .s3-loading__spinner span:nth-child(4) { top: 22px; left: 0; animation-delay: 750ms; }
+    @keyframes s3dot {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.4); opacity: 1; }
+    }
+    .s3-loading__text {
+      position: relative; z-index: 1; margin: 0; min-height: 1.3em;
+      font-family: var(--font-family-display); font-style: italic; color: var(--ink);
+      font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.2;
+      transition: opacity 200ms ease;
+    }
+    .s3-loading__sub { position: relative; z-index: 1; margin: 0; font-size: var(--size-sm); color: var(--muted); }
+    .s3-loading__progress {
+      position: relative; z-index: 1; width: 340px; max-width: 80vw; height: 3px;
+      border-radius: 999px; background: rgba(79, 142, 247, 0.15); overflow: hidden;
+    }
+    .s3-loading__progress-fill {
+      display: block; height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 8px rgba(79, 142, 247, 0.6);
+      transition: width 8s linear;
+    }
+
+    /* ── Estado B: resultados ─────────────────────────────────────────────── */
+    .s3-results { max-width: 1100px; margin: 0 auto; padding: var(--space-8) var(--space-6) var(--space-20); }
+    .s3-results.is-in { animation: s3fadeup 600ms var(--motion-ease-emphasized) both; }
+    @keyframes s3fadeup { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .s3-results__head { max-width: 56ch; margin: 0 auto var(--space-12); text-align: center; }
+    .s3-results .eyebrow { margin: 0 0 var(--space-4); font-family: var(--font-family-mono); font-size: var(--size-xs); text-transform: uppercase; letter-spacing: var(--tracking-widest); color: var(--accent); }
+    .s3-results__title { margin: 0; font-family: var(--font-family-display); font-weight: var(--weight-bold); line-height: 1.15; font-size: clamp(2rem, 4vw, 3rem); color: var(--ink); }
+    .s3-results__title em { font-style: italic; color: var(--accent); }
+    .s3-results__sub { margin: var(--space-4) 0 0; font-size: var(--size-base); color: var(--muted); }
+
+    .s3-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+    @media (max-width: 960px) { .s3-cards { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; } }
+
+    .pattern-card {
+      opacity: 0; animation: s3fadeup 560ms var(--motion-ease-emphasized) both;
+      border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+      background: var(--surface); display: flex; flex-direction: column;
+      transition: transform 260ms var(--motion-ease-emphasized), border-color 260ms ease, box-shadow 260ms ease, background 260ms ease;
+    }
+    .pattern-card.selected {
+      border-color: var(--accent); background: rgba(79, 142, 247, 0.06);
+      box-shadow: 0 0 0 1px var(--accent), 0 20px 60px rgba(79, 142, 247, 0.2);
+      transform: translateY(-6px);
+    }
+
+    .pattern-card__thumb { position: relative; aspect-ratio: 16 / 10; }
+    .pattern-card__badge {
+      position: absolute; top: var(--space-3); left: var(--space-3); z-index: 1;
+      font-family: var(--font-family-mono); font-size: 0.68rem; font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-wide); text-transform: uppercase; color: #000;
+      background: var(--accent); padding: 0.3rem 0.65rem; border-radius: 999px;
+    }
+    .pattern-card__badge[hidden] { display: none; }
+    .pattern-card__weight {
+      position: absolute; top: var(--space-3); right: var(--space-3); z-index: 1;
+      font-family: var(--font-family-mono); font-size: 0.68rem; color: #fff;
+      background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(6px);
+      padding: 0.3rem 0.65rem; border-radius: 999px;
+    }
+
+    .pattern-card__body { flex: 1 1 auto; padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); }
+    .pattern-card__name { margin: 0; font-family: var(--font-family-display); font-weight: var(--weight-semibold); font-size: var(--size-xl); color: var(--ink); }
+    .pattern-card__pills { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .pattern-card__pill {
+      font-size: 0.72rem; color: var(--accent); background: rgba(79, 142, 247, 0.12);
+      border: 1px solid var(--line); padding: 0.2rem 0.6rem; border-radius: 999px;
+      text-transform: capitalize;
+    }
+    .pattern-card__desc {
+      margin: 0; font-size: var(--size-sm); line-height: var(--leading-relaxed); color: var(--muted);
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .pattern-card__elements { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .pattern-card__el {
+      font-family: var(--font-family-mono); font-size: 0.68rem; color: var(--muted);
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--line);
+      padding: 0.18rem 0.5rem; border-radius: 6px;
+    }
+    .pattern-card__source { font-size: var(--size-sm); color: var(--muted); text-decoration: none; }
+    .pattern-card__source:hover { color: var(--ink); text-decoration: underline; }
+
+    .pattern-card__foot {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+      padding: var(--space-5) var(--space-6); border-top: 1px solid var(--line);
+    }
+    .pattern-card__select { padding: 0.6rem 1.2rem; font-size: var(--size-sm); }
+    .pattern-card__match { font-family: var(--font-family-mono); font-size: var(--size-xs); color: var(--muted); }
+
+    .s3-cta { display: flex; justify-content: center; margin-top: var(--space-12); }
+
+    /* ── Estado C: error ───────────────────────────────────────────────────── */
+    .s3-error {
+      max-width: 480px; margin: 0 auto; padding: var(--space-20) var(--space-6);
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-4);
+    }
+    .s3-error__icon { width: 56px; height: 56px; color: #FF4F4F; }
+    .s3-error__title { margin: 0; font-family: var(--font-family-display); font-weight: var(--weight-semibold); font-size: var(--size-2xl); color: var(--ink); }
+    .s3-error__sub { margin: 0; font-size: var(--size-base); color: var(--muted); }
+    .s3-error__actions { display: flex; gap: var(--space-4); margin-top: var(--space-4); flex-wrap: wrap; justify-content: center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .s3-loading__orb, .s3-loading__spinner span, .s3-results.is-in, .pattern-card { animation: none; opacity: 1; }
+      .s3-loading__progress-fill { transition: none; }
+    }
+  </style>
+
+  <script>
+    const KEY = 'weave:onboarding';
+    const PKEY = 'weave:onboarding:photos';
+    const PHRASES = [
+      'Analizando tu negocio...',
+      'Entendiendo tu estilo...',
+      'Buscando entre 152 diseños del mundo...',
+      'Eligiendo el patrón perfecto para vos...',
+      'Casi listo...',
+    ];
+
+    const stateLoading = document.getElementById('state-loading');
+    const stateResults = document.getElementById('state-results');
+    const stateError = document.getElementById('state-error');
+    const loadingText = document.getElementById('loading-text');
+    const progressFill = document.getElementById('progress-fill');
+    const cardsEl = document.getElementById('cards');
+    const ctaBtn = document.getElementById('cta-continue');
+    const errorMessage = document.getElementById('error-message');
+    const retryBtn = document.getElementById('retry-btn');
+
+    let data = {};
+    let photos = [];
+    let phraseTimer = null;
+    let selectedPatternId = null;
+    let currentAnalysis = null;
+
+    function showState(el) {
+      for (const s of [stateLoading, stateResults, stateError]) s.hidden = s !== el;
+      if (el === stateResults) {
+        el.classList.remove('is-in');
+        void el.offsetWidth;
+        el.classList.add('is-in');
+      }
+    }
+
+    function startLoadingUI() {
+      let idx = 0;
+      loadingText.textContent = PHRASES[0];
+      progressFill.style.transition = 'width 8s linear';
+      requestAnimationFrame(() => requestAnimationFrame(() => { progressFill.style.width = '85%'; }));
+      phraseTimer = setInterval(() => {
+        if (idx >= PHRASES.length - 1) { clearInterval(phraseTimer); return; }
+        idx += 1;
+        loadingText.style.opacity = '0';
+        setTimeout(() => {
+          loadingText.textContent = PHRASES[idx];
+          loadingText.style.opacity = '1';
+        }, 200);
+      }, 2200);
+    }
+
+    function finishProgressBar() {
+      return new Promise((resolve) => {
+        progressFill.style.transition = 'width 300ms ease';
+        progressFill.style.width = '100%';
+        setTimeout(resolve, 300);
+      });
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '').replace(/[&<>"']/g, (c) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+      ));
+    }
+
+    function renderPatterns(patterns) {
+      cardsEl.innerHTML = '';
+      patterns.forEach((entry, i) => {
+        const p = entry.pattern;
+        const isRecommended = i === 0;
+        const card = document.createElement('article');
+        card.className = 'pattern-card' + (isRecommended ? ' selected' : '');
+        card.dataset.patternId = p.id;
+        card.style.animationDelay = `${i * 150}ms`;
+        card.innerHTML = `
+          <div class="pattern-card__thumb" style="background:linear-gradient(135deg, ${p.color_hints?.primary || '#111'}, ${p.color_hints?.accent || '#4F8EF7'})">
+            <span class="pattern-card__badge" ${isRecommended ? '' : 'hidden'}>◈ ${isRecommended ? 'Recomendado' : 'Elegido'}</span>
+            <span class="pattern-card__weight">${escapeHtml(p.weight)}</span>
+          </div>
+          <div class="pattern-card__body">
+            <h3 class="pattern-card__name">${escapeHtml(p.name)}</h3>
+            <div class="pattern-card__pills">
+              <span class="pattern-card__pill">${escapeHtml(p.niche)}</span>
+              <span class="pattern-card__pill">${escapeHtml(p.mood)}</span>
+            </div>
+            <p class="pattern-card__desc">${escapeHtml(p.description)}</p>
+            <div class="pattern-card__elements">
+              ${(p.elements || []).slice(0, 5).map((el) => `<span class="pattern-card__el">${escapeHtml(el)}</span>`).join('')}
+            </div>
+            <a class="pattern-card__source" href="${p.url}" target="_blank" rel="noopener noreferrer">Basado en ${escapeHtml(p.name)} ↗</a>
+          </div>
+          <div class="pattern-card__foot">
+            <button type="button" class="btn ${isRecommended ? 'btn--accent' : 'btn--ghost'} pattern-card__select">Elegir este <span aria-hidden="true">→</span></button>
+            <span class="pattern-card__match">Match: ${entry.score}%</span>
+          </div>
+        `;
+        cardsEl.appendChild(card);
+      });
+      selectedPatternId = patterns[0]?.pattern.id ?? null;
+    }
+
+    cardsEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.pattern-card__select');
+      if (!btn) return;
+      const card = btn.closest('.pattern-card');
+      for (const c of cardsEl.querySelectorAll('.pattern-card')) {
+        const isThis = c === card;
+        c.classList.toggle('selected', isThis);
+        const badge = c.querySelector('.pattern-card__badge');
+        const isFirst = c === cardsEl.firstElementChild;
+        if (isThis) {
+          badge.hidden = false;
+          badge.textContent = '◈ Elegido';
+        } else if (isFirst) {
+          badge.hidden = false;
+          badge.textContent = '◈ Recomendado';
+        } else {
+          badge.hidden = true;
+        }
+        const selectBtn = c.querySelector('.pattern-card__select');
+        selectBtn.classList.toggle('btn--accent', isThis);
+        selectBtn.classList.toggle('btn--ghost', !isThis);
+      }
+      selectedPatternId = card.dataset.patternId;
+    });
+
+    ctaBtn.addEventListener('click', () => {
+      if (!selectedPatternId) return;
+      data.patternId = selectedPatternId;
+      data.analysis = currentAnalysis;
+      localStorage.setItem(KEY, JSON.stringify(data));
+      window.location.href = '/onboarding/step-4';
+    });
+
+    async function runAnalysis() {
+      showState(stateLoading);
+      progressFill.style.transition = 'none';
+      progressFill.style.width = '0%';
+      startLoadingUI();
+
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: data.name,
+            description: data.description,
+            niche: data.niche,
+            instagram: data.instagram,
+            mood: data.mood,
+            photos: photos.map((p) => p.src),
+            prompt: data.prompt,
+            colors: data.colors,
+          }),
+        });
+        const result = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error(result.message || result.error || `Error ${res.status}`);
+        }
+
+        await finishProgressBar();
+        clearInterval(phraseTimer);
+        currentAnalysis = result.analysis || null;
+        renderPatterns(result.patterns || []);
+        showState(stateResults);
+      } catch (err) {
+        clearInterval(phraseTimer);
+        errorMessage.textContent = err.message || 'No pudimos analizar tu negocio. Podés reintentar.';
+        showState(stateError);
+      }
+    }
+
+    // ── Guard ─────────────────────────────────────────────────────────────
+    data = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if (!data.name || !data.niche) {
+      window.location.href = '/onboarding/step-1';
+    } else {
+      try { photos = JSON.parse(localStorage.getItem(PKEY) || '[]'); } catch { photos = []; }
+      if (!photos.length) {
+        window.location.href = '/onboarding/step-2';
+      } else {
+        retryBtn.addEventListener('click', runAnalysis);
+        runAnalysis();
+      }
+    }
+  </script>
+</Onboarding>

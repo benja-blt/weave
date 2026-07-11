@@ -1,0 +1,37 @@
+---
+// components/footer/variants/minimal.astro
+// Variant `minimal`: una sola fila compacta. No arma columnas; aplana los items de todas
+// las columnas de `links` en una nav inline (nada del contenido requerido queda oculto),
+// más social y la línea legal. HTML semántico, sin enhancement.
+const { id, content, motion } = Astro.props;
+const motionName = motion?.override ?? motion?.profile ?? 'minimal';
+const { logo, links = [], social = [], copyright } = content;
+const flatLinks = links.flatMap((col: any) => col.items ?? []);
+---
+<footer id={id} class="plg-footer plg-footer--minimal" data-motion={motionName} data-motion-el="footer">
+  <div class="plg-footer__inner">
+    <div class="plg-footer__row">
+      {logo && <a class="plg-footer__logo" href={logo.href ?? '#'} data-motion-el="logo">{logo.text}</a>}
+
+      {flatLinks.length > 0 && (
+        <nav class="plg-footer__inline" aria-label="Enlaces del pie">
+          <ul>
+            {flatLinks.map((l: any) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      {social.length > 0 && (
+        <ul class="plg-footer__social" role="list">
+          {social.map((s: any) => (
+            <li><a href={s.href}>{s.label}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    {copyright && <p class="plg-footer__copy">{copyright}</p>}
+  </div>
+</footer>

@@ -1,0 +1,59 @@
+---
+// components/navbar/index.astro
+// Contrato L2: recibe props de instancia + content (validado por navbar.schema.json).
+// Estilo SOLO con tokens semánticos (navbar.css). Motion desacoplado vía data-motion.
+// Se ve y se usa con JS/motion apagados: menú mobile = <details> nativo (operable por
+// teclado sin JS); Escape/cerrar-al-clickear-afuera son enhancement progresivo. CTA siempre visible.
+import '../shared/button.css';
+import './navbar.css';
+import Solid from './variants/solid.astro';
+import Minimal from './variants/minimal.astro';
+import CenteredLogo from './variants/centered-logo.astro';
+import Transparent from './variants/transparent.astro';
+
+export interface NavbarLink { label: string; href: string; current?: boolean; }
+export interface NavbarAction { label: string; href: string; variant?: 'primary' | 'ghost'; }
+export interface NavbarContent {
+  logo: { text?: string; src?: string; alt?: string; href?: string };
+  links: NavbarLink[];
+  actions?: NavbarAction[];
+}
+export interface Props {
+  id?: string;
+  variant?: string;
+  content?: NavbarContent;
+  theme?: string;
+  motion?: any;
+  enhancement?: any;
+}
+
+// Contenido genérico de ejemplo (NO un cliente real) para probar el componente aislado.
+const demo: NavbarContent = {
+  logo: { text: 'Studio', href: '#' },
+  links: [
+    { label: 'Trabajo', href: '#work' },
+    { label: 'Estudio', href: '#studio' },
+    { label: 'Servicios', href: '#services' },
+    { label: 'Contacto', href: '#contact' },
+  ],
+  actions: [{ label: 'Empezar', href: '#start', variant: 'primary' }],
+};
+
+const {
+  id = 'navbar-1',
+  variant = 'solid',
+  content = demo,
+  motion,
+  enhancement,
+} = Astro.props;
+
+// Registro de variants. Hoy 1 default; el prop `variant` ya queda cableado para sumar el resto.
+const variants: Record<string, any> = {
+  solid: Solid,
+  minimal: Minimal,
+  'centered-logo': CenteredLogo,
+  transparent: Transparent,
+};
+const Variant = variants[variant] ?? Solid;
+---
+<Variant {id} {content} {motion} {enhancement} />
