@@ -2,12 +2,12 @@
 // y el arquetipo más cercano, y le pide a generator.js el HTML final auto-contenido.
 export const prerender = false;
 
-import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { generateLanding } from '../../lib/generator.js';
-
-const corpusPath = fileURLToPath(new URL('../../data/webs-corpus.json', import.meta.url));
-const archetypesPath = fileURLToPath(new URL('../../data/archetypes.json', import.meta.url));
+// Import estático (no fs.readFileSync + ruta relativa): Vite lo bundlea dentro de la función
+// serverless de Netlify. Con fs esa ruta no existe en runtime (/var/task no tiene src/data/)
+// y la función explota con ENOENT en producción (anda en dev porque ahí sí existe el repo).
+import corpusData from '../../data/webs-corpus.json';
+import archetypesData from '../../data/archetypes.json';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -31,13 +31,11 @@ export function GET() {
 }
 
 function findPattern(patternId) {
-  const corpus = JSON.parse(fs.readFileSync(corpusPath, 'utf8'));
-  return corpus.patterns.find((p) => p.id === patternId) || null;
+  return corpusData.patterns.find((p) => p.id === patternId) || null;
 }
 
 function findArchetype(niche, mood) {
-  const data = JSON.parse(fs.readFileSync(archetypesPath, 'utf8'));
-  const list = data.archetypes;
+  const list = archetypesData.archetypes;
   const exact = list.find((a) => a.niche === niche && a.mood === mood);
   if (exact) return exact;
   const sameNiche = list.find((a) => a.niche === niche);

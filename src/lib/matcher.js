@@ -1,12 +1,9 @@
 // src/lib/matcher.js — matchea el análisis del negocio (analyzer.js) contra los 152
 // patrones de src/data/webs-corpus.json y devuelve el TOP N con score + razones.
-// fs.readFileSync (no `import ... assert`) para que el módulo corra igual bundleado por
-// Vite/Astro que invocado standalone con `node src/lib/matcher.js` o `node -e`.
-import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
-
-const corpusPath = fileURLToPath(new URL('../data/webs-corpus.json', import.meta.url));
-const corpus = JSON.parse(fs.readFileSync(corpusPath, 'utf8'));
+// Import estático (no fs.readFileSync): Vite lo bundlea dentro de la función serverless de
+// Netlify. Con fs.readFileSync + ruta relativa al archivo, esa ruta no existe en runtime
+// (/var/task no tiene src/data/) y la función explota con ENOENT en producción.
+import corpus from '../data/webs-corpus.json';
 
 const MOOD_COMPATIBLE = {
   elegante: 'premium',
