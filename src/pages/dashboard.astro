@@ -1,0 +1,253 @@
+---
+// src/pages/dashboard.astro — historial de webs generadas, leído de localStorage
+// ('weave:projects', array de hasta 10 proyectos guardado por step-4.astro tras generar).
+// Mismo layout/paleta navy que index.astro (Base.astro + escala .wv hardcodeada).
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Weave — Tus webs generadas"
+  description="Historial de landing pages generadas con Weave. Descargalas o generá una nueva."
+>
+  <div class="wv wv-dash">
+    <!-- ── NAVBAR ─────────────────────────────────────────────────────────── -->
+    <header class="nav">
+      <a class="nav__logo" href="/"><span class="dia">◈</span> Weave</a>
+      <nav class="nav__links">
+        <a href="/">Inicio</a>
+        <a href="/dashboard" class="is-active">Mis webs</a>
+      </nav>
+      <a class="btn btn--solid btn--sm" href="/onboarding/step-1">Nueva web</a>
+    </header>
+
+    <main class="dash">
+      <header class="dash__head">
+        <p class="eyebrow">Tu historial</p>
+        <h1 class="dash__title">Tus webs generadas</h1>
+        <p class="dash__sub">Descargalas o generá una nueva.</p>
+        <a class="btn btn--accent btn--lg" href="/onboarding/step-1">Nueva web <span aria-hidden="true">→</span></a>
+      </header>
+
+      <!-- ── ESTADO VACÍO ─────────────────────────────────────────────────── -->
+      <section id="dash-empty" class="dash-empty" hidden>
+        <svg class="dash-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        </svg>
+        <p class="dash-empty__text">Todavía no generaste ninguna web.</p>
+        <a class="btn btn--accent btn--lg" href="/onboarding/step-1">Crear mi primera web <span aria-hidden="true">→</span></a>
+      </section>
+
+      <!-- ── GRID DE PROYECTOS ────────────────────────────────────────────── -->
+      <section id="dash-grid" class="dash-grid" hidden></section>
+    </main>
+
+    <footer class="foot">
+      <span class="foot__logo"><span class="dia">◈</span> Weave</span>
+      <span class="foot__meta">© 2026 · Weave</span>
+    </footer>
+  </div>
+
+  <style is:global>
+    body { background: #000000; }
+  </style>
+
+  <style>
+    .wv-dash {
+      --bg: #000000; --surface: #0A0A2E; --ink: #FFFFFF; --muted: rgba(255, 255, 255, 0.5);
+      --line: rgba(79, 142, 247, 0.12); --accent: #4F8EF7; --accent-2: #060147;
+      --glow: rgba(79, 142, 247, 0.35);
+      background: var(--bg); color: var(--ink); font-family: var(--font-family-body);
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    .dia { color: var(--accent); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-family-body); font-weight: var(--weight-semibold);
+      font-size: var(--size-base); line-height: 1;
+      padding: 0.9rem 1.6rem; border-radius: var(--radius-full);
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease, background 180ms ease;
+    }
+    .btn--sm { padding: 0.55rem 1.1rem; font-size: var(--size-sm); }
+    .btn--lg { padding: 1rem 2rem; font-size: var(--size-lg); }
+    .btn--accent { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
+    .btn--accent:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: 0 12px 44px var(--glow); }
+    .btn--solid { background: var(--accent); color: #000000; }
+    .btn--solid:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 10px 34px var(--glow); }
+    .btn--ghost { color: var(--ink); border-color: rgba(255, 255, 255, 0.25); background: transparent; }
+    .btn--ghost:hover { border-color: var(--ink); background: rgba(255, 255, 255, 0.06); }
+    .btn--danger { color: #FF6B6B; border-color: rgba(255, 107, 107, 0.35); background: transparent; }
+    .btn--danger:hover { background: rgba(255, 107, 107, 0.1); border-color: #FF6B6B; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 100; height: 64px;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 0 var(--space-8);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav__logo { justify-self: start; font-family: var(--font-family-display); font-weight: var(--weight-bold); font-size: var(--size-lg); color: var(--ink); text-decoration: none; }
+    .nav__links { justify-self: center; display: flex; gap: var(--space-6); }
+    .nav__links a { color: var(--muted); text-decoration: none; font-size: var(--size-sm); font-weight: var(--weight-medium); transition: color 200ms ease; }
+    .nav__links a:hover, .nav__links a.is-active { color: var(--ink); }
+    .nav .btn { justify-self: end; }
+    @media (max-width: 720px) { .nav__links { display: none; } .nav { grid-template-columns: 1fr auto; } }
+
+    .dash { flex: 1; max-width: var(--layout-container-max); margin: 0 auto; padding: var(--space-16) var(--space-8) var(--space-24); width: 100%; }
+    .dash__head { max-width: 56ch; margin: 0 auto var(--space-16); text-align: center; }
+    .eyebrow { margin: 0 0 var(--space-4); font-family: var(--font-family-mono); font-size: var(--size-xs); text-transform: uppercase; letter-spacing: var(--tracking-widest); color: var(--accent); }
+    .dash__title { margin: 0 0 var(--space-4); font-family: var(--font-family-display); font-weight: var(--weight-bold); font-size: clamp(2rem, 4vw, 3rem); color: var(--ink); }
+    .dash__sub { margin: 0 0 var(--space-8); font-size: var(--size-base); color: var(--muted); }
+
+    /* ── Estado vacío ─────────────────────────────────────────────────────── */
+    .dash-empty { display: flex; flex-direction: column; align-items: center; gap: var(--space-5); text-align: center; padding: var(--space-24) var(--space-6); }
+    .dash-empty[hidden] { display: none; }
+    .dash-empty__icon { width: 64px; height: 64px; color: var(--muted); opacity: 0.5; }
+    .dash-empty__text { margin: 0; font-size: var(--size-lg); color: var(--muted); }
+
+    /* ── Grid de proyectos ────────────────────────────────────────────────── */
+    .dash-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-8); }
+    .dash-grid[hidden] { display: none; }
+    @media (max-width: 960px) { .dash-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .dash-grid { grid-template-columns: 1fr; } }
+
+    .proj-card {
+      border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface);
+      display: flex; flex-direction: column;
+      transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+    }
+    .proj-card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--accent) 50%, transparent); box-shadow: 0 20px 60px var(--glow); }
+
+    .proj-card__preview { position: relative; aspect-ratio: 16 / 9; display: flex; align-items: flex-end; padding: var(--space-4); }
+    .proj-card__badge {
+      font-family: var(--font-family-mono); font-size: 0.72rem; font-weight: 600; color: #fff;
+      background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(6px);
+      padding: 0.3rem 0.7rem; border-radius: 999px; white-space: nowrap;
+    }
+
+    .proj-card__body { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+    .proj-card__name { margin: 0; font-family: var(--font-family-display); font-weight: var(--weight-semibold); font-size: var(--size-lg); color: var(--ink); }
+    .proj-card__meta { margin: 0; font-size: var(--size-xs); color: var(--muted); }
+    .proj-card__date { margin: 0; font-family: var(--font-family-mono); font-size: var(--size-xs); color: var(--muted); }
+
+    .proj-card__actions { display: flex; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-top: 1px solid var(--line); }
+    .proj-card__actions .btn { flex: 1; justify-content: center; padding: 0.6rem 1rem; font-size: var(--size-sm); }
+
+    .foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; padding: var(--space-8) var(--space-12); background: #000000; border-top: 1px solid var(--line); }
+    .foot__logo { font-family: var(--font-family-display); font-weight: var(--weight-bold); color: var(--ink); }
+    .foot__meta { font-family: var(--font-family-mono); font-size: var(--size-xs); color: var(--muted); }
+  </style>
+
+  <script>
+    const PROJECTS_KEY = 'weave:projects';
+
+    const NICHE_META = {
+      cafe: { emoji: '☕', label: 'Café', c1: '#0A1A0A', c2: '#1A3A1A' },
+      restaurant: { emoji: '🍽️', label: 'Restaurant', c1: '#0A0F1A', c2: '#1A2A4A' },
+      burger: { emoji: '🍔', label: 'Burger', c1: '#1A0500', c2: '#3D1000' },
+      beauty: { emoji: '💅', label: 'Beauty', c1: '#1A0A12', c2: '#2A1020' },
+      dental: { emoji: '🦷', label: 'Dental', c1: '#0A1A1A', c2: '#102A2A' },
+      agency: { emoji: '🏢', label: 'Agency', c1: '#0A0A14', c2: '#14142A' },
+      studio: { emoji: '🎨', label: 'Studio', c1: '#14100A', c2: '#241C10' },
+      portfolio: { emoji: '🖼️', label: 'Portfolio', c1: '#0A0A0A', c2: '#1A1A1A' },
+      ecommerce: { emoji: '🛍️', label: 'Ecommerce', c1: '#1A0A0A', c2: '#2A1414' },
+      realestate: { emoji: '🏠', label: 'Real Estate', c1: '#0A140A', c2: '#142A14' },
+      fitness: { emoji: '💪', label: 'Fitness', c1: '#14000A', c2: '#280014' },
+      bar: { emoji: '🍸', label: 'Bar', c1: '#14000A', c2: '#2A0A1A' },
+      hotel: { emoji: '🏨', label: 'Hotel', c1: '#0A0F14', c2: '#14202A' },
+      saas: { emoji: '💻', label: 'SaaS', c1: '#0A0A1A', c2: '#14142A' },
+      education: { emoji: '📚', label: 'Education', c1: '#0A1414', c2: '#142828' },
+      fashion: { emoji: '👗', label: 'Fashion', c1: '#140A14', c2: '#281428' },
+      music: { emoji: '🎵', label: 'Music', c1: '#0A0A0A', c2: '#1A1A1A' },
+      architecture: { emoji: '🏛️', label: 'Architecture', c1: '#0A0A0A', c2: '#1C1C1C' },
+      food: { emoji: '🍕', label: 'Food', c1: '#1A1000', c2: '#2A1E00' },
+    };
+    const NICHE_FALLBACK = { emoji: '✨', label: 'Negocio', c1: '#0A0A14', c2: '#14142A' };
+
+    const emptyEl = document.getElementById('dash-empty');
+    const gridEl = document.getElementById('dash-grid');
+
+    function loadProjects() {
+      try { return JSON.parse(localStorage.getItem(PROJECTS_KEY) || '[]'); } catch { return []; }
+    }
+    function saveProjects(projects) {
+      localStorage.setItem(PROJECTS_KEY, JSON.stringify(projects));
+    }
+    function formatDate(iso) {
+      const then = new Date(iso).getTime();
+      if (Number.isNaN(then)) return '';
+      const days = Math.floor((Date.now() - then) / 86400000);
+      if (days <= 0) return 'hoy';
+      if (days === 1) return 'ayer';
+      return `hace ${days} días`;
+    }
+    function escapeHtml(str) {
+      return String(str ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+    function slugify(str) {
+      return String(str).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'negocio';
+    }
+
+    function cardHtml(project) {
+      const meta = NICHE_META[project.niche] || NICHE_FALLBACK;
+      return `
+        <article class="proj-card" data-id="${escapeHtml(project.id)}">
+          <div class="proj-card__preview" style="background:linear-gradient(135deg, ${meta.c1}, ${meta.c2})">
+            <span class="proj-card__badge">${meta.emoji} ${escapeHtml(meta.label)}</span>
+          </div>
+          <div class="proj-card__body">
+            <h3 class="proj-card__name">${escapeHtml(project.name)}</h3>
+            <p class="proj-card__meta">${escapeHtml(project.archetype || '—')} · ${escapeHtml(project.patternId || '—')}</p>
+            <p class="proj-card__date">${formatDate(project.createdAt)}</p>
+          </div>
+          <div class="proj-card__actions">
+            <button class="btn btn--accent" data-action="download">Descargar ↓</button>
+            <button class="btn btn--danger" data-action="delete">Eliminar</button>
+          </div>
+        </article>`;
+    }
+
+    function render() {
+      const projects = loadProjects();
+      if (!projects.length) {
+        emptyEl.hidden = false;
+        gridEl.hidden = true;
+        gridEl.innerHTML = '';
+        return;
+      }
+      emptyEl.hidden = true;
+      gridEl.hidden = false;
+      gridEl.innerHTML = projects.map(cardHtml).join('');
+    }
+
+    gridEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+      const card = btn.closest('.proj-card');
+      const id = card?.dataset.id;
+      if (!id) return;
+      const projects = loadProjects();
+      const project = projects.find((p) => p.id === id);
+      if (!project) return;
+
+      if (btn.dataset.action === 'download') {
+        const blob = new Blob([project.html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `weave-${slugify(project.name)}-${project.id}.html`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      } else if (btn.dataset.action === 'delete') {
+        if (!confirm(`¿Eliminar "${project.name}" de tu historial?`)) return;
+        saveProjects(projects.filter((p) => p.id !== id));
+        render();
+      }
+    });
+
+    render();
+  </script>
+</Base>

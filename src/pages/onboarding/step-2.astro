@@ -7,6 +7,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
 ---
 <Onboarding
   step={2}
+  total={5}
   title="Weave — Paso 2: fotos de tu negocio"
   heading="Mostranos<br>tu negocio."
   sub="Las fotos ayudan a la IA a entender el estilo y personalidad de tu lugar."
@@ -212,8 +213,9 @@ import Onboarding from '../../layouts/Onboarding.astro';
     drop.addEventListener('drop', (e) => { if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files); });
 
     // ── Validación Instagram ──────────────────────────────────────────────
-    // Acepta el dominio con o sin www y cualquier path/query (?igsh=, ?hl=, combinados, etc).
-    const IG_RE = /^https?:\/\/(www\.)?instagram\.com\/.*/i;
+    // Sólo exige que "instagram.com" aparezca en la URL — acepta con/sin www, con/sin
+    // protocolo, y cualquier path/query (?igsh=, ?utm_source=, combinados, etc).
+    const IG_RE = /instagram\.com/i;
     const igValid = () => {
       const v = form.instagram.value.trim();
       if (v === '') return true;
@@ -234,7 +236,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
         photoCount: photos.length,
       };
       localStorage.setItem(KEY, JSON.stringify(data));
-      window.location.href = '/onboarding/step-3';
+      window.location.href = '/onboarding/step-3-review';
     });
   </script>
 </Onboarding>

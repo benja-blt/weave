@@ -1,66 +1,65 @@
-# Premium Landing Generator
+# Weave — Generador de Landing Pages Premium con IA
 
-Generador de landing pages premium (nivel Awwwards) que reutiliza componentes, motion y assets
-en vez de plantillas por industria. Objetivo: diseño de altísimo nivel **y** carga rápida.
+Un SaaS que genera landing pages premium en minutos usando IA.
 
-**Stack:** Astro (islands) · Design tokens propios · GSAP · Three.js
-**Núcleo:** el sistema gira alrededor del `page.json` (una landing descrita como datos).
+## Características
 
----
+- **Onboarding de 4 pasos:** nicho + colores + prompt libre, fotos, análisis con Claude Vision, preview real y descarga
+- **10 arquetipos visuales:** Cream, Dark Warm, Cinematic 3D, Glassmorphism, Mouse-Reactive, Magazine, Brutalist, Liquid Wave, Newspaper, Spline
+- **Librerías premium integradas por arquetipo:** Three.js, Rellax, Lenis, Anime.js, Splitting.js, Vanilla-Tilt, Swiper, GSAP + ScrollTrigger
+- **Dashboard de proyectos:** historial de webs generadas (localStorage), descargar/eliminar
+- **Deploy Netlify-ready:** rutas estáticas + `/api/*` como función serverless vía `@astrojs/netlify`
 
-## ▶️ Quickstart
-Requisito: **Node.js 18+**.
+## Stack
+
+- **Frontend:** Astro 7 (sin frameworks de UI — JS vanilla en el cliente)
+- **Backend:** Node.js + `@anthropic-ai/sdk` (Claude, con Vision para las fotos)
+- **Animaciones del output generado:** GSAP + ScrollTrigger (reveals base, todos los arquetipos),
+  Three.js (Cinematic 3D), Rellax (Glass + Liquid Wave), Lenis (Glass + Spline), Anime.js (Cream +
+  Dark Warm), Splitting.js (Magazine), Vanilla-Tilt (Mouse-Reactive), Swiper (galerías mobile, todos
+  los arquetipos)
+- **Deploy:** Netlify Functions vía `@astrojs/netlify`
+
+## Setup local
 
 ```bash
-# 1. generar el CSS de tokens
-node tokens/build.js
-
-# 2. ver la preview del tema warm
-#    abrí tokens/preview.html en el navegador
+git clone https://github.com/tu-usuario/weave
+cd weave
+npm install
+echo "ANTHROPIC_API_KEY=tu_clave" > .env
+npm run dev
+# localhost:3000
 ```
 
-Eso ya funciona hoy: compila los tokens y muestra el tema warm.
+## Deploy
 
----
+Ver [DEPLOY.md](./DEPLOY.md) para las instrucciones de Netlify.
 
-## 📁 Estructura
-```
-premium-landing-generator/
-├── foundation/        # L0 — el contrato (page-schema, vocabulario, budget, contract)
-├── tokens/            # L1 — design tokens (primitivos → semánticos → temas) + build.js
-│   ├── primitives/    #      valores crudos
-│   ├── semantic/      #      aliases que usan los componentes
-│   ├── themes/        #      warm.json (+ luxury, tech, dark... a futuro)
-│   ├── build/         #      CSS generado (auto) + tokens.json
-│   ├── build.js       #      compilador sin dependencias
-│   └── preview.html   #      preview visual del tema
-├── docs/              # ARCHITECTURE.md (el blueprint) + estrategia de nichos
-├── components/        # L2 — (próximo) navbar, hero, gallery, cta, footer...
-├── motion/            # L3 — (pendiente) perfiles GSAP/Three/scroll
-├── assets/            # L4 — (pendiente) pipeline de video/3D/optimización
-├── archetypes/        # L5 — (pendiente) presets A1..A4
-├── generator/         # L6 — (pendiente) el motor
-└── patterns/          # L7 — (pendiente) patrones de las 45 webs (via reverse-engineering)
-```
+## Uso
 
----
+1. Ir a `localhost:3000` (o la URL de Netlify)
+2. Clickear "Empezar gratis"
+3. Completar los 4 pasos:
+   - **Step 1:** nicho, colores (o dejar que la IA elija), descripción, prompt libre opcional
+   - **Step 2:** subir fotos (hasta 10) e Instagram
+   - **Step 3:** ver el TOP 3 de patrones recomendados por Claude
+   - **Step 4:** preview en vivo (iframe) y descarga del HTML
+4. **Dashboard** ("Mis webs"): gestionar el historial de las últimas 10 webs generadas
 
-## 🗺️ Roadmap (orden de construcción)
-- [x] **L0** Contrato (`foundation/`)
-- [x] **L1** Tokens + tema warm (`tokens/`)
-- [ ] **L2** Componentes núcleo ← próximo
-- [ ] **L3** Motion / efectos (GSAP, Three.js, scroll)
-- [ ] **L4** Assets pesados (video, 3D, Core Web Vitals)
-- [ ] **L5** Presets de arquetipos (A1 Hospitality primero)
-- [ ] **L6** Motor generador (assemble → validate → build)
-- [ ] **L7** Patrones de las 45 webs (skill `web-reverseengineering.md`)
+## Estructura
 
-Ver `docs/ARCHITECTURE.md` para el detalle completo de cada capa, las tablas de decisión
-(componente / motion / 3D-vs-video) y cómo se enchufa el reverse-engineering.
+- Landing: `src/pages/index.astro`
+- Onboarding: `src/pages/onboarding/*.astro`
+- Dashboard: `src/pages/dashboard.astro`
+- Backend: `src/pages/api/analyze.js`, `src/pages/api/generate.js`
+- Lógica de negocio: `src/lib/analyzer.js` (Claude + Vision), `src/lib/matcher.js` (scoring contra
+  el corpus), `src/lib/generator.js` (arquetipos + librerías premium + HTML autocontenido)
+- Data: `src/data/archetypes.json`, `src/data/webs-corpus.json`
 
----
+## Contribuir
 
-## 📌 Nota
-Las 45 webs de referencia y los efectos **todavía no están** en el proyecto: son L7 y L3,
-que vienen más adelante. Primero componentes, después motion, y al final se destilan las
-webs *dentro* del sistema como patrones reutilizables.
+Este es un proyecto de Benja (@valben). PRs bienvenidas.
+
+## Licencia
+
+MIT

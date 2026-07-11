@@ -1,0 +1,132 @@
+---
+// src/pages/onboarding/step-3-review.astro — Paso 3: review del brief antes de buscar patrones.
+// Muestra un resumen de lo cargado en step-1/step-2, deja expandir el prompt libre con más
+// detalle (pisa data.prompt si el usuario escribe algo acá) y sumar features opcionales.
+// Mismo patrón de guard que step-3-patterns/step-4: localStorage 'weave:onboarding'.
+import Onboarding from '../../layouts/Onboarding.astro';
+---
+<Onboarding
+  step={3}
+  total={5}
+  title="Weave — Paso 3: revisá tu idea"
+  heading="Contanos <em>en detalle.</em>"
+  sub="Repasá lo que ya nos dijiste y agregá todo el detalle que quieras — cuanto más específico, mejor sale tu web."
+>
+  <form id="step3review" class="s3r" novalidate>
+    <!-- Resumen de lo ya cargado -->
+    <div class="o-field" data-motion-el data-motion-order="3">
+      <span class="o-label">Tu configuración</span>
+      <div class="s3r-summary">
+        <div class="s3r-summary__item">
+          <span class="s3r-summary__label">Nicho</span>
+          <span class="s3r-summary__value" id="summary-niche">—</span>
+        </div>
+        <div class="s3r-summary__item">
+          <span class="s3r-summary__label">Negocio</span>
+          <span class="s3r-summary__value" id="summary-name">—</span>
+        </div>
+        <div class="s3r-summary__item">
+          <span class="s3r-summary__label">Fotos subidas</span>
+          <span class="s3r-summary__value" id="summary-photos">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prompt detallado -->
+    <div class="o-field" data-motion-el data-motion-order="4">
+      <label class="o-label" for="detailed-prompt">Tu idea para la web <span class="opt">(cuanto más detalle, mejor)</span></label>
+      <textarea class="o-textarea" id="detailed-prompt" name="detailedPrompt" rows="8"
+        placeholder={"Ejemplo:\n· Secciones: hero, galería, testimonios, contacto, ubicación\n· Estilo: moderno, elegante, rústico, playero...\n· Colores: colores específicos o referencias\n· Fotos: dónde van (hero, galería, fondos)\n· Textos: qué decir en cada sección\n· Llamadas a acción: reservar, contactar, comprar...\n· Referencias: webs que te gusten\n· Cualquier detalle importante"}></textarea>
+    </div>
+
+    <!-- Features opcionales -->
+    <div class="o-field" data-motion-el data-motion-order="5">
+      <span class="o-label">¿Qué más querés? <span class="opt">(opcional)</span></span>
+      <span class="o-hint">Seleccioná los elementos que necesitás.</span>
+      <div class="s3r-features">
+        <label class="s3r-feature"><input type="checkbox" name="feature" value="contact-form" /><span>Formulario de contacto</span></label>
+        <label class="s3r-feature"><input type="checkbox" name="feature" value="gallery" /><span>Galería de fotos</span></label>
+        <label class="s3r-feature"><input type="checkbox" name="feature" value="testimonials" /><span>Sección de testimonios</span></label>
+        <label class="s3r-feature"><input type="checkbox" name="feature" value="map" /><span>Mapa de ubicación</span></label>
+        <label class="s3r-feature"><input type="checkbox" name="feature" value="blog" /><span>Blog / Noticias</span></label>
+        <label class="s3r-feature"><input type="checkbox" name="feature" value="pricing" /><span>Tabla de precios</span></label>
+      </div>
+    </div>
+
+    <div class="o-actions" data-motion-el data-motion-order="6">
+      <a class="o-back" href="/onboarding/step-2">← Atrás</a>
+      <button class="btn btn--accent btn--lg" type="submit" id="continue">
+        Ver mis patrones <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </form>
+
+  <style is:global>
+    /* Campos nuevos de step-3-review — prefijo .s3r, mismo patrón que .s1/.s2. */
+    .s3r .o-label .opt { font-family: var(--font-family-body); font-weight: var(--weight-regular); font-size: var(--size-sm); color: var(--muted); }
+
+    .s3r-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+    @media (max-width: 620px) { .s3r-summary { grid-template-columns: 1fr; } }
+    .s3r-summary__item { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-card); background: rgba(255, 255, 255, 0.02); }
+    .s3r-summary__label { display: block; font-family: var(--font-family-mono); font-size: var(--size-xs); text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--muted); margin-bottom: var(--space-2); }
+    .s3r-summary__value {
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      font-size: var(--size-sm); color: var(--ink);
+    }
+
+    .s3r-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+    @media (max-width: 620px) { .s3r-features { grid-template-columns: 1fr; } }
+    .s3r-feature {
+      display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4);
+      border: 1px solid var(--line); border-radius: var(--radius-card); cursor: pointer;
+      background: rgba(255, 255, 255, 0.02); color: var(--muted); font-size: var(--size-sm);
+      transition: border-color 200ms ease, background 200ms ease, color 200ms ease;
+    }
+    .s3r-feature:hover { color: var(--ink); border-color: rgba(255, 255, 255, 0.2); }
+    .s3r-feature input { accent-color: var(--accent); width: 18px; height: 18px; flex-shrink: 0; }
+    .s3r-feature:has(input:checked) { color: var(--ink); border-color: var(--accent); background: rgba(79, 142, 247, 0.1); }
+  </style>
+
+  <script>
+    const KEY = 'weave:onboarding';
+    const PKEY = 'weave:onboarding:photos';
+    const form = document.getElementById('step3review');
+
+    // ── Guard (mismo patrón que step-3-patterns/step-4) ────────────────────
+    const data = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if (!data.name || !data.niche) {
+      window.location.href = '/onboarding/step-1';
+    } else {
+      let photos = [];
+      try { photos = JSON.parse(localStorage.getItem(PKEY) || '[]'); } catch { photos = []; }
+      if (!photos.length) {
+        window.location.href = '/onboarding/step-2';
+      } else {
+        document.getElementById('summary-niche').textContent = data.nicheLabel || data.niche;
+        document.getElementById('summary-name').textContent = data.name;
+        document.getElementById('summary-photos').textContent = String(photos.length);
+        if (data.prompt) form.detailedPrompt.value = data.prompt;
+        if (Array.isArray(data.selectedFeatures)) {
+          for (const cb of form.querySelectorAll('input[name="feature"]')) {
+            cb.checked = data.selectedFeatures.includes(cb.value);
+          }
+        }
+
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const selectedFeatures = Array.from(form.querySelectorAll('input[name="feature"]:checked')).map((el) => el.value);
+          const detailedPrompt = form.detailedPrompt.value.trim();
+          const updated = {
+            ...data,
+            // El prompt detallado de esta pantalla reemplaza al corto de step-1 si el usuario
+            // escribió algo acá; si no, se conserva el que ya había.
+            prompt: detailedPrompt || data.prompt || '',
+            selectedFeatures,
+          };
+          localStorage.setItem(KEY, JSON.stringify(updated));
+          window.location.href = '/onboarding/step-3-patterns';
+        });
+      }
+    }
+  </script>
+</Onboarding>

@@ -16,6 +16,7 @@ const niches = [
 ---
 <Onboarding
   step={1}
+  total={5}
   title="Weave — Paso 1: tu negocio"
   heading="Empecemos por <em>lo básico.</em>"
   sub="Tres respuestas cortas. Con esto la IA ya empieza a entender la personalidad de tu marca."
@@ -34,7 +35,7 @@ const niches = [
       <span class="o-hint">Cuanto más detallés, mejor elige la IA.</span>
       <textarea class="o-textarea" id="biz-desc" name="description"
                 placeholder={"Ej: Somos un restaurante de gastronomía colombiana fusion en Medellín. Ambiente moderno y acogedor, con bowls y platos creativos. Nuestros clientes son jóvenes de 20-35 años..."}
-                maxlength="600" rows="5"></textarea>
+                rows="5"></textarea>
     </div>
 
     <!-- Pregunta 3 -->
@@ -51,8 +52,15 @@ const niches = [
       </div>
     </div>
 
-    <!-- Pregunta 4: colores -->
+    <!-- Pregunta 4: prompt libre -->
     <div class="o-field" data-motion-el data-motion-order="6">
+      <label class="o-label" for="prompt">Tu idea (prompt) <span class="opt">(opcional)</span></label>
+      <textarea class="o-textarea" id="prompt" name="prompt" rows="4" maxlength="2000"
+        placeholder="Ej: Landing moderna para restaurante, con fotos grandes, testimonios de clientes..."></textarea>
+    </div>
+
+    <!-- Pregunta 5: colores -->
+    <div class="o-field" data-motion-el data-motion-order="7">
       <span class="o-label">¿Qué colores querés en tu web? <span class="opt">(opcional)</span></span>
       <div class="color-pickers">
         <label class="color-field">
@@ -80,14 +88,6 @@ const niches = [
           <span class="name">Que lo elija la IA</span>
         </label>
       </div>
-    </div>
-
-    <!-- Pregunta 5: prompt libre -->
-    <div class="o-field" data-motion-el data-motion-order="7">
-      <label class="o-label" for="prompt">¿Qué querés que tenga tu web? <span class="opt">(opcional)</span></label>
-      <span class="o-hint">Cuanto más detallés, mejor queda tu web.</span>
-      <textarea class="o-textarea" id="prompt" name="prompt" rows="6" maxlength="2000"
-        placeholder={"Describí todo lo que querés:\n· Secciones (menú, galería, reservas, ubicación, contacto)\n· Estilo (oscuro/claro, elegante/moderno/rústico)\n· Tu público objetivo\n· Lo que hace único a tu negocio\n· Colores o webs que te gusten de referencia\n· Cualquier detalle importante"}></textarea>
     </div>
 
     <div class="o-actions" data-motion-el data-motion-order="8">

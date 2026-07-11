@@ -1,11 +1,12 @@
 ---
-// src/pages/onboarding/step-3.astro — Paso 3: "el momento mágico". La IA analiza el negocio
+// src/pages/onboarding/step-3-patterns.astro — Paso 4: "el momento mágico" (antes step-3.astro,
+// renombrado al insertar step-3-review.astro entre fotos y patrones). La IA analiza el negocio
 // (Onboarding.astro + analyzer.js vía /api/analyze) y devuelve el TOP 3 de patrones del corpus
 // (matcher.js). Sin heading fijo en el layout: cada estado (loading/resultados/error) maneja su
 // propio título vía JS/markup, así el layout no impone un heading que no aplica a los 3 estados.
 import Onboarding from '../../layouts/Onboarding.astro';
 ---
-<Onboarding step={3} title="Weave — Analizando tu negocio">
+<Onboarding step={4} total={5} title="Weave — Analizando tu negocio">
   <div class="s3">
     <!-- ── ESTADO A — LOADING ─────────────────────────────────────────────── -->
     <section id="state-loading" class="s3-loading">
@@ -45,7 +46,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
       <p class="s3-error__sub" id="error-message">No pudimos analizar tu negocio. Podés reintentar.</p>
       <div class="s3-error__actions">
         <button class="btn btn--accent btn--lg" id="retry-btn">Reintentar</button>
-        <a class="btn btn--ghost btn--lg" href="/onboarding/step-2">Volver</a>
+        <a class="btn btn--ghost btn--lg" href="/onboarding/step-3-review">Volver</a>
       </div>
     </section>
   </div>
