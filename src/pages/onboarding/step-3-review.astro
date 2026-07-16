@@ -84,7 +84,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
         <div id="rd-testi">
           {[0, 1, 2].map((i) => (
             <div class="s3r-real__row s3r-testi-row">
-              <input class="o-input" type="text" data-testi-quote maxlength="160" placeholder={`Reseña ${i + 1}`} />
+              <textarea class="o-input s3r-real__quote" data-testi-quote maxlength="600" rows="3" placeholder={`Reseña ${i + 1}`}></textarea>
               <input class="o-input s3r-real__who" type="text" data-testi-who maxlength="40" placeholder="Nombre (opcional)" />
             </div>
           ))}
@@ -131,6 +131,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
     .s3r-real__sub { margin-top: var(--space-3); font-size: var(--size-sm); font-weight: var(--weight-medium); color: var(--ink); }
     .s3r-real__row .o-input { flex: 1 1 200px; }
     .s3r-real__price, .s3r-real__who { flex: 0 1 170px; }
+    .s3r-real__row .s3r-real__quote { flex: 1 1 100%; resize: vertical; min-height: 3.4rem; line-height: 1.5; font-family: inherit; }
     @media (max-width: 620px) { .s3r-real__price, .s3r-real__who { flex: 1 1 100%; } }
   </style>
 
