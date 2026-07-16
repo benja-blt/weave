@@ -30,6 +30,15 @@ const GALLERY_TITLE_BY_NICHE = {
 };
 const GALLERY_TITLE_DEFAULT = 'Lo que hacemos';
 
+const MENU_TITLE_BY_NICHE = {
+  cafe: 'Carta',
+  restaurant: 'Menú',
+  burger: 'Menú',
+  beauty: 'Servicios',
+  dental: 'Tratamientos',
+};
+const MENU_TITLE_DEFAULT = 'Carta';
+
 const CTA_SUB_BY_NICHE = {
   cafe: 'Vení a probar tu próximo café favorito.',
   restaurant: 'Reservá tu mesa y viví la experiencia.',
@@ -212,6 +221,112 @@ const SKILL_ARCHETYPES = {
   },
 };
 
+const VARIANT_POOLS = {
+  cafe: ['cream', 'magazine', 'newspaper', 'darkWarm', 'glass'],
+  restaurant: ['darkWarm', 'newspaper', 'cream', 'magazine', 'cinematic3d'],
+  burger: ['brutalist', 'darkWarm', 'magazine', 'mouseGradient'],
+  beauty: ['cream', 'glass', 'magazine', 'liquidWave'],
+  dental: ['glass', 'newspaper', 'cream', 'brutalist'],
+  agency: ['mouseGradient', 'cinematic3d', 'brutalist', 'spline'],
+  food: ['liquidWave', 'cream', 'magazine', 'glass'],
+  default: ['cream', 'magazine', 'glass', 'mouseGradient'],
+};
+
+const FONT_PAIRINGS = {
+  cream: [{ display: 'Fraunces' }, { display: 'Cormorant Garamond' }, { display: 'Playfair Display' }, { display: 'Spectral' }],
+  magazine: [{ display: 'Bodoni Moda' }, { display: 'Playfair Display' }, { display: 'Lora' }],
+  newspaper: [{ display: 'Playfair Display' }, { display: 'Bodoni Moda' }, { display: 'Lora' }],
+  darkWarm: [{ display: 'Fraunces' }, { display: 'Playfair Display' }, { display: 'Cormorant Garamond' }],
+  glass: [{ display: 'Manrope' }, { display: 'Sora' }, { display: 'Poppins' }],
+  brutalist: [{ display: 'IBM Plex Mono', body: 'IBM Plex Mono' }, { display: 'Fira Code', body: 'Fira Code' }, { display: 'JetBrains Mono', body: 'JetBrains Mono' }],
+  mouseGradient: [{ display: 'Space Grotesk' }, { display: 'Sora' }, { display: 'Syne' }],
+  liquidWave: [{ display: 'Poppins' }, { display: 'Quicksand' }, { display: 'Nunito' }],
+  cinematic3d: [{ display: 'Playfair Display' }, { display: 'Cormorant Garamond' }, { display: 'Fraunces' }],
+};
+
+function hashSeed(str) {
+  let h = 2166136261 >>> 0;
+  const s = String(str);
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function mulberry32(a) {
+  return function () {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function pickSeeded(arr, rng) {
+  return arr[Math.floor(rng() * arr.length)] || arr[0];
+}
+
+// Semilla estable: SOLO nombre + niche. description/prompt/mood NO entran (son
+// modificadores de contenido, no de cara visual). Si el usuario fijo colorMode, se
+// respeta ese brillo. La rotacion solo decide lo que Weave elige por el usuario.
+export function selectVisualVariant(data, archetype) {
+  const niche = (data && data.niche) || (archetype && archetype.niche) || 'default';
+  const defaultSkKey = ARCHETYPE_SKILL_MAP[archetype && archetype.id] || 'cream';
+
+  const seedStr = slugify(data && data.name) + '|' + niche;
+  const rng = mulberry32(hashSeed(seedStr));
+
+  const userBrightness = (data && data.colorMode === 'dark') ? 'dark'
+    : (data && data.colorMode === 'light') ? 'light' : null;
+
+  let pool = (VARIANT_POOLS[niche] || VARIANT_POOLS.default).slice();
+  if (!pool.includes(defaultSkKey)) pool.unshift(defaultSkKey);
+  if (userBrightness) {
+    const filtered = pool.filter((k) => SKILL_ARCHETYPES[k] && SKILL_ARCHETYPES[k].brightness === userBrightness);
+    pool = filtered.length ? filtered
+      : Object.keys(SKILL_ARCHETYPES).filter((k) => SKILL_ARCHETYPES[k].brightness === userBrightness);
+  }
+
+  const skKey = pickSeeded(pool, rng);
+
+  const pairings = FONT_PAIRINGS[skKey] || [{ display: SKILL_ARCHETYPES[skKey].font.display }];
+  const pairing = pickSeeded(pairings, rng);
+  const displayFont = pairing.display;
+  const bodyFont = pairing.body || SKILL_ARCHETYPES[skKey].font.body;
+
+  const density = pickSeeded(['compact', 'regular', 'regular', 'airy'], rng);
+  const cardStyle = pickSeeded(['soft', 'sharp', 'framed'], rng);
+  const ctaShape = pickSeeded(['pill', 'rounded', 'sharp'], rng);
+  const bgTreatment = pickSeeded(['plain', 'grain', 'glow'], rng);
+
+  const alignable = ['cream', 'darkWarm', 'cinematic3d', 'glass', 'mouseGradient', 'liquidWave', 'spline'];
+  const heroAlign = alignable.includes(skKey) ? pickSeeded(['center', 'left'], rng) : 'center';
+
+  const galleryVariant = pickSeeded(['grid', 'grid', 'masonry'], rng);
+  const featuresFirst = rng() < 0.5;
+
+  const paletteByUser = (data && (data.colorMode === 'dark' || data.colorMode === 'light'))
+    && !!(data.colors && data.colors.primary && data.colors.accent);
+
+  return {
+    skKey: skKey,
+    displayFont: displayFont,
+    bodyFont: bodyFont,
+    density: density,
+    cardStyle: cardStyle,
+    ctaShape: ctaShape,
+    bgTreatment: bgTreatment,
+    heroAlign: heroAlign,
+    galleryVariant: galleryVariant,
+    featuresFirst: featuresFirst,
+    seed: seedStr,
+    brightnessLockedByUser: !!userBrightness,
+    paletteByUser: paletteByUser,
+  };
+}
+
 function navFor(niche) {
   return NAV_BY_NICHE[niche] || NAV_DEFAULT;
 }
@@ -258,7 +373,7 @@ function generarSubheadline(business) {
   return cut.slice(0, lastSpace > 40 ? lastSpace : 80).trim() + '…';
 }
 
-function buildSections(business, pattern, archetype) {
+function buildSections(business, pattern, archetype, variant) {
   const nav = navFor(business.niche);
   const sections = [];
 
@@ -279,18 +394,23 @@ function buildSections(business, pattern, archetype) {
   });
 
   const elements = archetype.elements || [];
-  sections.push({
+  const galleryVariant = (variant && variant.galleryVariant)
+    || (elements.includes('masonry') ? 'masonry' : 'grid');
+  const gallerySection = {
     type: 'gallery',
-    variant: elements.includes('masonry') ? 'masonry' : 'grid',
+    variant: galleryVariant,
     title: GALLERY_TITLE_BY_NICHE[business.niche] || GALLERY_TITLE_DEFAULT,
-  });
+  };
+  const featuresSection = elements.includes('parallax')
+    ? { type: 'features', title: 'Por qué elegirnos', items: buildFeatureItems(business, archetype) }
+    : null;
 
-  if (elements.includes('parallax')) {
-    sections.push({
-      type: 'features',
-      title: 'Por qué elegirnos',
-      items: buildFeatureItems(business, archetype),
-    });
+  // Ritmo de secciones: la variante puede anteponer "por qué elegirnos" a la galería.
+  if (featuresSection && variant && variant.featuresFirst) {
+    sections.push(featuresSection, gallerySection);
+  } else {
+    sections.push(gallerySection);
+    if (featuresSection) sections.push(featuresSection);
   }
 
   sections.push(...buildPromptSections(business));
@@ -332,13 +452,25 @@ function buildPromptSections(business) {
     sections.push({ type: 'reservations', title: 'Reservá tu lugar' });
   }
   if (/men[uú]|carta/.test(p)) {
-    sections.push({ type: 'menu', title: GALLERY_TITLE_BY_NICHE[business.niche] || 'Nuestro menú' });
+    sections.push({
+      type: 'menu',
+      title: MENU_TITLE_BY_NICHE[business.niche] || MENU_TITLE_DEFAULT,
+      items: Array.isArray(business.menu) ? business.menu : null,
+    });
   }
   if (/ubicaci[oó]n|mapa/.test(p)) {
-    sections.push({ type: 'map', title: 'Dónde encontrarnos', query: business.name });
+    sections.push({
+      type: 'map',
+      title: 'Dónde encontrarnos',
+      address: (typeof business.address === 'string' && business.address.trim()) ? business.address.trim() : null,
+    });
   }
   if (/testimonios?|reviews?|opiniones/.test(p)) {
-    sections.push({ type: 'testimonials', title: 'Lo que dicen de nosotros' });
+    sections.push({
+      type: 'testimonials',
+      title: 'Lo que dicen de nosotros',
+      items: Array.isArray(business.testimonials) ? business.testimonials : null,
+    });
   }
   return sections;
 }
@@ -591,53 +723,68 @@ function renderReservations(s) {
   </section>`;
 }
 
+// Sin carta real no inventamos platos ni precios: nota discreta editable.
 function renderMenu(s) {
-  const items = [
-    { name: 'Ítem de ejemplo 1', price: '$0.00' },
-    { name: 'Ítem de ejemplo 2', price: '$0.00' },
-    { name: 'Ítem de ejemplo 3', price: '$0.00' },
-    { name: 'Ítem de ejemplo 4', price: '$0.00' },
-  ];
+  const items = Array.isArray(s.items) ? s.items.filter((it) => it && it.name) : [];
+  if (!items.length) {
+    return `
+  <section class="wv-menu">
+    <h2 class="wv-section-title reveal">${escapeHtml(s.title)}</h2>
+    <p class="wv-empty reveal">Agregá tus platos y precios reales para activar esta sección.</p>
+  </section>`;
+  }
   return `
   <section class="wv-menu">
     <h2 class="wv-section-title reveal">${escapeHtml(s.title)}</h2>
-    <p class="wv-menu__note reveal">Ejemplo de estructura — reemplazá con tu carta real.</p>
     <div class="wv-menu__grid">
       ${items.map((it) => `
         <div class="wv-menu__item reveal">
           <span class="wv-menu__name">${escapeHtml(it.name)}</span>
-          <span class="wv-menu__price">${escapeHtml(it.price)}</span>
+          ${it.price ? `<span class="wv-menu__price">${escapeHtml(it.price)}</span>` : ''}
         </div>`).join('')}
     </div>
   </section>`;
 }
 
+// Sin dirección real no renderizamos mapa (evita ubicación simulada): nota + CTA de contacto.
 function renderMap(s) {
-  const q = encodeURIComponent(s.query || '');
+  const address = (typeof s.address === 'string' && s.address.trim()) ? s.address.trim() : '';
+  if (!address) {
+    return `
+  <section class="wv-map">
+    <h2 class="wv-section-title reveal">${escapeHtml(s.title)}</h2>
+    <p class="wv-empty reveal">Cargá tu dirección real para mostrar el mapa acá.</p>
+    <a class="wv-btn wv-btn--accent wv-btn--lg reveal" href="#cta">Escribinos y te pasamos la ubicación →</a>
+  </section>`;
+  }
+  const q = encodeURIComponent(address);
   return `
   <section class="wv-map">
     <h2 class="wv-section-title reveal">${escapeHtml(s.title)}</h2>
     <div class="wv-map__frame reveal">
       <iframe src="https://www.google.com/maps?q=${q}&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación"></iframe>
     </div>
-    <p class="wv-map__note">Mapa de ejemplo por nombre — actualizalo con tu dirección exacta.</p>
   </section>`;
 }
 
+// Sin reseñas reales no inventamos testimonios ni nombres: nota discreta editable.
 function renderTestimonials(s) {
-  const examples = [
-    { quote: 'Acá va una reseña real de un cliente satisfecho.', who: 'Cliente de ejemplo' },
-    { quote: 'Otra reseña real reemplazaría este texto.', who: 'Cliente de ejemplo' },
-  ];
+  const items = Array.isArray(s.items) ? s.items.filter((t) => t && t.quote) : [];
+  if (!items.length) {
+    return `
+  <section class="wv-testimonials">
+    <h2 class="wv-section-title reveal">${escapeHtml(s.title)}</h2>
+    <p class="wv-empty reveal">Sumá reseñas reales de tus clientes para mostrarlas acá.</p>
+  </section>`;
+  }
   return `
   <section class="wv-testimonials">
     <h2 class="wv-section-title reveal">${escapeHtml(s.title)}</h2>
-    <p class="wv-testimonials__note reveal">Testimonios de ejemplo — reemplazalos por reseñas reales de tus clientes.</p>
     <div class="wv-testimonials__grid">
-      ${examples.map((t) => `
+      ${items.map((t) => `
         <blockquote class="wv-testimonials__item reveal">
           <p>&ldquo;${escapeHtml(t.quote)}&rdquo;</p>
-          <cite>${escapeHtml(t.who)}</cite>
+          ${t.who ? `<cite>${escapeHtml(t.who)}</cite>` : ''}
         </blockquote>`).join('')}
     </div>
   </section>`;
@@ -664,7 +811,10 @@ function fontFamilyParam(name, weights) {
 }
 
 // ── CSS base (compartida) + bloque específico por efecto firma del arquetipo ─────────
-function buildCss(colors, fonts, sk, radius) {
+function buildCss(colors, fonts, sk, radius, variant) {
+  const v = variant || {};
+  const spaceScale = v.density === 'compact' ? 0.8 : v.density === 'airy' ? 1.28 : 1;
+  const btnRadius = v.ctaShape === 'pill' ? '999px' : v.ctaShape === 'sharp' ? '0' : 'var(--radius)';
   return `
     :root {
       --color-primary: ${colors.primary};
@@ -676,6 +826,8 @@ function buildCss(colors, fonts, sk, radius) {
       --color-fg-mute: ${colors.inkMute};
       --color-line: ${colors.line};
       --radius: ${radius}px;
+      --space-scale: ${spaceScale};
+      --btn-radius: ${btnRadius};
       --font-display: '${fonts.display}', ${sk.font.fallback || 'serif'};
       --font-body: '${fonts.body}', sans-serif;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -695,7 +847,7 @@ function buildCss(colors, fonts, sk, radius) {
 
     .wv-btn {
       display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;
-      font-weight: 600; border-radius: var(--radius); padding: 0.9rem 1.7rem;
+      font-weight: 600; border-radius: var(--btn-radius, var(--radius)); padding: 0.9rem 1.7rem;
       transition: transform 220ms var(--ease-out), filter 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
     }
     .wv-btn--sm { padding: 0.55rem 1.1rem; font-size: 0.9rem; }
@@ -726,7 +878,7 @@ function buildCss(colors, fonts, sk, radius) {
     .wv-nav__links a:hover { opacity: 1; }
     @media (max-width: 720px) { .wv-nav__links { display: none; } }
 
-    .wv-hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; padding: 6rem 1.5rem; }
+    .wv-hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; padding: calc(6rem * var(--space-scale)) 1.5rem; }
     .wv-hero__inner { position: relative; z-index: 2; max-width: 48rem; }
     .wv-hero__kicker { font-family: var(--font-body); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.75; margin: 0 0 1.2rem; display: inline-flex; align-items: center; gap: 0.5rem; }
     .wv-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); display: inline-block; }
@@ -742,7 +894,7 @@ function buildCss(colors, fonts, sk, radius) {
     .wv-hero__scrim { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at center, transparent 30%, var(--color-bg) 95%); }
 
     .wv-section-title { text-align: center; font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 2.5rem; }
-    .wv-gallery, .wv-features, .wv-cta { padding: 5rem clamp(1.5rem, 5vw, 4rem); max-width: 1200px; margin: 0 auto; }
+    .wv-gallery, .wv-features, .wv-cta { padding: calc(5rem * var(--space-scale)) clamp(1.5rem, 5vw, 4rem); max-width: 1200px; margin: 0 auto; }
     .wv-gallery__grid .swiper-wrapper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
     .wv-gallery--masonry .wv-gallery__grid .swiper-wrapper { grid-template-columns: repeat(3, 1fr); }
     @media (max-width: 720px) { .wv-gallery__grid .swiper-wrapper { grid-template-columns: repeat(2, 1fr); } }
@@ -779,6 +931,7 @@ function buildCss(colors, fonts, sk, radius) {
     .wv-form.is-sent .wv-form__sent { display: block; }
 
     .wv-menu__note, .wv-testimonials__note, .wv-map__note { font-size: 0.85rem; opacity: 0.6; margin: -1.5rem 0 2rem; }
+    .wv-empty { text-align: center; opacity: 0.7; font-size: 0.98rem; max-width: 46ch; margin: 0 auto 1.5rem; }
     .wv-menu__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; text-align: left; }
     @media (max-width: 640px) { .wv-menu__grid { grid-template-columns: 1fr; } }
     .wv-menu__item { display: flex; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.4rem; border-radius: var(--radius); background: var(--color-surface); }
@@ -799,9 +952,38 @@ function buildCss(colors, fonts, sk, radius) {
 
     ${archetypeSignatureCss(sk.signature)}
 
+    ${variantKnobCss()}
+
     @media (prefers-reduced-motion: reduce) {
       .wv-hero__mesh, .wv-hero__shapes span, .wv-hero__wave path { animation: none !important; }
     }
+  `;
+}
+
+function variantKnobCss() {
+  const noise = "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%272%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E";
+  return `
+    body[data-card="sharp"] .wv-gallery__tile { border-radius: 0; }
+    body[data-card="framed"] .wv-gallery__tile,
+    body[data-card="framed"] .wv-features__item,
+    body[data-card="framed"] .wv-menu__item { border: 1px solid var(--color-line); }
+    body[data-card="soft"] .wv-gallery__tile { box-shadow: 0 18px 40px color-mix(in srgb, var(--color-fg) 8%, transparent); }
+
+    body[data-bg="grain"]::before {
+      content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: 0.05; background-image: url("${noise}"); background-size: 180px 180px;
+    }
+    body[data-bg="glow"]::before {
+      content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 70%);
+    }
+
+    body[data-hero-align="left"] .wv-hero { align-items: flex-start; text-align: left; }
+    body[data-hero-align="left"] .wv-hero__inner { margin-inline: 0; }
+    body[data-hero-align="left"] .wv-hero__title { margin-inline: 0; }
+    body[data-hero-align="left"] .wv-hero__sub,
+    body[data-hero-align="left"] .wv-hero__lede { margin-inline: 0; }
+    body[data-hero-align="left"] .wv-hero__actions { justify-content: flex-start; }
   `;
 }
 
@@ -1088,8 +1270,17 @@ function buildMotionScript(skKey, signature) {
 }
 
 function buildPage(business, pattern, analysis, archetype) {
-  const skKey = ARCHETYPE_SKILL_MAP[archetype.id] || 'cream';
-  const sk = SKILL_ARCHETYPES[skKey];
+  const variant = selectVisualVariant(business, archetype);
+  const skKey = variant.skKey;
+  const base = SKILL_ARCHETYPES[skKey] || SKILL_ARCHETYPES.cream;
+  const sk = {
+    ...base,
+    font: {
+      ...base.font,
+      display: variant.displayFont,
+      body: variant.bodyFont,
+    },
+  };
 
   // El usuario elige explícitamente "oscuro"/"claro" en step-1 → sus colores mandan.
   // "auto" (o sin elección) → el color lo decide el análisis de la IA, como antes.
@@ -1125,9 +1316,10 @@ function buildPage(business, pattern, analysis, archetype) {
       fonts,
       skKey,
       sk,
+      variant,
       usingUnsplash,
     },
-    sections: buildSections(business, pattern, { ...archetype, __keywords: analysis.keywords }),
+    sections: buildSections(business, pattern, { ...archetype, __keywords: analysis.keywords }, variant),
     photos,
   };
 }
@@ -1231,9 +1423,9 @@ ${meta.usingUnsplash ? '<!-- 📸 IMÁGENES PROVISORIAS DE UNSPLASH — Reemplaz
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="${fontsHref}" rel="stylesheet">
   ${libraryHeadTags(meta.skKey)}
-  <style>${buildCss(meta.colors, meta.fonts, meta.sk, meta.sk.radius)}</style>
+  <style>${buildCss(meta.colors, meta.fonts, meta.sk, meta.sk.radius, meta.variant)}</style>
 </head>
-<body data-archetype="${meta.skKey}">
+<body data-archetype="${meta.skKey}" data-card="${meta.variant.cardStyle}" data-bg="${meta.variant.bgTreatment}" data-hero-align="${meta.variant.heroAlign}" data-density="${meta.variant.density}">
 ${renderSections(sections, meta.skKey, meta.sk, photos)}
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13/dist/ScrollTrigger.min.js" defer></script>
