@@ -426,6 +426,7 @@ function buildSections(business, pattern, archetype, variant) {
     type: 'footer',
     logo: business.name,
     instagram: business.instagram || null,
+    whatsapp: waLink(business.whatsapp),
     year: new Date().getFullYear(),
   });
 
@@ -442,34 +443,45 @@ function buildFeatureItems(business, archetype) {
   }));
 }
 
-// Secciones opcionales según lo que el dueño haya escrito en el prompt libre (step-1).
-// Placeholders honestos: contenido de ejemplo, claramente reemplazable, no datos inventados
-// que puedan pasar por reales (ver gotcha "no fabricar reviews/ratings falsos").
+// WhatsApp → link wa.me con solo dígitos (evita inyección y links basura). '' si no alcanza.
+function waLink(raw) {
+  const digits = String(raw == null ? '' : raw).replace(/\D/g, '');
+  return digits.length >= 6 ? 'https://wa.me/' + digits : '';
+}
+
+// Secciones opcionales: se activan por prompt, por feature elegida, o porque el usuario cargó
+// el dato real (menú/dirección/testimonios). Sin dato real, cada render muestra su nota discreta.
 function buildPromptSections(business) {
   const p = (business.prompt || '').toLowerCase();
+  const feat = Array.isArray(business.features) ? business.features : [];
+  const menu = Array.isArray(business.menu) ? business.menu : null;
+  const testimonials = Array.isArray(business.testimonials) ? business.testimonials : null;
+  const address = (typeof business.address === 'string' && business.address.trim()) ? business.address.trim() : null;
+  const whatsapp = waLink(business.whatsapp);
   const sections = [];
   if (/reservas?|reservar/.test(p)) {
     sections.push({ type: 'reservations', title: 'Reservá tu lugar' });
   }
-  if (/men[uú]|carta/.test(p)) {
+  if (/men[uú]|carta/.test(p) || feat.includes('menu') || feat.includes('pricing') || (menu && menu.length)) {
     sections.push({
       type: 'menu',
       title: MENU_TITLE_BY_NICHE[business.niche] || MENU_TITLE_DEFAULT,
-      items: Array.isArray(business.menu) ? business.menu : null,
+      items: menu,
     });
   }
-  if (/ubicaci[oó]n|mapa/.test(p)) {
+  if (/ubicaci[oó]n|mapa/.test(p) || feat.includes('map') || address) {
     sections.push({
       type: 'map',
       title: 'Dónde encontrarnos',
-      address: (typeof business.address === 'string' && business.address.trim()) ? business.address.trim() : null,
+      address,
+      whatsapp,
     });
   }
-  if (/testimonios?|reviews?|opiniones/.test(p)) {
+  if (/testimonios?|reviews?|opiniones/.test(p) || feat.includes('testimonials') || (testimonials && testimonials.length)) {
     sections.push({
       type: 'testimonials',
       title: 'Lo que dicen de nosotros',
-      items: Array.isArray(business.testimonials) ? business.testimonials : null,
+      items: testimonials,
     });
   }
   return sections;
@@ -698,6 +710,7 @@ function renderFooter(s) {
   <footer class="wv-foot">
     <span>${escapeHtml(s.logo)}</span>
     ${s.instagram ? `<a href="${escapeHtml(s.instagram)}" target="_blank" rel="noopener noreferrer">Instagram</a>` : ''}
+    ${s.whatsapp ? `<a href="${escapeHtml(s.whatsapp)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : ''}
     <span>© ${s.year}</span>
   </footer>`;
 }
@@ -747,14 +760,19 @@ function renderMenu(s) {
 }
 
 // Sin dirección real no renderizamos mapa (evita ubicación simulada): nota + CTA de contacto.
+// Si hay WhatsApp, el CTA lleva a wa.me sanitizado; si no, ancla al bloque de contacto.
 function renderMap(s) {
   const address = (typeof s.address === 'string' && s.address.trim()) ? s.address.trim() : '';
   if (!address) {
+    const wa = typeof s.whatsapp === 'string' ? s.whatsapp : '';
+    const href = wa ? escapeHtml(wa) : '#cta';
+    const target = wa ? ' target="_blank" rel="noopener noreferrer"' : '';
+    const label = wa ? 'Escribinos por WhatsApp →' : 'Escribinos y te pasamos la ubicación →';
     return `
   <section class="wv-map">
     <h2 class="wv-section-title reveal">${escapeHtml(s.title)}</h2>
     <p class="wv-empty reveal">Cargá tu dirección real para mostrar el mapa acá.</p>
-    <a class="wv-btn wv-btn--accent wv-btn--lg reveal" href="#cta">Escribinos y te pasamos la ubicación →</a>
+    <a class="wv-btn wv-btn--accent wv-btn--lg reveal" href="${href}"${target}>${label}</a>
   </section>`;
   }
   const q = encodeURIComponent(address);
