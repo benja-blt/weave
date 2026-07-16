@@ -212,15 +212,25 @@ import Onboarding from '../../layouts/Onboarding.astro';
       drop.addEventListener(ev, (e) => { e.preventDefault(); if (ev !== 'drop' && drop.contains(e.relatedTarget)) return; drop.classList.remove('is-drag'); }));
     drop.addEventListener('drop', (e) => { if (e.dataTransfer?.files?.length) addFiles(e.dataTransfer.files); });
 
-    // ── Validación Instagram ──────────────────────────────────────────────
-    // Sólo exige que "instagram.com" aparezca en la URL — acepta con/sin www, con/sin
-    // protocolo, y cualquier path/query (?igsh=, ?utm_source=, combinados, etc).
-    const IG_RE = /instagram\.com/i;
-    const igValid = () => {
-      const v = form.instagram.value.trim();
-      if (v === '') return true;
-      return IG_RE.test(v);
-    };
+    // ── Validación + normalización Instagram ──────────────────────────────
+    // Acepta cualquier URL de instagram.com (con/sin www, con/sin protocolo, con query
+    // params o hash) y la normaliza a https://www.instagram.com/usuario/ (sin query, con
+    // trailing slash). Vacío = válido (campo opcional). Rechaza solo si no es URL o no es IG.
+    function normalizeInstagram(raw) {
+      const v = String(raw || '').trim();
+      if (!v) return { ok: true, value: '' };
+      let url;
+      try {
+        url = new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v);
+      } catch {
+        return { ok: false, value: v };
+      }
+      const host = url.hostname.toLowerCase().replace(/^www\./, '');
+      if (host !== 'instagram.com') return { ok: false, value: v };
+      const path = url.pathname.replace(/\/+$/, '');
+      return { ok: true, value: 'https://www.instagram.com' + path + '/' };
+    }
+    const igValid = () => normalizeInstagram(form.instagram.value).ok;
     form.instagram.addEventListener('blur', () => { igErr.hidden = igValid(); });
     form.instagram.addEventListener('input', () => { if (!igErr.hidden && igValid()) igErr.hidden = true; });
 
@@ -231,7 +241,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
       if (!igValid()) { igErr.hidden = false; form.instagram.focus(); return; }
       const data = {
         ...saved,
-        instagram: form.instagram.value.trim(),
+        instagram: normalizeInstagram(form.instagram.value).value,
         mood: form.mood.value.trim(),
         photoCount: photos.length,
       };
