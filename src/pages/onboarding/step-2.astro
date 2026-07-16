@@ -123,6 +123,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
     .s2 .o-inputwrap:focus-within .o-inputicon { color: var(--accent); }
     .s2 .o-input--icon { padding-left: 2.9rem; }
     .s2 .s2__field-err { display: block; margin-top: var(--space-2); font-size: var(--size-sm); color: #FB7185; }
+    .s2 .s2__field-err[hidden] { display: none; }
   </style>
 
   <script>
@@ -230,15 +231,22 @@ import Onboarding from '../../layouts/Onboarding.astro';
       const path = url.pathname.replace(/\/+$/, '');
       return { ok: true, value: 'https://www.instagram.com' + path + '/' };
     }
-    const igValid = () => normalizeInstagram(form.instagram.value).ok;
-    form.instagram.addEventListener('blur', () => { igErr.hidden = igValid(); });
-    form.instagram.addEventListener('input', () => { if (!igErr.hidden && igValid()) igErr.hidden = true; });
+    // Sincroniza el mensaje de error con el estado real del campo (vacío = válido, sin error).
+    function syncInstagramError() {
+      const normalized = normalizeInstagram(form.instagram.value);
+      igErr.hidden = normalized.ok;
+      form.instagram.setAttribute('aria-invalid', normalized.ok ? 'false' : 'true');
+      return normalized;
+    }
+    form.instagram.addEventListener('input', syncInstagramError);
+    form.instagram.addEventListener('blur', syncInstagramError);
+    syncInstagramError();
 
     // ── Submit ────────────────────────────────────────────────────────────
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       if (photos.length === 0) { showErr('Subí al menos una foto para continuar.'); return; }
-      if (!igValid()) { igErr.hidden = false; form.instagram.focus(); return; }
+      if (!syncInstagramError().ok) { form.instagram.focus(); return; }
       const data = {
         ...saved,
         instagram: normalizeInstagram(form.instagram.value).value,
