@@ -356,22 +356,144 @@ function escapeHtml(str) {
   ));
 }
 
+// ── Copy generado (headline / subheadline / features) desde datos reales del negocio.
+// Nunca inventa datos concretos (platos, premios, años, métricas): se apoya en description,
+// analysis.keywords, niche y prompt. Cuando no alcanza, cae en un fallback por nicho —
+// jamás en el nombre pelado como único titular.
+const HEADLINE_FALLBACK_BY_NICHE = {
+  cafe: 'Café de especialidad y cocina honesta',
+  restaurant: 'Cocina con identidad, mesa por mesa',
+  burger: 'Hamburguesas de verdad, sin vueltas',
+  beauty: 'Tu mejor versión, en cada detalle',
+  dental: 'Tu sonrisa, en las mejores manos',
+};
+const HEADLINE_FALLBACK_DEFAULT = 'Hecho con oficio, pensado para vos';
+
+const HEADLINE_TAIL_BY_NICHE = {
+  cafe: ', todos los días',
+  restaurant: ', en cada plato',
+  burger: ', sin vueltas',
+  beauty: ', con dedicación',
+  dental: ', con confianza',
+};
+const HEADLINE_TAIL_DEFAULT = ', con oficio';
+
+const NICHE_STOPWORDS = {
+  cafe: ['cafe', 'cafeteria', 'coffee'],
+  restaurant: ['restaurante', 'restaurant', 'resto'],
+  burger: ['hamburgueseria', 'hamburguesas', 'burger', 'burgers'],
+  beauty: ['peluqueria', 'estetica', 'beauty', 'salon'],
+  dental: ['odontologia', 'dental', 'dentista', 'consultorio'],
+};
+
+function escapeRegExp(str) {
+  return String(str || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function capFirst(str) {
+  const t = String(str || '').trim();
+  return t ? t.charAt(0).toUpperCase() + t.slice(1) : t;
+}
+
+// Primera oración de un texto (hasta el primer . ! ?), o el texto entero si no hay cierre.
+function firstSentenceOf(text) {
+  const t = String(text || '').trim();
+  const m = t.match(/[^.!?]*[.!?]/);
+  return (m ? m[0] : t).trim();
+}
+
+function naturalList(items) {
+  const a = (items || []).filter(Boolean);
+  if (a.length <= 1) return a[0] || '';
+  if (a.length === 2) return `${a[0]} y ${a[1]}`;
+  return `${a.slice(0, -1).join(', ')} y ${a[a.length - 1]}`;
+}
+
+// Keywords de la IA, limpias: sin vacíos ni duplicados y descartando las que sólo repiten el
+// nombre del negocio o la palabra del nicho (no aportan como titular/feature).
+function cleanKeywords(keywords, business) {
+  if (!Array.isArray(keywords)) return [];
+  const stop = new Set([
+    ...slugify(business && business.name).split('-'),
+    ...((business && NICHE_STOPWORDS[business.niche]) || []),
+  ]);
+  const seen = new Set();
+  const out = [];
+  for (const raw of keywords) {
+    const kw = String(raw == null ? '' : raw).trim();
+    if (!kw) continue;
+    const norm = slugify(kw);
+    if (!norm || seen.has(norm) || stop.has(norm)) continue;
+    seen.add(norm);
+    out.push(kw);
+  }
+  return out;
+}
+
+// Titular desde la descripción real: primera oración, sin arranques débiles ("{nombre} es
+// un…", "somos", "bienvenidos a"), recortada a una cláusula si queda larga.
+function headlineFromDescription(business) {
+  const desc = ((business && business.description) || '').trim();
+  if (!desc) return null;
+  let s = firstSentenceOf(desc).replace(/[.!?]+$/, '').trim();
+  const nameEsc = escapeRegExp(business.name || '');
+  if (nameEsc) {
+    s = s.replace(new RegExp('^' + nameEsc + '\\s+(es|somos)\\s+(un[oa]?\\s+|el\\s+|la\\s+)?', 'i'), '');
+  }
+  s = s.replace(/^(somos|bienvenid[oa]s?\s+a|conoc[eé]|descubr[ií])\s+(un[oa]?\s+|el\s+|la\s+)?/i, '');
+  s = s.replace(/^(un[oa]?\s+|el\s+|la\s+)/i, '').trim();
+  if (s.length > 72) {
+    const comma = s.indexOf(',');
+    if (comma > 15) s = s.slice(0, comma).trim();
+  }
+  s = capFirst(s);
+  const words = s.split(/\s+/).filter(Boolean).length;
+  return (s.length >= 16 && s.length <= 72 && words >= 3) ? s : null;
+}
+
+// Titular desde las keywords reales + una cola por nicho.
+function headlineFromKeywords(business, keywords) {
+  const kws = cleanKeywords(keywords, business).slice(0, 3).map((k) => k.toLowerCase());
+  if (kws.length < 2) return null;
+  const tail = HEADLINE_TAIL_BY_NICHE[business.niche] || HEADLINE_TAIL_DEFAULT;
+  return capFirst(naturalList(kws)) + tail;
+}
+
 function generarHeadline(business, analysis) {
   const key = `${business.niche}|${analysis.mood}`;
-  if (Object.prototype.hasOwnProperty.call(HEADLINES, key)) {
-    return HEADLINES[key] || business.name;
+  // Slogan curado por (nicho, mood) si existe y no es null (los null piden síntesis).
+  if (Object.prototype.hasOwnProperty.call(HEADLINES, key) && HEADLINES[key]) {
+    return HEADLINES[key];
   }
-  return business.name;
+  // Sin slogan curado: sintetizamos algo específico. El nombre queda como marca (nav/kicker),
+  // nunca como único titular.
+  return headlineFromDescription(business)
+    || headlineFromKeywords(business, analysis.keywords)
+    || HEADLINE_FALLBACK_BY_NICHE[business.niche]
+    || HEADLINE_FALLBACK_DEFAULT;
 }
 
 function generarSubheadline(business) {
   const desc = (business.description || '').trim();
-  if (!desc) return `Descubrí ${business.name}.`;
-  if (desc.length <= 80) return desc;
-  const cut = desc.slice(0, 80);
-  const lastSpace = cut.lastIndexOf(' ');
-  return cut.slice(0, lastSpace > 40 ? lastSpace : 80).trim() + '…';
+  if (!desc) return SUBHEAD_FALLBACK_BY_NICHE[business.niche] || SUBHEAD_FALLBACK_DEFAULT;
+  const sentence = firstSentenceOf(desc);
+  // Preferimos la primera oración completa (mantiene su puntuación, no queda cortada).
+  if (sentence.length <= 160) return sentence;
+  // Muy larga: cortamos en una cláusula natural (coma / ; / raya), nunca a mitad de palabra.
+  const slice = sentence.slice(0, 160);
+  const boundary = Math.max(slice.lastIndexOf(','), slice.lastIndexOf(';'), slice.lastIndexOf(' — '));
+  if (boundary >= 60) return slice.slice(0, boundary).replace(/[\s,;—]+$/, '').trim() + '.';
+  return SUBHEAD_FALLBACK_BY_NICHE[business.niche] || SUBHEAD_FALLBACK_DEFAULT;
 }
+
+const SUBHEAD_FALLBACK_BY_NICHE = {
+  cafe: 'Un café para quedarse, con todo hecho como corresponde.',
+  restaurant: 'Cocina con identidad y una mesa esperándote.',
+  burger: 'Hamburguesas que valen cada mordida.',
+  beauty: 'Un espacio pensado para que te sientas bien.',
+  dental: 'Atención cercana y profesional para toda la familia.',
+};
+const SUBHEAD_FALLBACK_DEFAULT = 'Conocé lo que hacemos y por qué nos elegís.';
 
 function buildSections(business, pattern, archetype, variant) {
   const nav = navFor(business.niche);
@@ -388,7 +510,7 @@ function buildSections(business, pattern, archetype, variant) {
   sections.push({
     type: 'hero',
     brand: business.name,
-    headline: generarHeadline(business, { mood: archetype.mood }),
+    headline: generarHeadline(business, { mood: archetype.mood, keywords: archetype.__keywords }),
     subheadline: generarSubheadline(business),
     cta: nav.cta,
   });
@@ -433,14 +555,95 @@ function buildSections(business, pattern, archetype, variant) {
   return sections;
 }
 
+const FEATURE_TITLES_BY_NICHE = {
+  cafe: ['Café de especialidad', 'Ambiente', 'Hecho en casa'],
+  restaurant: ['Cocina de autor', 'Producto fresco', 'Buena mesa'],
+  burger: ['Carne de verdad', 'Punto justo', 'Sin vueltas'],
+  beauty: ['Detalle', 'Cuidado', 'Buen trato'],
+  dental: ['Profesionalismo', 'Confianza', 'Cercanía'],
+};
+const FEATURE_TITLES_DEFAULT = ['Calidad', 'Atención', 'Experiencia'];
+
+const FEATURE_BODY_BY_NICHE = {
+  cafe: [
+    'Grano seleccionado y método cuidado en cada taza.',
+    'Un lugar tranquilo para trabajar, leer o encontrarse.',
+    'Pastelería y cocina hechas en casa, todos los días.',
+  ],
+  restaurant: [
+    'Cocina con identidad, pensada plato por plato.',
+    'Producto fresco y de estación como punto de partida.',
+    'Un servicio atento que da ganas de volver.',
+  ],
+  burger: [
+    'Carne fresca y pan del día, nada congelado.',
+    'El punto justo, cada vez que venís.',
+    'Sabor directo, sin poses ni vueltas.',
+  ],
+  beauty: [
+    'Cada detalle pensado para que te sientas bien.',
+    'Profesionales que escuchan lo que buscás.',
+    'Un espacio para cortar con la rutina.',
+  ],
+  dental: [
+    'Atención profesional con tecnología al día.',
+    'Un trato cercano que baja los nervios.',
+    'Cuidamos tu sonrisa a largo plazo.',
+  ],
+};
+const FEATURE_BODY_DEFAULT = [
+  'Trabajo hecho con oficio y atención al detalle.',
+  'Cerca tuyo, con la atención que esperás.',
+  'La experiencia importa tanto como el resultado.',
+];
+
+// Títulos: keywords reales primero, completando con los del nicho. Sin duplicados.
+function pickFeatureTitles(keywords, business) {
+  const fromKw = cleanKeywords(keywords, business).map(capFirst);
+  const fallback = FEATURE_TITLES_BY_NICHE[business.niche] || FEATURE_TITLES_DEFAULT;
+  const out = [];
+  const seen = new Set();
+  for (const t of fromKw.concat(fallback)) {
+    const norm = slugify(t);
+    if (!norm || seen.has(norm)) continue;
+    seen.add(norm);
+    out.push(t);
+    if (out.length === 3) break;
+  }
+  return out;
+}
+
+// Cuerpos: 3 frases distintas. Suma señales reales (menú, testimonios, prompt) y completa con
+// el pool del nicho. Nunca inventa platos, métricas ni premios.
+function pickFeatureBodies(business) {
+  const prompt = (business.prompt || '').toLowerCase();
+  const hasMenu = Array.isArray(business.menu) && business.menu.some((it) => it && it.name);
+  const hasTestimonials = Array.isArray(business.testimonials) && business.testimonials.some((t) => t && t.quote);
+  const dynamic = [];
+  if (hasMenu) dynamic.push('Una carta corta y bien pensada, sin relleno.');
+  if (hasTestimonials) dynamic.push('Lo que dicen quienes ya vinieron habla por nosotros.');
+  if (/delivery|pedidos? ya|take ?away|para llevar|env[ií]o/.test(prompt)) {
+    dynamic.push('Pedí y llevá, con la misma calidad de siempre.');
+  }
+  if (/reservas?|reservar/.test(prompt)) {
+    dynamic.push('Reservá con tiempo y asegurate tu lugar.');
+  }
+  const pool = FEATURE_BODY_BY_NICHE[business.niche] || FEATURE_BODY_DEFAULT;
+  const out = [];
+  const seen = new Set();
+  for (const b of dynamic.concat(pool, FEATURE_BODY_DEFAULT)) {
+    if (!b || seen.has(b)) continue;
+    seen.add(b);
+    out.push(b);
+    if (out.length === 3) break;
+  }
+  return out;
+}
+
 function buildFeatureItems(business, archetype) {
-  const keywords = Array.isArray(archetype.__keywords) && archetype.__keywords.length
-    ? archetype.__keywords
-    : ['calidad', 'atención', 'experiencia'];
-  return keywords.slice(0, 3).map((kw) => ({
-    title: kw.charAt(0).toUpperCase() + kw.slice(1),
-    body: `Lo que nos define, en cada detalle de ${business.name}.`,
-  }));
+  const titles = pickFeatureTitles(archetype.__keywords, business);
+  const bodies = pickFeatureBodies(business);
+  return titles.map((title, i) => ({ title, body: bodies[i] }));
 }
 
 // WhatsApp → link wa.me con solo dígitos (evita inyección y links basura). '' si no alcanza.
