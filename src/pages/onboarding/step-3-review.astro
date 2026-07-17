@@ -58,6 +58,17 @@ import Onboarding from '../../layouts/Onboarding.astro';
       <span class="o-label">Datos reales para tu web <span class="opt">(opcional)</span></span>
       <span class="o-hint">Si los cargás, tu web los muestra de verdad. Si no, quedan notas editables.</span>
 
+      <div class="s3r-paste">
+        <label class="s3r-real__lbl" for="rd-paste">Pegá info del negocio y detectamos los datos por vos</label>
+        <textarea class="o-textarea" id="rd-paste" rows="6"
+          placeholder="Pegá acá info de Google Maps, carta, reseñas, dirección, teléfono u horarios."></textarea>
+        <div class="s3r-paste__actions">
+          <button type="button" class="btn btn--ghost" id="rd-detect">Detectar datos</button>
+          <span class="s3r-paste__status" id="rd-detect-status" aria-live="polite"></span>
+        </div>
+        <div class="s3r-detected" id="rd-detected" hidden></div>
+      </div>
+
       <div class="s3r-real">
         <div class="s3r-real__row">
           <label class="s3r-real__field">
@@ -133,12 +144,142 @@ import Onboarding from '../../layouts/Onboarding.astro';
     .s3r-real__price, .s3r-real__who { flex: 0 1 170px; }
     .s3r-real__row .s3r-real__quote { flex: 1 1 100%; resize: vertical; min-height: 3.4rem; line-height: 1.5; font-family: inherit; }
     @media (max-width: 620px) { .s3r-real__price, .s3r-real__who { flex: 1 1 100%; } }
+
+    /* Campo "pegar info + Detectar datos" */
+    .s3r-paste { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3); }
+    .s3r-paste__actions { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+    .s3r-paste__status { font-size: var(--size-sm); color: var(--muted); }
+    .s3r-detected {
+      border: 1px solid var(--line); border-radius: var(--radius-card); padding: var(--space-4);
+      background: rgba(255, 255, 255, 0.02); font-size: var(--size-sm); color: var(--ink);
+    }
+    .s3r-detected[hidden] { display: none; }
+    .s3r-detected__title { margin: 0 0 var(--space-2); font-weight: var(--weight-semibold); }
+    .s3r-detected__list { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 3px; }
+    .s3r-detected__note { margin: var(--space-2) 0 0; color: var(--muted); }
   </style>
 
   <script>
     const KEY = 'weave:onboarding';
     const PKEY = 'weave:onboarding:photos';
     const form = document.getElementById('step3review');
+
+    // ── Detector de datos: parsea un bloque real (Google Maps / carta / reseñas) y devuelve
+    // solo lo que reconoce con confianza. No inventa: si algo no aparece, queda vacío.
+    function detectInfo(raw) {
+      const text = String(raw || '');
+      const lines = text.split(/\r?\n/).map((s) => s.trim());
+      const lc = (s) => s.toLowerCase().trim();
+
+      const JUNK = new Set([
+        'overview', 'menu', 'menú', 'reviews', 'review', 'about', 'directions', 'save', 'nearby',
+        'send to phone', 'share', 'dine-in', 'dine in', 'delivery', 'takeout', 'take-out',
+        'your maps history', 'add a label', 'suggest an edit', 'write a review', 'like', 'liked',
+        'see translation', 'more reviews', 'more', 'popular', 'review summary', 'photos', 'photo',
+        'order online', 'call', 'website', 'open now', 'restaurant', 'all', 'from owner', 'sponsored',
+      ]);
+      const isJunk = (l) => {
+        const t = lc(l);
+        if (!t) return true;
+        if (JUNK.has(t)) return true;
+        if (/^see translation/i.test(t)) return true;
+        if (/^local guide\b/i.test(t)) return true;
+        if (/^\(\d[\d.,]*\)\S*$/.test(t)) return true;
+        if (/^\d+\s+(month|year|week|day|hour|minute)s?\s+ago$/i.test(t)) return true;
+        if (/^\$[\d.,]+(\s*[–-]\s*\$?[\d.,]+)?(\s*per person)?$/i.test(t)) return true;
+        if (/per person/i.test(t)) return true;
+        if (/^[★☆*\s·|.]+$/.test(t)) return true;
+        return false;
+      };
+
+      const REVIEWER_META = /local guide|·\s*\d[\d.,]*\s*photos?\b|\breviews?\s*·/i;
+      const ANYMETA = /local guide|·\s*\d[\d.,]*\s*(reviews?|photos?)\b/i;
+      const DATE = /\b\d+\s+(month|year|week|day|hour|minute)s?\s+ago\b|\b(today|yesterday)\b/i;
+      const STREET = /\b(av\.?|avenida|calle|cl\.|carrera|cra\.?|jr\.?|jirón|ruta|blvd|boulevard|pasaje|psje\.?|diagonal|camino|route|street|st\.|road|rd\.)\b/i;
+      const CODE = /\b([A-Z]\d{4}[A-Z]{0,3}|\d{4,5})\b/;
+
+      // Dirección: línea con calle/av… o con código postal + coma (ciudad/provincia).
+      let address = '';
+      for (const l of lines) {
+        if (!l || isJunk(l)) continue;
+        if (/\$|per person|reviews?|photos?|opens?\b|closed\b|local guide/i.test(l)) continue;
+        const hasStreet = STREET.test(l);
+        const hasCode = CODE.test(l) && l.includes(',');
+        if ((hasStreet || hasCode) && l.length >= 8 && l.length <= 160) { address = l; break; }
+      }
+
+      // Teléfono: solo si parece un número real (7–15 dígitos). Nunca inventa.
+      let phone = '';
+      for (const l of lines) {
+        if (/\$|%|reviews?|photos?|per person|\bago\b|\b[ap]\.?m\.?\b|opens?\b|closed\b/i.test(l)) continue;
+        const m = l.match(/\+?\(?\d[\d\s().\-]{6,}\d/);
+        if (!m) continue;
+        const digits = m[0].replace(/\D/g, '');
+        if (digits.length >= 7 && digits.length <= 15) { phone = m[0].replace(/\s{2,}/g, ' ').trim(); break; }
+      }
+
+      // Menú: desde el encabezado "Menu"/"Menú" hasta el próximo bloque; ignora navegación.
+      const menu = [];
+      const startIdx = lines.findIndex((l) => /^men[uú]$/i.test(l.trim()));
+      if (startIdx !== -1) {
+        const STOP = /^(review summary|reviews?|about|overview|photos?|directions|order online|people also|from the)/i;
+        let blanks = 0;
+        for (let i = startIdx + 1; i < lines.length && menu.length < 5; i++) {
+          const l = lines[i].trim();
+          if (!l) { if (++blanks >= 2) break; continue; }
+          blanks = 0;
+          if (STOP.test(l) || REVIEWER_META.test(l)) break;
+          if (isJunk(l) || /^\$/.test(l)) continue;
+          let name = l, price = '';
+          const pm = l.match(/^(.+?)\s*[·\-—]?\s*(\$[\d.,]+|\d+[.,]\d{2})\s*$/);
+          if (pm) { name = pm[1].trim(); price = pm[2].trim(); }
+          if (name.length < 2 || name.length > 60) continue;
+          menu.push(price ? { name, price } : { name });
+        }
+      }
+
+      // Reseñas: nombre → metadata (Local Guide · N reseñas · M fotos) → fecha → texto largo.
+      const testimonials = [];
+      for (let i = 0; i < lines.length && testimonials.length < 3; i++) {
+        if (!REVIEWER_META.test(lines[i])) continue;
+        let name = '';
+        for (let k = i - 1; k >= 0; k--) {
+          const p = lines[k].trim();
+          if (!p) continue;
+          if (!isJunk(p) && !ANYMETA.test(p) && !DATE.test(p) && p.length <= 45 &&
+              p.split(/\s+/).length <= 6 && !/^\$|\d{3,}/.test(p)) name = p;
+          break;
+        }
+        let quote = '';
+        for (let j = i + 1; j < lines.length; j++) {
+          const q = lines[j].trim();
+          if (!q) continue;
+          if (ANYMETA.test(q) || DATE.test(q) || /^see translation/i.test(q) || /^[★☆*\d.\s]+$/.test(q) || isJunk(q)) continue;
+          quote = q; break;
+        }
+        quote = quote
+          .replace(/\s*(…|\.\.\.)\s*more\s*$/i, '')
+          .replace(/\s*\bmore\s*$/i, '')
+          .replace(/\s*see translation.*$/i, '')
+          .replace(/\s*\b(like|share)\s*$/i, '')
+          .trim();
+        if (name && quote.length >= 40) testimonials.push({ who: name, quote });
+      }
+
+      // Solo informativo (todavía no hay dónde guardarlos de forma segura): no se envían.
+      let rating = '';
+      for (const l of lines) { if (/^[0-5](\.\d)?$/.test(l.trim())) { rating = l.trim(); break; } }
+      let reviewCount = '';
+      const rc = text.match(/\(?\b(\d[\d.,]*)\)?\s*reviews?\b/i) || text.match(/\((\d[\d.,]*)\)/);
+      if (rc) reviewCount = rc[1].replace(/[.,]/g, '');
+      let priceRange = '';
+      const pr = text.match(/\$[\d.,]+\s*[–-]\s*\$?[\d.,]+/);
+      if (pr) priceRange = pr[0].trim();
+      let hours = '';
+      for (const l of lines) { if (/\b(open|opens|close[sd]|abre|cierra)\b/i.test(l) && /\d/.test(l)) { hours = l.trim(); break; } }
+
+      return { address, phone, menu, testimonials, hours, rating, reviewCount, priceRange };
+    }
 
     // ── Guard (mismo patrón que step-3-patterns/step-4) ────────────────────
     const data = JSON.parse(localStorage.getItem(KEY) || '{}');
@@ -178,6 +319,77 @@ import Onboarding from '../../layouts/Onboarding.astro';
             rows[i].querySelector('[data-testi-who]').value = t.who || '';
           });
         }
+
+        // ── Botón "Detectar datos": llena SOLO campos vacíos, nunca pisa lo del usuario ──
+        const pasteEl = document.getElementById('rd-paste');
+        const detectBtn = document.getElementById('rd-detect');
+        const statusEl = document.getElementById('rd-detect-status');
+        const detectedEl = document.getElementById('rd-detected');
+        const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+        function renderDetected(info, notes) {
+          const infoOnly = [];
+          if (info.hours) infoOnly.push('Horarios: ' + info.hours);
+          if (info.rating) infoOnly.push('Rating: ' + info.rating);
+          if (info.reviewCount) infoOnly.push('Reseñas (total): ' + info.reviewCount);
+          if (info.priceRange) infoOnly.push('Rango de precio: ' + info.priceRange);
+          detectedEl.hidden = false;
+          detectedEl.innerHTML =
+            '<p class="s3r-detected__title">Detectado</p>' +
+            '<ul class="s3r-detected__list">' +
+              '<li>Dirección: ' + (info.address ? esc(info.address) : '—') + '</li>' +
+              '<li>Teléfono: ' + (info.phone ? esc(info.phone) : 'no detectado (queda vacío)') + '</li>' +
+              '<li>Menú: ' + (info.menu.length ? info.menu.map((m) => esc(m.name)).join(', ') : '—') + '</li>' +
+              '<li>Reseñas: ' + (info.testimonials.length ? info.testimonials.map((t) => esc(t.who)).join(', ') : '—') + '</li>' +
+            '</ul>' +
+            (infoOnly.length ? '<p class="s3r-detected__note">Solo informativo (no se guarda todavía): ' + esc(infoOnly.join(' · ')) + '</p>' : '') +
+            (notes.length ? '<p class="s3r-detected__note">⚠ ' + esc(notes.join(' · ')) + '</p>' : '');
+        }
+
+        detectBtn.addEventListener('click', () => {
+          const txt = pasteEl.value || '';
+          if (!txt.trim()) { statusEl.textContent = 'Pegá algo de texto primero.'; return; }
+          const info = detectInfo(txt);
+          const applied = [], notes = [];
+
+          if (info.address) {
+            if (!form.address.value.trim()) { form.address.value = info.address; applied.push('dirección'); }
+            else if (form.address.value.trim() !== info.address) notes.push('dirección detectada, no aplicada (ya tenías una)');
+          }
+          if (info.phone) {
+            if (!form.whatsapp.value.trim()) { form.whatsapp.value = info.phone; applied.push('teléfono'); }
+            else notes.push('teléfono detectado, no aplicado (ya tenías uno)');
+          }
+          if (info.menu.length) {
+            const rows = Array.from(form.querySelectorAll('.s3r-menu-row'));
+            let used = 0, skipped = 0;
+            for (const item of info.menu) {
+              const row = rows.find((r) => !r.querySelector('[data-menu-name]').value.trim());
+              if (!row) { skipped++; continue; }
+              row.querySelector('[data-menu-name]').value = item.name;
+              if (item.price) row.querySelector('[data-menu-price]').value = item.price;
+              used++;
+            }
+            if (used) applied.push(used + ' ítem(s) de menú');
+            if (skipped) notes.push(skipped + ' ítem(s) de menú sin fila libre');
+          }
+          if (info.testimonials.length) {
+            const rows = Array.from(form.querySelectorAll('.s3r-testi-row'));
+            let used = 0, skipped = 0;
+            for (const t of info.testimonials) {
+              const row = rows.find((r) => !r.querySelector('[data-testi-quote]').value.trim());
+              if (!row) { skipped++; continue; }
+              row.querySelector('[data-testi-quote]').value = t.quote;
+              if (t.who) row.querySelector('[data-testi-who]').value = t.who;
+              used++;
+            }
+            if (used) applied.push(used + ' reseña(s)');
+            if (skipped) notes.push(skipped + ' reseña(s) sin fila libre');
+          }
+
+          statusEl.textContent = applied.length ? ('Aplicado: ' + applied.join(', ') + '.') : 'No detectamos datos nuevos para aplicar.';
+          renderDetected(info, notes);
+        });
 
         form.addEventListener('submit', (e) => {
           e.preventDefault();
