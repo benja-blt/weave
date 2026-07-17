@@ -48,6 +48,15 @@ const CTA_SUB_BY_NICHE = {
 };
 const CTA_SUB_DEFAULT = 'Escribinos y te contamos todo.';
 
+const CTA_HEADLINE_BY_NICHE = {
+  cafe: 'Te esperamos con la mesa lista',
+  restaurant: 'Reservá tu mesa',
+  burger: 'Pedí la tuya',
+  beauty: 'Reservá tu turno',
+  dental: 'Pedí tu turno',
+};
+const CTA_HEADLINE_DEFAULT = '¿Querés conocernos?';
+
 // Fotos provisorias de Unsplash cuando el negocio no subió las propias — verificadas (200 OK)
 // antes de integrarlas. Se reemplazan por las reales del negocio en cuanto las suba.
 const UNSPLASH = {
@@ -539,9 +548,10 @@ function buildSections(business, pattern, archetype, variant) {
 
   sections.push({
     type: 'cta',
-    headline: '¿Querés conocernos?',
+    headline: CTA_HEADLINE_BY_NICHE[business.niche] || CTA_HEADLINE_DEFAULT,
     sub: CTA_SUB_BY_NICHE[business.niche] || CTA_SUB_DEFAULT,
     cta: nav.cta,
+    whatsapp: waLink(business.whatsapp),
   });
 
   sections.push({
@@ -713,12 +723,12 @@ function renderHero(s, skKey, sk, photos) {
 
   if (skKey === 'darkWarm') {
     return `
-  <section class="wv-hero wv-hero--darkWarm">
+  <section class="wv-hero wv-hero--darkWarm${heroPhoto ? ' wv-hero--photo' : ''}">
     ${bgImg}
     <div class="wv-hero__mesh" aria-hidden="true"></div>
     <div class="wv-hero__scrim" aria-hidden="true"></div>
     <div class="wv-hero__inner reveal">
-      <p class="wv-hero__kicker"><span class="wv-dot"></span> ${title}</p>
+      <p class="wv-hero__kicker"><span class="wv-dot"></span> ${escapeHtml(s.brand)}</p>
       <h1 class="wv-hero__title" data-anime-text>${escapeHtml(s.headline)}</h1>
       <p class="wv-hero__sub">${sub}</p>
       <div class="wv-hero__actions">
@@ -854,7 +864,7 @@ function renderHero(s, skKey, sk, photos) {
 
   // cream (default editorial light)
   return `
-  <section class="wv-hero wv-hero--cream">
+  <section class="wv-hero wv-hero--cream${heroPhoto ? ' wv-hero--photo' : ''}">
     ${bgImg}
     <div class="wv-hero__overlay" aria-hidden="true"></div>
     <div class="wv-hero__inner reveal">
@@ -888,8 +898,9 @@ function renderFeatures(s) {
   <section class="wv-features">
     <h2 class="wv-section-title reveal">${escapeHtml(s.title)}</h2>
     <div class="wv-features__grid">
-      ${s.items.map((it) => `
+      ${s.items.map((it, i) => `
         <article class="wv-features__item reveal">
+          <span class="wv-features__num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
           <h3>${escapeHtml(it.title)}</h3>
           <p>${escapeHtml(it.body)}</p>
         </article>`).join('')}
@@ -898,12 +909,17 @@ function renderFeatures(s) {
 }
 
 function renderCta(s) {
+  // Si hay WhatsApp real, el CTA final lleva ahí (target blank). Si no, ancla al propio bloque.
+  const wa = typeof s.whatsapp === 'string' ? s.whatsapp : '';
+  const href = wa ? escapeHtml(wa) : '#cta';
+  const attrs = wa ? ' target="_blank" rel="noopener noreferrer"' : '';
+  const label = wa ? `${escapeHtml(s.cta)} por WhatsApp` : escapeHtml(s.cta);
   return `
   <section id="cta" class="wv-cta">
     <div class="reveal">
       <h2>${escapeHtml(s.headline)}</h2>
       <p>${escapeHtml(s.sub)}</p>
-      <a class="wv-btn wv-btn--light wv-btn--lg" href="#">${escapeHtml(s.cta)} →</a>
+      <a class="wv-btn wv-btn--light wv-btn--lg" href="${href}"${attrs}>${label} →</a>
     </div>
   </section>`;
 }
@@ -1077,7 +1093,7 @@ function buildCss(colors, fonts, sk, radius, variant) {
     .wv-btn--accent:hover { filter: brightness(1.12); transform: translateY(-2px); }
     .wv-btn--ghost { border: 1px solid var(--color-line); color: var(--color-fg); }
     .wv-btn--ghost:hover { background: rgba(128,128,128,0.08); }
-    .wv-btn--light { background: #fff; color: var(--color-primary); }
+    .wv-btn--light { background: #fff; color: color-mix(in srgb, var(--color-primary) 40%, #111); }
     .wv-btn--light:hover { transform: scale(1.03); }
     .wv-btn--glass { background: rgba(255,255,255,0.5); backdrop-filter: blur(16px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); color: var(--color-fg); }
     .wv-btn--brutalist { background: var(--color-fg); color: var(--color-bg); border-radius: 0; }
@@ -1099,7 +1115,7 @@ function buildCss(colors, fonts, sk, radius, variant) {
     .wv-nav__links a:hover { opacity: 1; }
     @media (max-width: 720px) { .wv-nav__links { display: none; } }
 
-    .wv-hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; padding: calc(6rem * var(--space-scale)) 1.5rem; }
+    .wv-hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; padding: calc(4rem * var(--space-scale)) clamp(1.5rem, 5vw, 4rem); }
     .wv-hero__inner { position: relative; z-index: 2; max-width: 48rem; }
     .wv-hero__kicker { font-family: var(--font-body); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.75; margin: 0 0 1.2rem; display: inline-flex; align-items: center; gap: 0.5rem; }
     .wv-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); display: inline-block; }
@@ -1114,8 +1130,25 @@ function buildCss(colors, fonts, sk, radius, variant) {
     .wv-hero__overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, color-mix(in srgb, var(--color-bg) 55%, transparent), var(--color-bg) 92%); }
     .wv-hero__scrim { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at center, transparent 30%, var(--color-bg) 95%); }
 
-    .wv-section-title { text-align: center; font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 2.5rem; }
-    .wv-gallery, .wv-features, .wv-cta { padding: calc(5rem * var(--space-scale)) clamp(1.5rem, 5vw, 4rem); max-width: 1200px; margin: 0 auto; }
+    /* Hero con foto real como protagonista (cream/darkWarm): la imagen se ve viva, y el texto
+       queda legible con un scrim elegante + sombra de texto en vez de lavar toda la foto. */
+    .wv-hero--photo .wv-hero__photo { filter: saturate(1.06) contrast(1.02); }
+    .wv-hero--photo .wv-hero__overlay,
+    .wv-hero--photo .wv-hero__scrim {
+      background:
+        linear-gradient(180deg, rgba(8,6,4,0.30) 0%, rgba(8,6,4,0.12) 42%, rgba(8,6,4,0.78) 100%),
+        radial-gradient(120% 85% at 50% 32%, transparent 42%, rgba(8,6,4,0.42) 100%);
+    }
+    .wv-hero--photo .wv-hero__inner,
+    .wv-hero--photo .wv-hero__title,
+    .wv-hero--photo .wv-hero__sub,
+    .wv-hero--photo .wv-hero__kicker { color: #fff; }
+    .wv-hero--photo .wv-hero__title { text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
+    .wv-hero--photo .wv-hero__sub { opacity: 0.94; text-shadow: 0 1px 16px rgba(0,0,0,0.4); }
+    .wv-hero--photo .wv-hero__kicker { opacity: 0.9; }
+
+    .wv-section-title { text-align: center; font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 2rem; }
+    .wv-gallery, .wv-features, .wv-cta { padding: calc(3.75rem * var(--space-scale)) clamp(1.5rem, 5vw, 4rem); max-width: 1200px; margin: 0 auto; }
     .wv-gallery__grid .swiper-wrapper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
     .wv-gallery--masonry .wv-gallery__grid .swiper-wrapper { grid-template-columns: repeat(3, 1fr); }
     @media (max-width: 720px) { .wv-gallery__grid .swiper-wrapper { grid-template-columns: repeat(2, 1fr); } }
@@ -1127,18 +1160,29 @@ function buildCss(colors, fonts, sk, radius, variant) {
     .wv-gallery__tile:hover img { transform: scale(1.06); }
     .wv-gallery__tile--placeholder { opacity: 0.85; }
 
-    .wv-features__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .wv-features__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     @media (max-width: 720px) { .wv-features__grid { grid-template-columns: 1fr; } }
-    .wv-features__item { padding: 2rem; border-radius: var(--radius); background: var(--color-surface); }
-    .wv-features__item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
-    .wv-features__item p { margin: 0; opacity: 0.8; font-size: 0.95rem; }
+    .wv-features__item { padding: 1.9rem 1.7rem; border-radius: var(--radius); background: var(--color-surface); border-top: 2px solid var(--color-accent); transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out); }
+    .wv-features__item:hover { transform: translateY(-4px); box-shadow: 0 18px 40px color-mix(in srgb, var(--color-fg) 9%, transparent); }
+    .wv-features__num { display: block; font-family: var(--font-display); font-size: 1.4rem; line-height: 1; color: var(--color-accent); margin-bottom: 0.9rem; font-variant-numeric: tabular-nums; }
+    .wv-features__item h3 { font-size: 1.25rem; margin-bottom: 0.45rem; }
+    .wv-features__item p { margin: 0; opacity: 0.78; font-size: 0.95rem; line-height: 1.55; }
 
-    .wv-cta { text-align: center; background: var(--color-surface); border-radius: var(--radius); }
-    .wv-cta h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; }
-    .wv-cta p { opacity: 0.85; margin-bottom: 2rem; }
+    /* Banda premium: se oscurecen los stops (mezcla con casi-negro) y se suma un overlay oscuro
+       uniforme, para garantizar el texto blanco incluso con acentos luminosos o paletas claras. */
+    .wv-cta {
+      text-align: center; color: #fff; border-radius: var(--radius);
+      padding-block: calc(4.5rem * var(--space-scale));
+      background:
+        linear-gradient(135deg, rgba(8,6,4,0.30), rgba(8,6,4,0.45)),
+        linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 60%, #100c08), color-mix(in srgb, var(--color-accent) 58%, #100c08));
+      box-shadow: 0 24px 60px color-mix(in srgb, var(--color-accent) 30%, transparent);
+    }
+    .wv-cta h2 { color: #fff; font-size: clamp(2rem, 4.4vw, 3rem); margin-bottom: 0.9rem; text-shadow: 0 1px 12px rgba(0,0,0,0.3); }
+    .wv-cta p { color: #fff; opacity: 0.92; margin-bottom: 2rem; font-size: clamp(1rem, 1.6vw, 1.15rem); text-shadow: 0 1px 10px rgba(0,0,0,0.26); }
 
     /* ── Secciones opcionales por prompt: reservas / menú / mapa / testimonios ────── */
-    .wv-reservations, .wv-menu, .wv-map, .wv-testimonials { padding: 5rem clamp(1.5rem, 5vw, 4rem); max-width: 900px; margin: 0 auto; text-align: center; }
+    .wv-reservations, .wv-menu, .wv-map, .wv-testimonials { padding: calc(3.75rem * var(--space-scale)) clamp(1.5rem, 5vw, 4rem); max-width: 900px; margin: 0 auto; text-align: center; }
     .wv-form { display: flex; flex-direction: column; gap: 1rem; max-width: 480px; margin: 0 auto; }
     .wv-form__row { display: flex; gap: 1rem; flex-wrap: wrap; }
     .wv-form__row input {
@@ -1240,7 +1284,7 @@ function archetypeSignatureCss(signature) {
       filter: blur(60px) saturate(140%); opacity: 0.5; animation: wv-mesh-drift 24s ease-in-out infinite;
     }
     @keyframes wv-mesh-drift { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.15) rotate(8deg); } }
-    .wv-hero__floating { width: 100%; max-width: 280px; margin: 2rem auto 0; border-radius: var(--radius); filter: drop-shadow(0 40px 60px rgba(0,0,0,0.25)); }
+    .wv-hero__floating { width: 100%; max-width: min(380px, 82vw); margin: 2.25rem auto 0; border-radius: var(--radius); aspect-ratio: 4/5; object-fit: cover; filter: drop-shadow(0 44px 70px rgba(0,0,0,0.3)); }
     [data-magnetic] { will-change: transform; }`;
     case 'mouse-gradient':
       return `
@@ -1256,7 +1300,7 @@ function archetypeSignatureCss(signature) {
     .wv-hero--magazine .wv-masthead { display: flex; align-items: baseline; justify-content: center; gap: 0.75rem; }
     .wv-hero--magazine .wv-masthead__brand { font-family: var(--font-display); font-weight: 700; }
     .wv-masthead__issue { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.14em; opacity: 0.6; }
-    .wv-hero--magazine .wv-hero__featured { width: 100%; max-width: 900px; margin: 2.5rem auto 0; border-radius: var(--radius); aspect-ratio: 16/9; object-fit: cover; }
+    .wv-hero--magazine .wv-hero__featured { width: 100%; max-width: 1000px; margin: 2.25rem auto 0; border-radius: var(--radius); aspect-ratio: 3/2; object-fit: cover; box-shadow: 0 30px 70px color-mix(in srgb, var(--color-fg) 16%, transparent); }
     [data-split-text].splitting .char { display: inline-block; opacity: 0; transform: translateY(0.4em); animation: wv-char-in 500ms var(--ease-out) forwards; animation-delay: calc(var(--char-index) * 22ms); }
     @keyframes wv-char-in { to { opacity: 1; transform: translateY(0); } }`;
     case 'hover-invert':
@@ -1451,17 +1495,27 @@ function buildMotionScript(skKey, signature) {
   }
 
   // Anime.js: reveal letra por letra con timeline (arquetipos Editorial cream/darkWarm).
+  // Se agrupa por PALABRA (span nowrap) con espacios reales entre palabras, para que el título
+  // nunca corte a mitad de palabra. Bajo reduced-motion se deja el texto tal cual.
   function initAnimeText() {
-    if (!window.anime) return;
+    if (!window.anime || reduced) return;
     document.querySelectorAll("[data-anime-text]").forEach(function (el) {
-      var text = el.textContent;
+      var words = el.textContent.split(" ");
       el.textContent = "";
-      var chars = text.split("").map(function (ch) {
-        var span = document.createElement("span");
-        span.style.display = "inline-block";
-        span.textContent = ch === " " ? "\\u00A0" : ch;
-        el.appendChild(span);
-        return span;
+      var chars = [];
+      words.forEach(function (word, wi) {
+        var wspan = document.createElement("span");
+        wspan.style.display = "inline-block";
+        wspan.style.whiteSpace = "nowrap";
+        word.split("").forEach(function (ch) {
+          var c = document.createElement("span");
+          c.style.display = "inline-block";
+          c.textContent = ch;
+          wspan.appendChild(c);
+          chars.push(c);
+        });
+        el.appendChild(wspan);
+        if (wi < words.length - 1) el.appendChild(document.createTextNode(" "));
       });
       anime.set(chars, { opacity: 0, translateY: 20 });
       anime({ targets: chars, opacity: [0, 1], translateY: [20, 0], duration: 600, delay: anime.stagger(18), easing: "easeOutCubic" });
