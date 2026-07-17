@@ -208,7 +208,10 @@ import Onboarding from '../../layouts/Onboarding.astro';
                 niche: data.niche,
                 instagram: data.instagram,
                 mood: data.mood,
-                photos: photos.map((p) => p.src),
+                // Solo las fotos marcadas para mostrar llegan a photos (hero/galería). Las de
+                // "solo referencia" van aparte y el generador nunca las renderiza.
+                photos: photos.filter((p) => p.role !== 'reference').map((p) => p.src),
+                referencePhotos: photos.filter((p) => p.role === 'reference').map((p) => p.src),
                 prompt: data.prompt || '',
                 features: data.selectedFeatures || [],
                 menu: Array.isArray(data.menu) ? data.menu : [],

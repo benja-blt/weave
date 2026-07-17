@@ -17,6 +17,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
     <div class="o-field" data-motion-el data-motion-order="3">
       <span class="o-label">Fotos de tu negocio <span class="req">*</span></span>
       <span class="o-hint">Fachada, interior, productos… lo que mejor lo represente. Hasta 10 fotos · JPG, PNG, WEBP · 10MB c/u.</span>
+      <span class="o-hint">¿Subiste capturas de tu carta, Google Maps o reseñas? Marcalas como <b>“Solo referencia”</b>: no se muestran en la web, solo ayudan a la IA a entender tu negocio.</span>
 
       <label class="drop" id="drop">
         <input type="file" id="files" accept="image/jpeg,image/png,image/webp" multiple hidden />
@@ -117,6 +118,20 @@ import Onboarding from '../../layouts/Onboarding.astro';
     .s2 .thumb__rm svg { width: 13px; height: 13px; }
     @keyframes s2pop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
+    /* Toggle "se muestra en la web" ↔ "solo referencia" por miniatura */
+    .s2 .thumb__role {
+      position: absolute; left: 6px; right: 6px; bottom: 6px; z-index: 1;
+      border: none; border-radius: var(--radius-full); cursor: pointer;
+      font-family: var(--font-family-body); font-size: 11px; font-weight: var(--weight-medium);
+      padding: 5px 8px; color: #fff; background: rgba(10, 8, 20, 0.72);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: background 180ms ease;
+    }
+    .s2 .thumb__role:hover { background: rgba(10, 8, 20, 0.9); }
+    .s2 .thumb.is-ref img { opacity: 0.5; filter: grayscale(0.35); }
+    .s2 .thumb.is-ref .thumb__role { background: var(--accent); }
+
     /* Input con ícono (Instagram) */
     .s2 .o-inputwrap { position: relative; }
     .s2 .o-inputicon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; transition: color 200ms ease; }
@@ -141,14 +156,20 @@ import Onboarding from '../../layouts/Onboarding.astro';
     const btn = document.getElementById('continue');
     const igErr = document.getElementById('ig-err');
 
-    /** @type {{src:string,name:string}[]} */
+    /** @type {{src:string,name:string,role:'show'|'reference'}[]} */
     let photos = [];
 
     // ── Rehidratar ────────────────────────────────────────────────────────
     const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
     if (saved.instagram) form.instagram.value = saved.instagram;
     if (saved.mood) form.mood.value = saved.mood;
-    try { photos = JSON.parse(localStorage.getItem(PKEY) || '[]'); } catch { photos = []; }
+    // Migración compatible: fotos guardadas sin `role` se tratan como 'show' (se muestran).
+    try {
+      const parsed = JSON.parse(localStorage.getItem(PKEY) || '[]');
+      photos = Array.isArray(parsed)
+        ? parsed.map((p) => ({ ...p, role: p && p.role === 'reference' ? 'reference' : 'show' }))
+        : [];
+    } catch { photos = []; }
     render();
 
     // ── Utilidades ────────────────────────────────────────────────────────
@@ -171,7 +192,7 @@ import Onboarding from '../../layouts/Onboarding.astro';
         if (f.size > MAX_BYTES) { problems.push(`"${f.name}": supera 10 MB.`); continue; }
         try {
           const src = await readFile(f);
-          photos.push({ src, name: f.name });
+          photos.push({ src, name: f.name, role: 'show' });
         } catch { problems.push(`"${f.name}": no se pudo leer.`); }
       }
       if (problems.length) showErr(problems.join(' '));
@@ -190,15 +211,28 @@ import Onboarding from '../../layouts/Onboarding.astro';
     function render() {
       thumbsEl.innerHTML = '';
       photos.forEach((p, i) => {
+        const isRef = p.role === 'reference';
         const cell = document.createElement('div');
-        cell.className = 'thumb';
+        cell.className = 'thumb' + (isRef ? ' is-ref' : '');
         const img = document.createElement('img');
         img.src = p.src; img.alt = p.name || `Foto ${i + 1}`;
         const rm = document.createElement('button');
         rm.type = 'button'; rm.className = 'thumb__rm'; rm.setAttribute('aria-label', `Eliminar ${p.name || 'foto'}`);
         rm.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
         rm.addEventListener('click', (e) => { e.preventDefault(); photos.splice(i, 1); persist(); render(); });
-        cell.append(img, rm);
+        // Toggle show/referencia: el label dice el estado actual (visibility of system status).
+        const role = document.createElement('button');
+        role.type = 'button';
+        role.className = 'thumb__role';
+        role.setAttribute('aria-pressed', String(isRef));
+        role.title = 'Cambiá si esta imagen se muestra en la web o es solo referencia para la IA';
+        role.textContent = isRef ? 'Solo referencia' : 'Se muestra en la web';
+        role.addEventListener('click', (e) => {
+          e.preventDefault();
+          photos[i] = { ...p, role: isRef ? 'show' : 'reference' };
+          persist(); render();
+        });
+        cell.append(img, rm, role);
         thumbsEl.appendChild(cell);
       });
       btn.setAttribute('aria-disabled', String(photos.length === 0));
