@@ -662,6 +662,13 @@ function waLink(raw) {
   return digits.length >= 6 ? 'https://wa.me/' + digits : '';
 }
 
+// Link externo seguro: solo http/https. Bloquea esquemas peligrosos (javascript:, data:, etc.).
+// '' si no es una URL http(s) válida — el caller decide no renderizar el link.
+function safeHttpUrl(raw) {
+  const u = String(raw == null ? '' : raw).trim();
+  return /^https?:\/\//i.test(u) ? u : '';
+}
+
 // Secciones opcionales: se activan por prompt, por feature elegida, o porque el usuario cargó
 // el dato real (menú/dirección/testimonios). Sin dato real, cada render muestra su nota discreta.
 function buildPromptSections(business) {
@@ -716,10 +723,11 @@ function renderNavbar(s) {
 // ── Hero: un patrón HTML distinto por arquetipo visual (skill 02-archetypes.md) ──────
 function renderHero(s, skKey, sk, photos) {
   const heroPhoto = photos[0] || null;
+  const heroPhotoSrc = heroPhoto ? escapeHtml(heroPhoto) : '';
   const title = escapeHtml(s.headline);
   const sub = escapeHtml(s.subheadline);
   const cta = escapeHtml(s.cta);
-  const bgImg = heroPhoto ? `<img src="${heroPhoto}" class="wv-hero__photo" alt="" />` : '';
+  const bgImg = heroPhoto ? `<img src="${heroPhotoSrc}" class="wv-hero__photo" alt="" />` : '';
 
   if (skKey === 'darkWarm') {
     return `
@@ -763,7 +771,7 @@ function renderHero(s, skKey, sk, photos) {
       <p class="wv-hero__sub">${sub}</p>
       <a class="wv-btn wv-btn--glass wv-btn--lg" data-magnetic href="#cta">${cta} →</a>
     </div>
-    ${heroPhoto ? `<img src="${heroPhoto}" class="wv-hero__floating" alt="" />` : ''}
+    ${heroPhoto ? `<img src="${heroPhotoSrc}" class="wv-hero__floating" alt="" />` : ''}
   </section>`;
   }
 
@@ -792,7 +800,7 @@ function renderHero(s, skKey, sk, photos) {
       <p class="wv-hero__lede">${sub}</p>
       <a class="wv-btn wv-btn--accent wv-btn--lg" href="#cta">${cta} →</a>
     </div>
-    ${heroPhoto ? `<img src="${heroPhoto}" class="wv-hero__featured" alt="" />` : ''}
+    ${heroPhoto ? `<img src="${heroPhotoSrc}" class="wv-hero__featured" alt="" />` : ''}
   </section>`;
   }
 
@@ -824,7 +832,7 @@ function renderHero(s, skKey, sk, photos) {
       <p class="wv-hero__sub">${sub}</p>
       <a class="wv-btn wv-btn--accent wv-btn--lg" href="#cta">${cta} →</a>
     </div>
-    ${heroPhoto ? `<img src="${heroPhoto}" class="wv-hero__floating wv-hero__floating--bob" alt="" />` : ''}
+    ${heroPhoto ? `<img src="${heroPhotoSrc}" class="wv-hero__floating wv-hero__floating--bob" alt="" />` : ''}
   </section>`;
   }
 
@@ -851,7 +859,7 @@ function renderHero(s, skKey, sk, photos) {
   <section class="wv-hero wv-hero--spline">
     <div class="wv-hero__glow" data-mouse-gradient aria-hidden="true"></div>
     <div class="wv-fake3d" aria-hidden="true">
-      <div class="wv-fake3d__card">${heroPhoto ? `<img src="${heroPhoto}" alt="" />` : ''}</div>
+      <div class="wv-fake3d__card">${heroPhoto ? `<img src="${heroPhotoSrc}" alt="" />` : ''}</div>
     </div>
     <div class="wv-hero__inner reveal">
       <span class="wv-hero__brand">${escapeHtml(s.brand)}</span>
@@ -879,7 +887,7 @@ function renderHero(s, skKey, sk, photos) {
 function renderGallery(s, photos) {
   const usable = (photos || []).slice(0, s.variant === 'masonry' ? 5 : 4);
   const placeholdersNeeded = Math.max((s.variant === 'masonry' ? 5 : 4) - usable.length, 0);
-  const photoTiles = usable.map((src, i) => `<div class="wv-gallery__tile swiper-slide reveal" style="animation-delay:${i * 80}ms"><img src="${src}" alt="" loading="lazy" /></div>`);
+  const photoTiles = usable.map((src, i) => `<div class="wv-gallery__tile swiper-slide reveal" style="animation-delay:${i * 80}ms"><img src="${escapeHtml(src)}" alt="" loading="lazy" /></div>`);
   const placeholderTiles = Array.from({ length: placeholdersNeeded }, (_, i) =>
     `<div class="wv-gallery__tile wv-gallery__tile--placeholder swiper-slide reveal" style="animation-delay:${(usable.length + i) * 80}ms"></div>`);
   return `
@@ -925,11 +933,14 @@ function renderCta(s) {
 }
 
 function renderFooter(s) {
+  // Solo se renderizan links con esquema http(s) real: bloquea javascript:/data: en instagram.
+  const ig = safeHttpUrl(s.instagram);
+  const wa = safeHttpUrl(s.whatsapp);
   return `
   <footer class="wv-foot">
     <span>${escapeHtml(s.logo)}</span>
-    ${s.instagram ? `<a href="${escapeHtml(s.instagram)}" target="_blank" rel="noopener noreferrer">Instagram</a>` : ''}
-    ${s.whatsapp ? `<a href="${escapeHtml(s.whatsapp)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : ''}
+    ${ig ? `<a href="${escapeHtml(ig)}" target="_blank" rel="noopener noreferrer">Instagram</a>` : ''}
+    ${wa ? `<a href="${escapeHtml(wa)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : ''}
     <span>© ${s.year}</span>
   </footer>`;
 }
